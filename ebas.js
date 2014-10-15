@@ -1,13 +1,4 @@
-/*!
- * IE10 viewport hack for Surface/desktop Windows 8 bug
- * Copyright 2014 Twitter, Inc.
- * Licensed under the Creative Commons Attribution 3.0 Unported License. For
- * details, see http://creativecommons.org/licenses/by/3.0/.
- */
-
-// See the Getting Started docs for more information:
-// http://getbootstrap.com/getting-started/#support-ie10-width
-
+// ie10 viewport fix
 (function () {
   'use strict';
   if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
@@ -22,17 +13,32 @@
 })();
 
 // list.js
-
 var options = {
   valueNames: [ 'Id', 'Beschreibung', 'Ort', 'Datum', 'Typ' ]
 };
-
 var userList = new List('ebas', options);
 
 // table sort
-
-$(document).ready(function() 
+$(function() 
     { 
-        $("#table1").tablesorter(); 
+        $("#table1").tablesorter();
     } 
 ); 
+
+// insert row to table
+$("#addrow").click(function() {
+  $('#table1').prepend('<tr><td class="Id" contenteditable="false"></td> \
+                  <td class="Beschreibung" contenteditable="true"></td> \
+                  <td class="Ort" contenteditable="true"></td> \
+                  <td class="Datum" contenteditable="true"></td> \
+                  <td class="Typ" contenteditable="true"></td> \
+				  <td><button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-floppy-disk"></span></button> <button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-trash"></span></span></button></td> \
+                </tr>');
+});
+
+// delete row
+
+
+// save
+
+// refresh

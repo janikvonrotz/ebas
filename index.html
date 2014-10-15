@@ -79,8 +79,13 @@
 	
 	<div class="container-fluid">
       <div class="row">		
-        <div class="col-md-12">		
-          <h1 class="page-header">Kurse</h1>
+        <div class="col-md-12">
+<button type="button" class="btn btn-default pull-right">
+  <span class="glyphicon glyphicon-refresh"></span> Refresh
+</button>		
+          <h1 class="page-header">Kurse <button id="addrow" type="button" class="btn btn-default">
+			  <span class="glyphicon glyphicon-plus"></span>
+			</button></h1>
           <div class="table-responsive">		  
             <table id="table1" class="table table-striped">
               <thead>
@@ -90,22 +95,29 @@
                   <th>Ort</th>
                   <th>Datum</th>
                   <th>Typ</th>
+				  <th>Test</th>
                 </tr>
               </thead>
               <tbody class="list">
                 <tr>
-                  <td class="Id" contenteditable="true">1,001</td>
+                  <td class="Id" contenteditable="false">1,001</td>
                   <td class="Beschreibung" contenteditable="true">Lorem</td>
                   <td class="Ort" contenteditable="true">ipsum</td>
                   <td class="Datum" contenteditable="true">dolor</td>
                   <td class="Typ" contenteditable="true">sit</td>
+				  <td>
+				  <button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-floppy-disk"></span></button> <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target=".bs-delete-modal-sm"><span class="glyphicon glyphicon-trash"></span></span></button>					
+				  </td>
                 </tr>
                 <tr>
-                  <td class="Id" contenteditable="true">1,002</td>
+                  <td class="Id" contenteditable="false">1,002</td>
                   <td class="Beschreibung" contenteditable="true">amet</td>
                   <td class="Ort" contenteditable="true">consectetur</td>
                   <td class="Datum" contenteditable="true">adipiscing</td>
                   <td class="Typ" contenteditable="true">elit</td>
+				  <td>
+				  <button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-floppy-disk"></span></button> <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target=".bs-delete-modal-sm"><span class="glyphicon glyphicon-trash"></span></span></button>					
+				  </td>
                 </tr>
               </tbody>
             </table>
@@ -114,13 +126,26 @@
       </div>
     </div>
 	
+	<div class="modal fade bs-delete-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-sm">
+		<div class="modal-content">
+		        <div class="modal-body">
+				Sicher?
+			  </div>
+			  <div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-danger">Delete</button>
+			  </div>
+		</div>
+	  </div>
+	</div>
 	<!-- ###footer -->
 	
 	<!-- jQuery -->
 	<script src="./bower_components/jquery/dist/jquery.min.js"></script>
 	
 	<!-- boostrap javascript -->
-    <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script> 
 	
     <!-- list.js -->
 	<script src="./bower_components/list.js/dist/list.min.js"></script>
