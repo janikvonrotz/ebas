@@ -1,0 +1,35 @@
+{
+	"user": "ebas",
+	"password": "ebas123",
+	"server": "localhost",
+	"tables":[
+	{
+		"name": "Kurse",
+		"sqlname": "t_kurse",
+		"fields":[
+		{
+			"name": "Beschreibung",
+			"sqlname": "beschreibung"
+		},
+		{
+			"name": "Ort",
+			"sqlname": "ort"
+		}
+		]
+	},
+	{
+		"name": "Anmeldungen",
+		"sqlname": "t_anmeldungen",
+		"fields":[
+		{
+			"name": "Name",
+			"sqlname": "name"
+		},
+		{
+			"name": "Vorname",
+			"sqlname": "surname"
+		}
+		]
+	}	
+	]
+ }

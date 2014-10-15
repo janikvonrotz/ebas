@@ -21,10 +21,18 @@
   }
 })();
 
-
+// list.js
 
 var options = {
   valueNames: [ 'Id', 'Beschreibung', 'Ort', 'Datum', 'Typ' ]
 };
 
 var userList = new List('ebas', options);
+
+// table sort
+
+$(document).ready(function() 
+    { 
+        $("#table1").tablesorter(); 
+    } 
+); 
