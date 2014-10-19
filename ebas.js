@@ -19,10 +19,8 @@ var options = {
 };
 var userList = new List('ebas', options);
 
-// table sort
-$(function(){
-  $("table").tablesorter();
-});
+// table sorter
+LightTableSorter.init();
 
 // insert row to table
 $("button.add-row").click(function() {
@@ -53,7 +51,6 @@ $('#btnDelteYes').click(function () {
 // save row
 
 $("table").on('click', 'button.save-row', function() {
-  $("table").tablesorter();
   var userList = new List('ebas', options);
 });
 
