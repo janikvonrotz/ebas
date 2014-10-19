@@ -37,15 +37,16 @@ $("button.add-row").click(function() {
 
 // delete row
 $("table").on('click', 'button.delete-row', function(e){
-e.preventDefault();
-var id = $(this).closest('tr').data('id');
-$('#myModal').data('id', id).modal('show');
+  e.preventDefault();
+  var id = $(this).closest('tr').data('id');
+  $('#myModal').data('id', id).modal('show');
 });
 
 $('#btnDelteYes').click(function () {
     var id = $('#myModal').data('id');
     $('[data-id=' + id + ']').remove();
     $('#myModal').modal('hide');
+    var userList = new List('ebas', options);
 });
 
 // save row
