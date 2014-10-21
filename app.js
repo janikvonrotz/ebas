@@ -1,8 +1,3 @@
-// export csv
-$("button.export-csv").on('click', function (event) {
-
-});
-
 // ie10 viewport fix
 (function () {
   'use strict';
@@ -40,7 +35,8 @@ $("button.add-row").click(function() {
   });
   $('table').prepend('<tr data-id="'+tempIdcounter+'">'+
   '<td class="'+header[0]+'" contenteditable="false"></td>'+cells+
-  '<td><button type="button" class="btn btn-default btn-sm save-row"><span class="glyphicon glyphicon-floppy-disk"></span></button> <button type="button" class="btn btn-default btn-sm delete-row" data-toggle="modal" data-target=".bs-delete-modal-sm"><span class="glyphicon glyphicon-trash"></span></span></button>'+
+  '<td><button type="button" class="btn btn-default btn-sm save-row"><i class="fa fa-save"></i></button> '+
+  '<button type="button" class="btn btn-default btn-sm delete-row"><i class="fa fa-trash-o"></i></button>'+
   '</td></tr>');
   tempIdcounter -= 1;
 });

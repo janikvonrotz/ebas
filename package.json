@@ -11,14 +11,16 @@
     "url": "https://github.com/janikvonrotz/ebas.git"
   },
   "author": "",
-  "license": "MIT",
+  "license": "BSD",
   "bugs": {
     "url": "https://github.com/janikvonrotz/ebas/issues"
   },
-  "devDependencies": {
+  "dependencies": {
     "grunt": "~0.4.5",
-    "grunt-contrib-watch": "~0.6.1",
+    "grunt-contrib-copy": "~0.7.0",
     "grunt-contrib-cssmin": "~0.10.0",
-    "grunt-contrib-uglify": "~0.6.0"
+    "grunt-contrib-uglify": "~0.6.0",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-php": "~1.1.0"
   }
 }
