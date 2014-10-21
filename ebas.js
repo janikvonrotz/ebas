@@ -1,3 +1,8 @@
+// export csv
+$("button.export-csv").on('click', function (event) {
+
+});
+
 // ie10 viewport fix
 (function () {
   'use strict';
@@ -26,16 +31,18 @@ var userList = new List('ebas', options);
 LightTableSorter.init();
 
 // insert row to table
+var tempIdcounter = -1;
 $("button.add-row").click(function() {
   var cells = "";
   $.each(header, function( index, value ) {
     if(index!=0 && (header.length - 1) != index)
       cells += '<td class="'+value+'" contenteditable="true"></td>';
   });
-  $('table').prepend('<tr data-id="'+Math.floor(Math.random() * 101)+'">'+
+  $('table').prepend('<tr data-id="'+tempIdcounter+'">'+
   '<td class="'+header[0]+'" contenteditable="false"></td>'+cells+
   '<td><button type="button" class="btn btn-default btn-sm save-row"><span class="glyphicon glyphicon-floppy-disk"></span></button> <button type="button" class="btn btn-default btn-sm delete-row" data-toggle="modal" data-target=".bs-delete-modal-sm"><span class="glyphicon glyphicon-trash"></span></span></button>'+
   '</td></tr>');
+  tempIdcounter -= 1;
 });
 
 // delete row
