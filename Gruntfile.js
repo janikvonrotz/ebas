@@ -3,33 +3,29 @@ module.exports = function(grunt){
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
-    // copy: {
-    //   main: {
-    //     expand: true,
-    //     cwd: 'bower_components/fontawesome/fonts/',
-    //     src: '**',
-    //     dest: 'fonts/',
-    //     flatten: true,
-    //     filter: 'isFile',
-    //   },
-    // },
+    copy: {
+      main: {
+        expand: true,
+        cwd: 'bower_components/fontawesome/fonts/',
+        src: '**',
+        dest: 'fonts/',
+        flatten: true,
+        filter: 'isFile',
+      },
+    },
 
     cssmin: {
-      options: {
-        root: "./"
-      },
       files: {
         src: [
             'style.css',
             'bower_components/bootstrap/dist/css/bootstrap.css',
             'bower_components/fontawesome/css/font-awesome.css'
         ],
-        dest: 'ebas.min.css'
+        dest: 'assets/ebas.min.css'
       }
     },
 
     uglify: {
-      options: {},
       files: {
         src: [
           'bower_components/jquery/dist/jquery.js',
@@ -38,16 +34,23 @@ module.exports = function(grunt){
           'bower_components/list.js/dist/list.js',
           'app.js'
         ],
-        dest:  'ebas.min.js'
+        dest:  'assets/ebas.min.js'
       }
     },
 
     watch:{
-      files: [
-        'app.js',
-        'style.css'
-      ],
-      tasks: ['cssmin','uglify']
+      css:{
+        files: [
+          'style.css'
+        ],
+        tasks: ['cssmin']
+      },
+      js: {
+        files: [
+          'app.js'
+        ],
+        tasks: ['uglify']
+      }
     }
   });
 
@@ -57,7 +60,7 @@ module.exports = function(grunt){
   grunt.loadNpmTasks('grunt-contrib-uglify');
   // grunt.loadNpmTasks('grunt-php');
 
-  grunt.registerTask('default', ['cssmin','uglify','watch']);
+  grunt.registerTask('default', ['copy','cssmin','uglify','watch']);
   // grunt.registerTask('server', ['php']);
 
 };
