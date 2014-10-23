@@ -1,6 +1,23 @@
 <?php
 include 'get-data.php';
 
+if ($_GET['view']=='kurs'){
+  $data = getview ("kurs");
+  $page = 'kurs';
+}
+elseif ($_GET['view']=='anmeldungen'){
+  $data = getview ("anmeldungen");
+  $page = 'anmeldungen';
+}
+elseif ($_GET['view']=='interessenten'){
+  $data = getview ("interessenten");
+  $page = 'interessenten';
+}
+else{
+  $_GET['view'] = 'kurs';
+  $data = getview ("kurs");
+  $page = 'kurs';
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,9 +67,9 @@ include 'get-data.php';
       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Daten<span class="caret"></span></a>
         <ul class="dropdown-menu" role="menu">
-        <li><a href="#">Kurse</a></li>
-        <li><a href="#">Anmeldungen</a></li>
-        <li><a href="#">Interessenten</a></li>
+        <li><a href="index.php?view=kurs">Kurse</a></li>
+        <li><a href="index.php?view=anmeldungen">Anmeldungen</a></li>
+        <li><a href="index.php?view=interessenten">Interessenten</a></li>
         <li><a href="#">Benutzer</a></li>
         </ul>
       </li>
@@ -94,31 +111,64 @@ include 'get-data.php';
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>ID</th>
-                  <th>Bezeichnung</th>
-                  <th>Sprache</th>
-                  <th>Maxmimale Teilnehmer</th>
-          <th>Edit</th>
+                  <?php
+                    if ($_GET['view']=='kurs'){
+                      echo '<th>ID</th>';
+                      echo '<th>Bezeichnung</th>';
+                      echo '<th>Sprache</th>';
+                      echo '<th>Maxmimale Teilnehmer</th>';
+                    }
+                    elseif ($_GET['view']=='anmeldungen'){
+                      echo '<th>ID</th>';
+                      echo '<th>Name</th>';
+                      echo '<th>Vorname</th>';
+                      echo '<th>Adresse</th>';
+                      echo '<th>Postleihzahl</th>';
+                      echo '<th>Ort</th>';
+                      echo '<th>Email</th>';
+                      echo '<th>Sprache</th>';
+                      echo '<th>Kurs</th>';
+                      echo '<th>Gutscheincode</th>';
+                      echo '<th>Anmeldedatum</th>';
+                    }
+                    elseif ($_GET['view']=='interessenten'){
+                      echo '<th>ID</th>';
+                      echo '<th>Name</th>';
+                      echo '<th>Vorname</th>';
+                      echo '<th>Adresse</th>';
+                      echo '<th>Postleihzahl</th>';
+                      echo '<th>Ort</th>';
+                      echo '<th>Email</th>';
+                      echo '<th>Kursort</th>';
+                      echo '<th>Sprache</th>';
+                      echo '<th>Interessiert seit</th>';
+                    }
+                  ?>
+                  <th>Edit</th>
                 </tr>
               </thead>
               <tbody class="list">
                 <?php
 
                 $arr_len = count($data);
+                $arr_wide = max(array_map("count", $data));
                 $i = 0;
                 while($i<$arr_len){
-                echo '<tr data-id="'.$data[$i]["kurs_id"].'">';
-                echo '<td class="ID" contenteditable="false">'.$data[$i]["kurs_id"].'</td>';
-                echo '<td class="Beschreibung" contenteditable="true">'.$data[$i]["bezeichnung_de"].'</td>';
-                echo '<td class="Ort" contenteditable="true">'.$data[$i]["sprache"].'</td>';
-                echo '<td class="Datum" contenteditable="true">'.$data[$i]["max_teilnehmer"].'</td>';
-                echo '<td>';
-                echo '<button type="button" class="btn btn-default btn-sm save-row"><i class="fa fa-save"></i></button>';
-                echo '<button type="button" class="btn btn-default btn-sm delete-row"><i class="fa fa-trash-o"></i></button>';
-                echo '</td>';
-                echo '</tr>';
-                $i++;
-              }
+                  $c = 1;
+                  echo '<tr data-id="'.$data[$i]["0"].'">';
+                  echo '<td class="ID" contenteditable="false">'.$data[$i]["0"].'</td>';
+                  while ($c<$arr_wide){
+                      echo '<td contenteditable="true">'.$data[$i][$c].'</td>';
+                      $c++;
+                    }
+
+                  echo '<td>';
+                  echo '<button type="button" class="btn btn-default btn-sm save-row"><i class="fa fa-save"></i></button>';
+                  echo '<button type="button" class="btn btn-default btn-sm delete-row"><i class="fa fa-trash-o"></i></button>';
+                  echo '</td>';
+                  echo '</tr>';
+                  $i++;
+                }
                 ?>
               <!-- <script type="text/javascript">
 

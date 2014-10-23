@@ -1,38 +1,105 @@
 <?php
 
-$servername = "localhost";
-$username = "ebas";
-$password = "ebastest";
-$db = "ebas";
+
+function getview ($view){
+  $servername = "localhost";
+  $username = "ebas";
+  $password = "ebastest";
+  $db = "ebas";
 
 // Create connection
-$conn = mysqli_connect($servername, $username, $password, $db);
+  $conn = mysqli_connect($servername, $username, $password, $db);
 
-if (mysqli_connect_errno()) {
-  echo "Failed to connect to Server: " . mysqli_connect_error();
+  if (mysqli_connect_errno()) {
+    echo "Failed to connect to Server: " . mysqli_connect_error();
+  }
+
+  switch($view){
+    case "kurs":
+      $sql = "SELECT
+                kurs_id, bezeichnung_de, sprache, max_teilnehmer
+              FROM
+                tbl_kurse_2014_2";
+    break;
+
+    case "anmeldungen":
+      $sql = "SELECT
+                anmeldung_id, name, vorname, adresse, plz, ort, email, a.sprache, k.bezeichnung_de, gutschein, zeit
+              FROM
+                tbl_anmeldungen_2014_2 a
+              INNER JOIN
+                tbl_kurse_2014_2 k ON (a.kurs = k.kurs_id)";
+    break;
+
+    case "interessenten":
+      $sql = "SELECT
+                interessent_id, name, vorname, adresse, plz, ort, email, kursort, i.sprache, zeit
+              FROM
+                tbl_interessenten_2014_2 i";
+    break;
+  }
+
+
+  $result = mysqli_query($conn, $sql);
+  if(! $result ){
+    die('Could not get data: ' . mysql_error());
+  }
+
+  $i = 0;
+  $c = 0;
+
+  if ($view == "kurs"){
+    while($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
+      $c = 0;
+      $data[$i]["0"] = $row["kurs_id"];
+      $data[$i]["1"] = utf8_encode($row["bezeichnung_de"]);
+      $data[$i]["2"] = $row["sprache"];
+      $data[$i]["3"] = $row["max_teilnehmer"];
+      ++$i;
+
+    }
+  }
+  elseif($view == "anmeldungen"){
+    while($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
+
+      $data[$i]["0"] = $row["anmeldung_id"];
+      $data[$i]["1"] = $row["name"];
+      $data[$i]["2"] = $row["vorname"];
+      $data[$i]["3"] = $row["adresse"];
+      $data[$i]["4"] = $row["plz"];
+      $data[$i]["5"] = $row["ort"];
+      $data[$i]["6"] = $row["email"];
+      $data[$i]["7"] = $row["sprache"];
+      $data[$i]["8"] = utf8_encode($row["bezeichnung_de"]);
+      $data[$i]["9"] = $row["gutschein"];
+      $data[$i]["10"] = $row["zeit"];
+      ++$i;
+
+    }
+
+  }
+  elseif($view == "interessenten"){
+    while($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
+
+      $data[$i]["0"] = $row["interessent_id"];
+      $data[$i]["1"] = $row["name"];
+      $data[$i]["2"] = $row["vorname"];
+      $data[$i]["3"] = $row["adresse"];
+      $data[$i]["4"] = $row["plz"];
+      $data[$i]["5"] = $row["ort"];
+      $data[$i]["6"] = $row["email"];
+      $data[$i]["7"] = $row["kursort"];
+      $data[$i]["8"] = $row["sprache"];
+      $data[$i]["9"] = $row["zeit"];
+      ++$i;
+
+    }
+  }
+  else {
+    echo "Now view selected";
+  }
+  return $data;
+  mysqli_close($conn);
 }
-
-
-$sql = "SELECT kurs_id, bezeichnung_de, sprache, max_teilnehmer FROM tbl_kurse_2014_2";
-
-
-$result = mysqli_query($conn, $sql);
-if(! $result )
-{
-  die('Could not get data: ' . mysql_error());
-}
-$i = 0;
-while($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
-
-  $data[$i]["kurs_id"] = $row["kurs_id"];
-  $data[$i]["bezeichnung_de"] = utf8_encode($row["bezeichnung_de"]);
-  $data[$i]["sprache"] = $row["sprache"];
-  $data[$i]["max_teilnehmer"] = $row["max_teilnehmer"];
-  ++$i;
-
-}
-
-$jsonarray = json_encode($data);
-mysqli_close($conn);
 
 ?>
