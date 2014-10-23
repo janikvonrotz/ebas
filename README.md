@@ -1,25 +1,37 @@
 ebas
 ====
 
-This software project requires [Npm](https://www.npmjs.org/) which is part of [Node.js](http://www.nodejs.org/).
+You can setup this project either on your local machine or an vagrant virtual machine.
 
-You have to install the following packages with Npm:
+# Local
+
+First of all you have to install [Npm](https://www.npmjs.org/) which is part of [Node.js](http://www.nodejs.org/).
+
+Afterwards you can install these packages with Npm on your command line:
 
 [Bower](http://bower.io/) > `npm install bower -g` and
 [Grunt](http://gruntjs.com/) > `npm install grunt-cli -g`.
 
 
-To handle the php packages you have to install [composer](https://getcomposer.org).
+To handle the required php packages you have to install [composer](https://getcomposer.org).
 
-Now we are ready to setup the project, run these commands in the project folder:
+If you have installed all these tools you start to set up this project from your command line by running this commands:
 
 `bower install`
 `grunt`
 `composer install`
 
-Further we recommand you to install [chocolatey](http://chocolatey.org/), a windows specific package manager.
+The website is now ready to run.
 
-With chocolatey you're able to install these recommanded tools:
+As you should have seen this guide doesn't cover any webserver nor mysql installations. You have to do that on your own.
 
-[Atom](https://atom.io/) > `choco install Atom`.
-[Chrome](http://www.google.com/chrome/) > `choco install chrome`
+# Vagrant
+
+This is the more convienient way to go.
+
+First install:
+
+[Virtualbox](https://www.virtualbox.org/wiki/Downloads)
+[Vagrant](http://www.vagrantup.com/downloads.html)
+
+Then run `vagrant up` from you command line.
