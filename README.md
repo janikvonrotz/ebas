@@ -1,18 +1,25 @@
 ebas
 ====
 
-This software project requires [npm](https://www.npmjs.org/) which is part of [Node.js](http://www.nodejs.org/).
-Npm is command line package manager, install the required tools to run this project such as [bower](http://bower.io/) with the command `npm install bower -g` and
-[Grunt](http://gruntjs.com/) with the command `npm install grunt-cli -g`.
+This software project requires [Npm](https://www.npmjs.org/) which is part of [Node.js](http://www.nodejs.org/).
+
+You have to install the following packages with Npm:
+
+[Bower](http://bower.io/) > `npm install bower -g` and
+[Grunt](http://gruntjs.com/) > `npm install grunt-cli -g`.
+
+
+To handle the php packages you have to install [composer](https://getcomposer.org).
+
+Now we are ready to setup the project, run these commands in the project folder:
+
+`bower install`
+`grunt`
+`composer install`
+
 Further we recommand you to install [chocolatey](http://chocolatey.org/), a windows specific package manager.
 
-Now we are ready to setup the project and a neat development environment.
-First install [php](http://php.org/) with the chocolatey command `choco install php`, we need php to run our scripts.
-Afterwards run the bower command `bower install` in the project folder to install all the required web resources.
-Then run `grunt` in the project folder as well. It will precompile dynamic files.
-The project is now ready to run.
+With chocolatey you're able to install these recommanded tools:
 
-For your development environment we recommand you to use the [atom](https://atom.io/) editor, install it wich `choco install Atom`.
-And also the worlds favorite browser [chrome](http://www.google.com/chrome/), use the command `choco install chrome`.
-
-Hurray you're awesome!
+[Atom](https://atom.io/) > `choco install Atom`.
+[Chrome](http://www.google.com/chrome/) > `choco install chrome`
