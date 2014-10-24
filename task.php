@@ -18,6 +18,18 @@ getNavigation();
         echo $Config["user"];
         echo $Config["password"];
 
+        echo $Config["tables"][0]["name"];
+        echo $Config["tables"][0]["fields"][0]["sqlname"];
+
+        foreach ($Config["tables"] as $table) {
+          echo $table["name"];
+          if($table["name"] == "Kurse"){
+            $CurrentTable = $table;
+          }
+
+        }
+        echo $CurrentTable["sqlname"];
+
         ?>
 
       </div>

@@ -118,7 +118,7 @@ function getTable($view){
   $conn = DBConnect();
 
   switch($view){
-    case "Kurs":
+    case "Kurse":
       $sql = "SELECT
                 kurs_id, bezeichnung_de, sprache, max_teilnehmer
               FROM

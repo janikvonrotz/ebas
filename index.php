@@ -1,5 +1,6 @@
 <?php
 include 'function.php';
+$Config = getConfig();
 
 if (array_key_exists('view', $_GET)){
 
@@ -8,17 +9,13 @@ else {
   $_GET['view'] = "Kurs";
 }
 
-if ($_GET['view']=='Kurs'){
-  $data = getTable ("Kurs");
-  $page = 'Kurs';
-}
-elseif ($_GET['view']=='Anmeldungen'){
-  $data = getTable ("Anmeldungen");
-  $page = 'Anmeldungen';
-}
-elseif ($_GET['view']=='Interessenten'){
-  $data = getTable ("Interessenten");
-  $page = 'Interessenten';
+foreach ($Config["tables"] as $table) {
+  echo $table["name"];
+  if($table["name"] == $_GET['view']){
+    $data = getTable ($table["name"]);
+    $page = $table["name"];
+  }
+
 }
 
 $view = $_GET['view'];
