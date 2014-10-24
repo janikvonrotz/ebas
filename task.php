@@ -14,8 +14,9 @@ getNavigation();
 
         <?php
 
-        getConfig();
+        $Config = getConfig();
         echo $Config["user"];
+        echo $Config["password"];
 
         ?>
 

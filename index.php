@@ -1,7 +1,5 @@
 <?php
-include 'get-data.php';
 include 'function.php';
-
 
 if (array_key_exists('view', $_GET)){
 
