@@ -2,6 +2,7 @@
 	"user": "ebas",
 	"password": "ebas123",
 	"server": "localhost",
+	"database": "ebas",
 	"tables":[
 	{
 		"name": "Kurse",
@@ -30,6 +31,6 @@
 			"sqlname": "surname"
 		}
 		]
-	}	
+	}
 	]
  }
