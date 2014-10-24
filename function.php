@@ -121,7 +121,7 @@ $Config = getConfig(); ?>
 function getTable($view){
 
   $conn = DBConnect();
-
+  
   switch($view){
     case "Kurse":
       $sql = "SELECT
