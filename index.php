@@ -6,20 +6,19 @@ if (array_key_exists('view', $_GET)){
 
 }
 else {
-  $_GET['view'] = "Kurs";
+  $_GET['view'] = "Kurse";
 }
 
 foreach ($Config["tables"] as $table) {
-  echo $table["name"];
   if($table["name"] == $_GET['view']){
-    $data = getTable ($table["name"]);
+    echo $table["name"];
+    $data = getTable($table["name"]);
     $page = $table["name"];
   }
-
 }
 
 $view = $_GET['view'];
-getHeader("Kurs");
+getHeader($view);
 getNavigation();
 ?>
 
