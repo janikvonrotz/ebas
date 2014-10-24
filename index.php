@@ -11,15 +11,15 @@ else {
 }
 
 if ($_GET['view']=='Kurs'){
-  $data = getview ("Kurs");
+  $data = getTable ("Kurs");
   $page = 'Kurs';
 }
 elseif ($_GET['view']=='Anmeldungen'){
-  $data = getview ("Anmeldungen");
+  $data = getTable ("Anmeldungen");
   $page = 'Anmeldungen';
 }
 elseif ($_GET['view']=='Interessenten'){
-  $data = getview ("Interessenten");
+  $data = getTable ("Interessenten");
   $page = 'Interessenten';
 }
 
