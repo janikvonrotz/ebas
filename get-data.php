@@ -1,18 +1,10 @@
 <?php
 
+include 'function.php';
 
 function getview ($view){
-  $servername = "localhost";
-  $username = "ebas";
-  $password = "ebastest";
-  $db = "ebas";
 
-// Create connection
-  $conn = mysqli_connect($servername, $username, $password, $db);
-
-  if (mysqli_connect_errno()) {
-    echo "Failed to connect to Server: " . mysqli_connect_error();
-  }
+  $conn = DBConnect();
 
   switch($view){
     case "Kurs":
