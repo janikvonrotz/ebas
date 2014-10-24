@@ -1,15 +1,16 @@
 {
-	"user": "ebas",
-	"password": "ebas123",
+	"user": "root",
+	"password": "",
 	"server": "localhost",
 	"database": "ebas",
 	"tables":[
   	{
   		"name": "Kurse",
   		"sqlname": "tbl_kurse_2014_2",
+			"sqlstart": "SELECT ",
   		"fields":[
   		{
-  			"name": "Kurs ID",
+  			"name": "ID",
   			"sqlname": "kurs_id"
   		},
   		{
@@ -33,7 +34,7 @@
   			"sqlname": "sprache"
   		},
   		{
-  			"name": "Max. Teilnehmer",
+  			"name": "Max Teilnehmer",
   			"sqlname": "max_teilnehmer"
   		},
   		{
@@ -41,18 +42,20 @@
   			"sqlname": "bezeichnung_en"
   		},
   		{
-  			"name": "Max. Teilnehmer PF",
+  			"name": "Max Teilnehmer PF",
   			"sqlname": "max_teilnehmer_PF"
   		}
-		]
+			],
+		"sqlend": " FROM tbl_kurse_2014_2"
 		},
-		
+
 		{
 		"name": "Anmeldungen",
 		"sqlname": "tbl_anmeldungen_2014_2",
+		"sqlstart": "SELECT ",
 		"fields":[
   		{
-  			"name": "Anmeldung ID",
+  			"name": "ID",
   			"sqlname": "anmeldung_id"
   		},
   		{
@@ -94,16 +97,18 @@
   		{
   			"name": "Zeit",
   			"sqlname": "zeit"
-  		}		
-		]
+  		}
+			],
+		"sqlend": " FROM tbl_anmeldungen_2014_2"
 		},
-	
+
 	  {
 		"name": "Interessenten",
 		"sqlname": "tbl_interessenten_2014_2",
+		"sqlstart": "SELECT ",
 		"fields":[
   		{
-  			"name": "Interessent ID",
+  			"name": "ID",
   			"sqlname": "interessent_id"
   		},
   		{
@@ -138,7 +143,8 @@
   			"name": "Zeit",
   			"sqlname": "zeit"
   		}
-		]
+			],
+		"sqlend": " FROM tbl_interessenten_2014_2"
 		}
 ]
 }

@@ -1,26 +1,22 @@
 <?php
 include 'function.php';
 $Config = getConfig();
+getNavigation();
 
 if (array_key_exists('view', $_GET)){
 
-}
-else {
-  $_GET['view'] = "Kurse";
-}
+  $view = $_GET['view'];
 
-foreach ($Config["tables"] as $table) {
-  if($table["name"] == $_GET['view']){
-    echo 'Tabelle: '.$table["name"].' ausgewählt!';
-    $data = getTable($table["name"]);
-    $fields = $table["fields"];
-    $page = $table["name"];
+  foreach ($Config["tables"] as $table){
+    if($table["name"] == $view){
+
+      $data = getTable($table["name"]);
+      $fields = $table["fields"];
+      $page = $table["name"];
+    }
   }
-}
 
-$view = $_GET['view'];
-getHeader($view);
-getNavigation();
+  getHeader($view);
 ?>
 
   <!-- ###content -->
@@ -57,25 +53,30 @@ getNavigation();
 
                 $arr_len = count($data);
                 $arr_wide = max(array_map("count", $data));
-                $i = 0;
-                while($i<$arr_len){
+                $r = 0;
+
+                while($r<$arr_len-1){
                   $c = 1;
-                  echo '<tr data-id="'.$data[$i]["0"].'">';
-                  echo '<td class="ID" contenteditable="false">'.$data[$i]["0"].'</td>';
+                  // write id [1][0]
+                  echo '<tr data-id="'.$data[($r+1)][0].'">';
+                  // write header in classname 0-0 and id 1-0
+                  echo '<td class="'.$data[0][0].'" contenteditable="false">'.$data[($r+1)][0].'</td>';
+
                   while ($c<$arr_wide){
-                      echo '<td contenteditable="true">'.$data[$i][$c].'</td>';
-                      $c++;
-                    }
+                    // write content 1-n and class header 0-0
+                    echo '<td class="'.$data[0][$c].'" contenteditable="true">'.$data[($r+1)][$c].'</td>';
+                    $c++;
+                  }
 
                   echo '<td>';
-                  echo '<button type="button" class="btn btn-default btn-sm save-row"><i class="fa fa-save"></i></button>';
+                  echo '<button type="button" class="btn btn-default btn-sm save-row"><i class="fa fa-save"></i></button> ';
                   echo '<button type="button" class="btn btn-default btn-sm delete-row"><i class="fa fa-trash-o"></i></button>';
                   echo '</td>';
                   echo '</tr>';
-                  $i++;
+                  $r++;
                 }
                 ?>
-                
+
               </tbody>
             </table>
 
@@ -110,4 +111,165 @@ getNavigation();
 </div>
 <!-- /.modal -->
 
-<?php getFooter(); ?>
+<?php }else{
+
+  $view = "Übersicht";
+  getHeader($view);
+  
+ ?>
+
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+
+  <!-- <button type="button" class="btn btn-default export-csv">
+    <span class="glyphicon glyphicon-floppy-save"></span> CSV
+  </button> -->
+        <button type="button" class="btn btn-default refresh-page pull-right">
+        <i class="fa fa-refresh"></i> Refresh
+        </button>
+
+        <h1 class="page-header">Übersicht</h1>
+
+<div class="panel-group" id="accordion">
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4 class="panel-title">
+      <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+        01.01.2014 - Kurs Zürich <span class="badge pull-right">16</span>
+      </a>
+    </h4>
+  </div>
+  <div id="collapseOne" class="panel-collapse collapse in">
+    <div class="panel-body">
+
+<div class="table-responsive">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Nachname</th>
+      <th>E-Mail</th>
+      <th>Adresse</th>
+    </tr>
+  </thead>
+  <tbody class="list">
+    <tr data-id="1">
+      <td class="ID" contenteditable="false">1</td>
+      <td class="Name" contenteditable="true">Lorem</td>
+      <td class="Nachname" contenteditable="true">ipsum</td>
+      <td class="E-Mail" contenteditable="true">dolor</td>
+      <td class="Adresse" contenteditable="true">sit</td>
+    </tr>
+    <tr data-id="2">
+      <td class="ID" contenteditable="false">2</td>
+      <td class="Name" contenteditable="true">amet</td>
+      <td class="Nachname" contenteditable="true">consectetur</td>
+      <td class="E-Mail" contenteditable="true">adipiscing</td>
+      <td class="Adresse" contenteditable="true">elit</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+    </div>
+  </div>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4 class="panel-title">
+      <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+        09.01.2014 - Kurs Luzern <span class="badge pull-right">10</span>
+      </a>
+    </h4>
+  </div>
+  <div id="collapseTwo" class="panel-collapse collapse">
+    <div class="panel-body">
+
+<div class="table-responsive">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Nachname</th>
+      <th>E-Mail</th>
+      <th>Adresse</th>
+    </tr>
+  </thead>
+  <tbody class="list">
+    <tr data-id="1">
+      <td class="ID" contenteditable="false">1</td>
+      <td class="Name" contenteditable="true">Lorem</td>
+      <td class="Nachname" contenteditable="true">ipsum</td>
+      <td class="E-Mail" contenteditable="true">dolor</td>
+      <td class="Adresse" contenteditable="true">sit</td>
+    </tr>
+    <tr data-id="2">
+      <td class="ID" contenteditable="false">2</td>
+      <td class="Name" contenteditable="true">amet</td>
+      <td class="Nachname" contenteditable="true">consectetur</td>
+      <td class="E-Mail" contenteditable="true">adipiscing</td>
+      <td class="Adresse" contenteditable="true">elit</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+    </div>
+  </div>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4 class="panel-title">
+      <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+        20.02.2014 - Kurs Bern <span class="badge pull-right">20</span>
+      </a>
+    </h4>
+  </div>
+  <div id="collapseThree" class="panel-collapse collapse">
+    <div class="panel-body">
+
+<div class="table-responsive">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Nachname</th>
+      <th>E-Mail</th>
+      <th>Adresse</th>
+    </tr>
+  </thead>
+  <tbody class="list">
+    <tr data-id="1">
+      <td class="ID" contenteditable="false">1</td>
+      <td class="Name" contenteditable="true">Lorem</td>
+      <td class="Nachname" contenteditable="true">ipsum</td>
+      <td class="E-Mail" contenteditable="true">dolor</td>
+      <td class="Adresse" contenteditable="true">sit</td>
+    </tr>
+    <tr data-id="2">
+      <td class="ID" contenteditable="false">2</td>
+      <td class="Name" contenteditable="true">amet</td>
+      <td class="Nachname" contenteditable="true">consectetur</td>
+      <td class="E-Mail" contenteditable="true">adipiscing</td>
+      <td class="Adresse" contenteditable="true">elit</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+    </div>
+  </div>
+</div>
+</div>
+
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+  </div>
+
+<?php } getFooter(); ?>

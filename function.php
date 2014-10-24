@@ -64,7 +64,7 @@ $Config = getConfig(); ?>
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">ebas</a>
+      <a class="navbar-brand" href="/ebas">ebas</a>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -121,50 +121,31 @@ $Config = getConfig(); ?>
 function getTable($view){
 
   $conn = DBConnect();
-  // $Config = getConfig();
-  //
-  // $sql = "SELECT "
-  //
-  // foreach ($Config["tables"] as $table) {
-  //   if($table["name"] == $view){
-  //
-  //     foreach ($table["fields"] as $field){
-  //
-  //       $sql = $sql.$field["sqlname"]
-  //
-  //
-  //     }
-  //
-  //     $sql = $sql." FROM ".$table["sqlname"];
-  //   }
-  // }
+  $Config = getConfig();
 
+  $sql = "";
+  $tables = $Config["tables"];
 
-  switch($view){
-    case "Kurse":
-      $sql = "SELECT
-                kurs_id, bezeichnung_de, sprache, max_teilnehmer
-              FROM
-                tbl_kurse_2014_2";
-    break;
+  foreach ($tables as $table) {
 
-    case "Anmeldungen":
-      $sql = "SELECT
-                anmeldung_id, name, vorname, adresse, plz, ort, email, a.sprache, k.bezeichnung_de, gutschein, zeit
-              FROM
-                tbl_anmeldungen_2014_2 a
-              INNER JOIN
-                tbl_kurse_2014_2 k ON (a.kurs = k.kurs_id)";
-    break;
+    if($table["name"] == $view){
 
-    case "Interessenten":
-      $sql = "SELECT
-                interessent_id, name, vorname, adresse, plz, ort, email, kursort, i.sprache, zeit
-              FROM
-                tbl_interessenten_2014_2";
-    break;
+      $sql = $table["sqlstart"];
+      $fields = $table["fields"];
+
+      foreach ($fields as $field){
+
+        $sql = $sql.$field["sqlname"]." AS '".$field["name"]."'";
+
+        if($fields[count($fields) - 1]["name"] != $field["name"]){
+
+          $sql = $sql.", ";
+        }
+      };
+
+      $sql = $sql.$table["sqlend"];
+    }
   }
-
 
   $result = mysqli_query($conn, $sql);
   if(! $result ){
@@ -172,58 +153,30 @@ function getTable($view){
   }
 
   $i = 0;
-  $c = 0;
+  $i2 = 0;
 
-  if ($view == "Kurse"){
-    while($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
-      $c = 0;
-      $data[$i]["0"] = $row["kurs_id"];
-      $data[$i]["1"] = utf8_encode($row["bezeichnung_de"]);
-      $data[$i]["2"] = $row["sprache"];
-      $data[$i]["3"] = $row["max_teilnehmer"];
-      ++$i;
+  // set headers for datatable
+  foreach ($fields as $field){
 
+    $data[$i][$i2] = utf8_encode($field["name"]);
+    ++$i2;
+  }
+  ++$i;
+
+  // set content for datatable
+  while($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
+
+    $i3 = 0;
+
+    foreach ($fields as $field){
+      $fieldname = $field["sqlname"];
+      $data[$i][$i3] = utf8_encode($row[$field["name"]]);
+
+      ++$i3;
     }
+    ++$i;
   }
-  elseif($view == "Anmeldungen"){
-    while($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
 
-      $data[$i]["0"] = $row["anmeldung_id"];
-      $data[$i]["1"] = utf8_encode($row["name"]);
-      $data[$i]["2"] = utf8_encode($row["vorname"]);
-      $data[$i]["3"] = utf8_encode($row["adresse"]);
-      $data[$i]["4"] = $row["plz"];
-      $data[$i]["5"] = utf8_encode($row["ort"]);
-      $data[$i]["6"] = utf8_encode($row["email"]);
-      $data[$i]["7"] = utf8_encode($row["sprache"]);
-      $data[$i]["8"] = utf8_encode($row["bezeichnung_de"]);
-      $data[$i]["9"] = $row["gutschein"];
-      $data[$i]["10"] = $row["zeit"];
-      ++$i;
-
-    }
-
-  }
-  elseif($view == "Interessenten"){
-    while($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
-
-      $data[$i]["0"] = $row["interessent_id"];
-      $data[$i]["1"] = utf8_encode($row["name"]);
-      $data[$i]["2"] = utf8_encode($row["vorname"]);
-      $data[$i]["3"] = utf8_encode($row["adresse"]);
-      $data[$i]["4"] = $row["plz"];
-      $data[$i]["5"] = utf8_encode($row["ort"]);
-      $data[$i]["6"] = utf8_encode($row["email"]);
-      $data[$i]["7"] = utf8_encode($row["kursort"]);
-      $data[$i]["8"] = $row["sprache"];
-      $data[$i]["9"] = $row["zeit"];
-      ++$i;
-
-    }
-  }
-  else {
-    echo "No view selected";
-  }
   return $data;
   mysqli_close($conn);
 }
