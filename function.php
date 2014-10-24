@@ -13,13 +13,10 @@ function getConfig(){
 // returns db connect object
 function DBConnect(){
 
-  $servername = "localhost";
-  $username = "ebas";
-  $password = "ebastest";
-  $db = "ebas";
+  $Config = getConfig();
 
   // Create connection
-  $conn = mysqli_connect($servername, $username, $password, $db);
+  $conn = mysqli_connect($Config["server"], $Config["user"], $Config["password"], $Config["database"]);
 
   if (mysqli_connect_errno()) {
     echo "Failed to connect to Server: " . mysqli_connect_error();
