@@ -11,13 +11,13 @@ Afterwards you can install these packages with Npm on your command line:
 [Grunt](http://gruntjs.com/) > `npm install grunt-cli -g`.
 
 
-To handle the required php packages you have to install [composer](https://getcomposer.org).
+<!-- To handle the required php packages you have to install [composer](https://getcomposer.org). -->
 
 If you have installed all these tools you start to set up this project from your command line by running this commands:
 
 `bower install`
 `grunt`
-`composer install`
+<!-- `composer install` -->
 
 The website is now ready to run.
 

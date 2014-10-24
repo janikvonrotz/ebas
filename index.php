@@ -115,7 +115,7 @@ if (array_key_exists('view', $_GET)){
 
   $view = "Übersicht";
   getHeader($view);
-  
+
  ?>
 
 <div class="container-fluid">
