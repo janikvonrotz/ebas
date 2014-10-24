@@ -51,7 +51,7 @@
         </ul>
       </li>
 
-      <li><a href="#">Aufgaben</a></li>
+      <li><a href="task.php">Aufgaben</a></li>
 
       </ul>
 
@@ -61,8 +61,8 @@
           <input type="text" class="search form-control" placeholder="Search">
         </div>
         </form>
-      <li><a href="#">Help</a></li>
-      <li><a href="#">Abmelden</a></li>
+      <li><a href="help.php">Help</a></li>
+      <li><a href="login.php?mode=logoff">Abmelden</a></li>
       </ul>
     </div>
     </div>
