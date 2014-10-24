@@ -26,10 +26,7 @@ function DBConnect(){
 }
 ?>
 
-<?php
-
-
-function getHeader($title){ ?>
+<?php function getHeader($title){ ?>
 
     <!DOCTYPE html>
     <html lang="en">
@@ -54,7 +51,8 @@ function getHeader($title){ ?>
 
 <?php } ?>
 
-<?php function getNavigation(){ ?>
+<?php function getNavigation(){
+$Config = getConfig(); ?>
 
   <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
@@ -75,10 +73,17 @@ function getHeader($title){ ?>
       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Daten<span class="caret"></span></a>
         <ul class="dropdown-menu" role="menu">
-        <li><a href="index.php?view=Kurs">Kurse</a></li>
-        <li><a href="index.php?view=Anmeldungen">Anmeldungen</a></li>
-        <li><a href="index.php?view=Interessenten">Interessenten</a></li>
-        <li><a href="#">Benutzer</a></li>
+
+        <?php
+          foreach ($Config["tables"] as $table) {
+            echo '<li><a href="index.php?view=';
+            echo $table["name"];
+            echo '">';
+            echo $table["name"];
+            echo '</a></li>';
+          };
+        ?>
+
         </ul>
       </li>
 
@@ -103,7 +108,7 @@ function getHeader($title){ ?>
 
 <?php function getFooter(){ ?>
 
-  <script src="/assets/ebas.min.js"></script>
+  <script src="./assets/ebas.min.js"></script>
 
 </body>
 </html>
