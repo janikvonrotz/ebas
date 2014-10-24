@@ -1,6 +1,6 @@
 <?php
 include 'function.php';
-getHeader("Login");
+getHeader("ebas Login");
 ?>
 
 <div class="container">

@@ -13,7 +13,7 @@
       <meta name="author" content="Janik von Rotz (https://janikvonrotz.ch), Sandro Klarer, Luca Kuendig">
 
       <link rel="icon" href="favicon.ico">
-      <title><?php echo ($title) ?></title>
+      <title><?php echo ($title); ?></title>
 
       <link href="./assets/ebas.min.css" rel="stylesheet">
 
@@ -23,7 +23,7 @@
 
 <?php } ?>
 
-<?php getNavigation(){ ?>
+<?php function getNavigation(){ ?>
 
   <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
@@ -68,7 +68,7 @@
     </div>
   </nav>
 
-?>
+<?php } ?>
 
 <?php function getFooter(){ ?>
 
