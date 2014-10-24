@@ -4,33 +4,141 @@
 	"server": "localhost",
 	"database": "ebas",
 	"tables":[
-	{
-		"name": "Kurse",
-		"sqlname": "t_kurse",
-		"fields":[
-		{
-			"name": "Beschreibung",
-			"sqlname": "beschreibung"
-		},
-		{
-			"name": "Ort",
-			"sqlname": "ort"
-		}
+  	{
+  		"name": "Kurse",
+  		"sqlname": "tbl_kurse_2014_2",
+  		"fields":[
+  		{
+  			"name": "Kurs ID",
+  			"sqlname": "kurs_id"
+  		},
+  		{
+  			"name": "Bezeichnung DE",
+  			"sqlname": "bezeichnung_de"
+  		},
+  		{
+  			"name": "Bezeichnung FR",
+  			"sqlname": "bezeichnung_fr"
+  		},
+  		{
+  			"name": "Bezeichnung EN",
+  			"sqlname": "bezeichnung_en"
+  		},
+  		{
+  			"name": "Sortierung",
+  			"sqlname": "sortierung"
+  		},
+  		{
+  			"name": "Sprache",
+  			"sqlname": "sprache"
+  		},
+  		{
+  			"name": "Max. Teilnehmer",
+  			"sqlname": "max_teilnehmer"
+  		},
+  		{
+  			"name": "Bezeichnung EN",
+  			"sqlname": "bezeichnung_en"
+  		},
+  		{
+  			"name": "Max. Teilnehmer PF",
+  			"sqlname": "max_teilnehmer_PF"
+  		}
 		]
-	},
-	{
+		},
+		
+		{
 		"name": "Anmeldungen",
-		"sqlname": "t_anmeldungen",
+		"sqlname": "tbl_anmeldungen_2014_2",
 		"fields":[
-		{
-			"name": "Name",
-			"sqlname": "name"
-		},
-		{
-			"name": "Vorname",
-			"sqlname": "surname"
-		}
+  		{
+  			"name": "Anmeldung ID",
+  			"sqlname": "anmeldung_id"
+  		},
+  		{
+  			"name": "Kurs",
+  			"sqlname": "kurs"
+  		},
+  		{
+  			"name": "Gutschein",
+  			"sqlname": "gutschein"
+  		},
+  		{
+  			"name": "Name",
+  			"sqlname": "name"
+  		},
+  		{
+  			"name": "Vorname",
+  			"sqlname": "Vorname"
+  		},
+  		{
+  			"name": "Adresse",
+  			"sqlname": "adresse"
+  		},
+  		{
+  			"name": "PLZ",
+  			"sqlname": "plz"
+  		},
+  		{
+  			"name": "Ort",
+  			"sqlname": "ort"
+  		},
+  		{
+  			"name": "E-Mail",
+  			"sqlname": "email"
+  		},
+  		{
+  			"name": "Sprache",
+  			"sqlname": "sprache"
+  		},
+  		{
+  			"name": "Zeit",
+  			"sqlname": "zeit"
+  		}		
 		]
-	}
-	]
- }
+		},
+	
+	  {
+		"name": "Interessenten",
+		"sqlname": "tbl_interessenten_2014_2",
+		"fields":[
+  		{
+  			"name": "Interessent ID",
+  			"sqlname": "interessent_id"
+  		},
+  		{
+  			"name": "Name",
+  			"sqlname": "name"
+  		},
+  		{
+  			"name": "Vorname",
+  			"sqlname": "Vorname"
+  		},
+  		{
+  			"name": "Adresse",
+  			"sqlname": "adresse"
+  		},
+  		{
+  			"name": "PLZ",
+  			"sqlname": "plz"
+  		},
+  		{
+  			"name": "Ort",
+  			"sqlname": "ort"
+  		},
+  		{
+  			"name": "E-Mail",
+  			"sqlname": "email"
+  		},
+  		{
+  			"name": "Sprache",
+  			"sqlname": "sprache"
+  		},
+  		{
+  			"name": "Zeit",
+  			"sqlname": "zeit"
+  		}
+		]
+		}
+]
+}
