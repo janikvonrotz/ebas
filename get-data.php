@@ -63,13 +63,13 @@ function getview ($view){
     while($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
 
       $data[$i]["0"] = $row["anmeldung_id"];
-      $data[$i]["1"] = $row["name"];
-      $data[$i]["2"] = $row["vorname"];
-      $data[$i]["3"] = $row["adresse"];
+      $data[$i]["1"] = utf8_encode($row["name"]);
+      $data[$i]["2"] = utf8_encode($row["vorname"]);
+      $data[$i]["3"] = utf8_encode($row["adresse"]);
       $data[$i]["4"] = $row["plz"];
-      $data[$i]["5"] = $row["ort"];
-      $data[$i]["6"] = $row["email"];
-      $data[$i]["7"] = $row["sprache"];
+      $data[$i]["5"] = utf8_encode($row["ort"]);
+      $data[$i]["6"] = utf8_encode($row["email"]);
+      $data[$i]["7"] = utf8_encode($row["sprache"]);
       $data[$i]["8"] = utf8_encode($row["bezeichnung_de"]);
       $data[$i]["9"] = $row["gutschein"];
       $data[$i]["10"] = $row["zeit"];
@@ -82,13 +82,13 @@ function getview ($view){
     while($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
 
       $data[$i]["0"] = $row["interessent_id"];
-      $data[$i]["1"] = $row["name"];
-      $data[$i]["2"] = $row["vorname"];
-      $data[$i]["3"] = $row["adresse"];
+      $data[$i]["1"] = utf8_encode($row["name"]);
+      $data[$i]["2"] = utf8_encode($row["vorname"]);
+      $data[$i]["3"] = utf8_encode($row["adresse"]);
       $data[$i]["4"] = $row["plz"];
-      $data[$i]["5"] = $row["ort"];
-      $data[$i]["6"] = $row["email"];
-      $data[$i]["7"] = $row["kursort"];
+      $data[$i]["5"] = utf8_encode($row["ort"]);
+      $data[$i]["6"] = utf8_encode($row["email"]);
+      $data[$i]["7"] = utf8_encode($row["kursort"]);
       $data[$i]["8"] = $row["sprache"];
       $data[$i]["9"] = $row["zeit"];
       ++$i;
