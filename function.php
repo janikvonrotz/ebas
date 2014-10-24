@@ -121,7 +121,25 @@ $Config = getConfig(); ?>
 function getTable($view){
 
   $conn = DBConnect();
-  
+  // $Config = getConfig();
+  //
+  // $sql = "SELECT "
+  //
+  // foreach ($Config["tables"] as $table) {
+  //   if($table["name"] == $view){
+  //
+  //     foreach ($table["fields"] as $field){
+  //
+  //       $sql = $sql.$field["sqlname"]
+  //
+  //
+  //     }
+  //
+  //     $sql = $sql." FROM ".$table["sqlname"];
+  //   }
+  // }
+
+
   switch($view){
     case "Kurse":
       $sql = "SELECT

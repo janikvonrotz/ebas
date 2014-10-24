@@ -13,6 +13,7 @@ foreach ($Config["tables"] as $table) {
   if($table["name"] == $_GET['view']){
     echo 'Tabelle: '.$table["name"].' ausgewählt!';
     $data = getTable($table["name"]);
+    $fields = $table["fields"];
     $page = $table["name"];
   }
 }
@@ -42,37 +43,11 @@ getNavigation();
               <thead>
                 <tr>
                   <?php
-                    if ($_GET['view']=='Kurse'){
-                      echo '<th>ID</th>';
-                      echo '<th>Bezeichnung</th>';
-                      echo '<th>Sprache</th>';
-                      echo '<th>Maxmimale Teilnehmer</th>';
-                    }
-                    elseif ($_GET['view']=='Anmeldungen'){
-                      echo '<th>ID</th>';
-                      echo '<th>Name</th>';
-                      echo '<th>Vorname</th>';
-                      echo '<th>Adresse</th>';
-                      echo '<th>Postleihzahl</th>';
-                      echo '<th>Ort</th>';
-                      echo '<th>Email</th>';
-                      echo '<th>Sprache</th>';
-                      echo '<th>Kurs</th>';
-                      echo '<th>Gutscheincode</th>';
-                      echo '<th>Anmeldedatum</th>';
-                    }
-                    elseif ($_GET['view']=='Interessenten'){
-                      echo '<th>ID</th>';
-                      echo '<th>Name</th>';
-                      echo '<th>Vorname</th>';
-                      echo '<th>Adresse</th>';
-                      echo '<th>Postleihzahl</th>';
-                      echo '<th>Ort</th>';
-                      echo '<th>Email</th>';
-                      echo '<th>Kursort</th>';
-                      echo '<th>Sprache</th>';
-                      echo '<th>Interessiert seit</th>';
-                    }
+
+                    foreach ($fields as $field) {
+                      echo '<th>'.$field["name"].'</th>';
+                    };
+
                   ?>
                   <th>Edit</th>
                 </tr>
@@ -100,36 +75,7 @@ getNavigation();
                   $i++;
                 }
                 ?>
-              <!-- <script type="text/javascript">
-
-                var myrows = new Array();
-                  var z = 0
-                  for (var i = 0; i < 8; i++){
-
-                    myrows[i] = new Array();
-                    myrows[i]["ID"] = i;
-                    myrows[i]["Beschreibung"] = z;
-                    myrows[i]["Ort"] = ++z;
-                    myrows[i]["Datum"] = ++z;
-                    myrows[i]["Typ"] = ++z;
-
-                    ++z;
-                  }
-
-                  for (var j = 0; j < myrows.length; j++){
-
-                  document.write('<tr data-id='+myrows[j]["ID"]+'>');
-                  document.write('<td class="ID" contenteditable="false">'+myrows[j]["ID"]+'</td>');
-                  document.write('<td class="Beschreibung" contenteditable="true">'+''+'</td>');
-                  document.write('<td class="Ort" contenteditable="true">'+myrows[j]["Sprache"]+'</td>');
-                  document.write('<td class="Datum" contenteditable="true">'+myrows[j]["Datum"]+'</td>');
-                  document.write('<td>')
-                      document.write('<button type="button" class="btn btn-default btn-sm save-row"><i class="fa fa-save"></i></button>');
-                      document.write('<button type="button" class="btn btn-default btn-sm delete-row"><i class="fa fa-trash-o"></i></button>');
-                  document.write('</td>');
-                document.write('</tr>');
-              }
-            </script> -->
+                
               </tbody>
             </table>
 
