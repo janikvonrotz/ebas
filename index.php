@@ -11,7 +11,7 @@ else {
 
 foreach ($Config["tables"] as $table) {
   if($table["name"] == $_GET['view']){
-    echo $table["name"];
+    echo 'Tabelle: '.$table["name"].' ausgewählt!';
     $data = getTable($table["name"]);
     $page = $table["name"];
   }
@@ -42,7 +42,7 @@ getNavigation();
               <thead>
                 <tr>
                   <?php
-                    if ($_GET['view']=='Kurs'){
+                    if ($_GET['view']=='Kurse'){
                       echo '<th>ID</th>';
                       echo '<th>Bezeichnung</th>';
                       echo '<th>Sprache</th>';

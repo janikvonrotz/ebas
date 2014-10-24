@@ -143,7 +143,7 @@ function getTable($view){
       $sql = "SELECT
                 interessent_id, name, vorname, adresse, plz, ort, email, kursort, i.sprache, zeit
               FROM
-                tbl_interessenten_2014_2 i";
+                tbl_interessenten_2014_2";
     break;
   }
 
@@ -156,7 +156,7 @@ function getTable($view){
   $i = 0;
   $c = 0;
 
-  if ($view == "Kurs"){
+  if ($view == "Kurse"){
     while($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
       $c = 0;
       $data[$i]["0"] = $row["kurs_id"];
@@ -204,7 +204,7 @@ function getTable($view){
     }
   }
   else {
-    echo "Now view selected";
+    echo "No view selected";
   }
   return $data;
   mysqli_close($conn);
