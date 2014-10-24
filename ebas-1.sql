@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 22. Okt 2014 um 08:04
+-- Erstellungszeit: 24. Okt 2014 um 09:56
 -- Server Version: 5.5.40-0ubuntu0.14.04.1
 -- PHP-Version: 5.5.9-1ubuntu4.4
 
@@ -40,7 +40,18 @@ CREATE TABLE IF NOT EXISTS `tbl_anmeldungen_2014_2` (
   `zeit` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`anmeldung_id`),
   KEY `kurs` (`kurs`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=246 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=252 ;
+
+--
+-- Daten für Tabelle `tbl_anmeldungen_2014_2`
+--
+
+INSERT INTO `tbl_anmeldungen_2014_2` (`anmeldung_id`, `kurs`, `gutschein`, `name`, `vorname`, `adresse`, `plz`, `ort`, `email`, `sprache`, `zeit`) VALUES
+(247, 19, '123456789', 'Muster', 'Hans', 'Beispielstrasse 1', '6688 ', 'KSL', 'blabal@blalba.ch', 'Po', '2014-10-23 19:32:03'),
+(248, 19, '234567', 'Nuster', 'Philipp', 'Seispielstrasse 5', '3344', 'Affo', 'spsp@spsp.ch', 'Ru', '2014-10-23 19:33:52'),
+(249, 18, '', 'Xuster', 'Patrick', 'Hochbeispiel 3', '5588', 'Fräk', 'uiiu@iiuu.ch', 'Po', '2014-10-23 19:35:05'),
+(250, 4, '', 'Roger', 'Auster', 'Swissstrasse 9', '0099', 'Wolf', 'ele@ele.ch', 'Bu', '2014-10-23 19:36:12'),
+(251, 9, '', 'Sepp', 'Cluster', 'Wildstrasse', '4422', 'Vivo', 'wll@wll.com', 'En', '2014-10-23 19:37:17');
 
 -- --------------------------------------------------------
 
@@ -60,7 +71,19 @@ CREATE TABLE IF NOT EXISTS `tbl_interessenten_2014_2` (
   `sprache` char(2) NOT NULL,
   `zeit` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`interessent_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=47 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=53 ;
+
+--
+-- Daten für Tabelle `tbl_interessenten_2014_2`
+--
+
+INSERT INTO `tbl_interessenten_2014_2` (`interessent_id`, `name`, `vorname`, `adresse`, `plz`, `ort`, `email`, `kursort`, `sprache`, `zeit`) VALUES
+(47, 'Muster', 'Hans', 'Bananstr. 09', '8822', 'Heli', 'kleb@kleb.ch', 'London', 'En', '2014-10-23 19:38:37'),
+(48, 'Suster', 'rudolf', 'hsluweg 3', '3355', 'Fürio', 'tast@tast.ch', 'Singapur', 'En', '2014-10-23 19:39:31'),
+(49, 'Kossmann', 'Marcel', 'Batweg 6', '3399', 'Gum', 'tosh@tosh.xh', 'Dubai', 'Ar', '2014-10-23 19:40:35'),
+(50, 'Port', 'elio', 'Schneiderweg', '5511', 'Stabilo', 'smi@smi.ch', 'Montreal', 'Fr', '2014-10-23 19:41:50'),
+(51, 'Ludwig', 'Ludin', 'Ludgasse 4', '8899', 'Expo', 'sali@sali.de', 'Vancouver', 'Ch', '2014-10-23 19:42:54'),
+(52, 'Pearson', 'Herold', 'Luztweg', '0022', 'Info', 'lutz@lutz.com', 'NewYork', 'Ru', '2014-10-23 19:44:03');
 
 -- --------------------------------------------------------
 
@@ -79,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `tbl_kurse_2014_2` (
   `max_teilnehmer` tinyint(4) NOT NULL,
   `max_teilnehmer_PF` tinyint(4) NOT NULL,
   PRIMARY KEY (`kurs_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=120 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=124 ;
 
 --
 -- Daten für Tabelle `tbl_kurse_2014_2`
@@ -104,7 +127,11 @@ INSERT INTO `tbl_kurse_2014_2` (`kurs_id`, `bezeichnung_de`, `bezeichnung_fr`, `
 (16, 'Bern: Do, 04.12.14, 17:00 - 19:15 Uhr', 'Bern (allemand): Jeu, 04.12.14, 17h00 - 19h15', 'Bern (tedesco): Gio, 04.12.14, ore 17.00 - 19.15', 'Bern (German): Thu, 04.12.14, 17:00 - 19:15', 19, 'de', 20, 10),
 (17, 'Bern: Di, 09.12.14, 17:00 - 19:15 Uhr', 'Bern (allemand): Mar, 09.12.14, 17h00 - 19h15', 'Bern (tedesco): Mar, 09.12.14, ore 17.00 - 19.15', 'Bern (German): Tue, 09.12.14, 17:00 - 19:15', 20, 'de', 20, 10),
 (18, 'Sion (Franz.): Mi, 15.10.14, 17:00 - 19:15 Uhr', 'Sion: Mer, 15.10.14, 17h00 - 19h15', 'Sion (francese): Mer, 15.10.14, ore 17.00 - 19.15', 'Sion (French): Wed, 15.10.14, 17:00 - 19:15', 1, 'fr', 17, 10),
-(19, 'Lausanne (Franz.): Di, 28.10.14, 18:00 - 20:15 Uhr', 'Lausanne: Mar, 28.10.14, 18h00 - 20h15', 'Lausanne (francese): Mar, 28.10.14, ore 18.00 - 20.15', 'Lausanne (French): Tue, 28.10.14, 18:00 - 20:15', 5, 'fr', 25, 15);
+(19, 'Lausanne (Franz.): Di, 28.10.14, 18:00 - 20:15 Uhr', 'Lausanne: Mar, 28.10.14, 18h00 - 20h15', 'Lausanne (francese): Mar, 28.10.14, ore 18.00 - 20.15', 'Lausanne (French): Tue, 28.10.14, 18:00 - 20:15', 5, 'fr', 25, 15),
+(120, 'Musterkurs', 'Cour de muster', 'Courso de mustera', 'example class', 0, 'En', 127, 127),
+(121, 'Beispiel', 'par example', 'para example ', 'for example', 0, 'Ru', 127, 111),
+(122, 'php mein Admin', 'php mon Admin', 'php ma Admin ', 'php my Admin', 0, 'Le', 127, 127),
+(123, 'ein Test', 'un test', 'una testa ', 'a test', 0, '', 127, 111);
 
 --
 -- Constraints der exportierten Tabellen
