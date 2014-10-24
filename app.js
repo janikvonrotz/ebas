@@ -49,7 +49,7 @@ $("table").on('click', 'button.delete-row', function(e){
 });
 $('#btnDelteYes').click(function () {
     var id = $('#myModal').data('id');
-    // php ajax here
+    $.ajax({url:'change.php?action=delete?data='+id});
     $('[data-id=' + id + ']').remove();
     $('#myModal').modal('hide');
     var userList = new List('ebas', options);

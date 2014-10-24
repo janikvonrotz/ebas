@@ -1,9 +1,7 @@
 ebas
 ====
 
-You can setup this project either on your local machine or an vagrant virtual machine.
-
-# Local
+# Install
 
 First of all you have to install [Npm](https://www.npmjs.org/) which is part of [Node.js](http://www.nodejs.org/).
 
@@ -25,13 +23,8 @@ The website is now ready to run.
 
 As you should have seen this guide doesn't cover any webserver nor mysql installations. You have to do that on your own.
 
-# Vagrant
+# Configure
 
-This is the more convienient way to go.
+Create a copy of the config file.
 
-First install:
-
-[Virtualbox](https://www.virtualbox.org/wiki/Downloads)
-[Vagrant](http://www.vagrantup.com/downloads.html)
-
-Then run `vagrant up` from you command line.
+`config-example.json > config.json`
