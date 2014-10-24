@@ -15,14 +15,14 @@ function getview ($view){
   }
 
   switch($view){
-    case "kurs":
+    case "Kurs":
       $sql = "SELECT
                 kurs_id, bezeichnung_de, sprache, max_teilnehmer
               FROM
                 tbl_kurse_2014_2";
     break;
 
-    case "anmeldungen":
+    case "Anmeldungen":
       $sql = "SELECT
                 anmeldung_id, name, vorname, adresse, plz, ort, email, a.sprache, k.bezeichnung_de, gutschein, zeit
               FROM
@@ -31,7 +31,7 @@ function getview ($view){
                 tbl_kurse_2014_2 k ON (a.kurs = k.kurs_id)";
     break;
 
-    case "interessenten":
+    case "Interessenten":
       $sql = "SELECT
                 interessent_id, name, vorname, adresse, plz, ort, email, kursort, i.sprache, zeit
               FROM
@@ -48,7 +48,7 @@ function getview ($view){
   $i = 0;
   $c = 0;
 
-  if ($view == "kurs"){
+  if ($view == "Kurs"){
     while($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
       $c = 0;
       $data[$i]["0"] = $row["kurs_id"];
@@ -59,7 +59,7 @@ function getview ($view){
 
     }
   }
-  elseif($view == "anmeldungen"){
+  elseif($view == "Anmeldungen"){
     while($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
 
       $data[$i]["0"] = $row["anmeldung_id"];
@@ -78,7 +78,7 @@ function getview ($view){
     }
 
   }
-  elseif($view == "interessenten"){
+  elseif($view == "Interessenten"){
     while($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
 
       $data[$i]["0"] = $row["interessent_id"];

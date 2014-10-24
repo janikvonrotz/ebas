@@ -44,9 +44,9 @@
       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Daten<span class="caret"></span></a>
         <ul class="dropdown-menu" role="menu">
-        <li><a href="index.php?view=kurs">Kurse</a></li>
-        <li><a href="index.php?view=anmeldungen">Anmeldungen</a></li>
-        <li><a href="index.php?view=interessenten">Interessenten</a></li>
+        <li><a href="index.php?view=Kurs">Kurse</a></li>
+        <li><a href="index.php?view=Anmeldungen">Anmeldungen</a></li>
+        <li><a href="index.php?view=Interessenten">Interessenten</a></li>
         <li><a href="#">Benutzer</a></li>
         </ul>
       </li>

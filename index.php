@@ -2,24 +2,28 @@
 include 'get-data.php';
 include 'function.php';
 
-if ($_GET['view']=='kurs'){
-  $data = getview ("kurs");
-  $page = 'kurs';
+
+if (array_key_exists('view', $_GET)){
+
 }
-elseif ($_GET['view']=='anmeldungen'){
-  $data = getview ("anmeldungen");
-  $page = 'anmeldungen';
-}
-elseif ($_GET['view']=='interessenten'){
-  $data = getview ("interessenten");
-  $page = 'interessenten';
-}
-else{
-  $_GET['view'] = 'kurs';
-  $data = getview ("kurs");
-  $page = 'kurs';
+else {
+  $_GET['view'] = "Kurs";
 }
 
+if ($_GET['view']=='Kurs'){
+  $data = getview ("Kurs");
+  $page = 'Kurs';
+}
+elseif ($_GET['view']=='Anmeldungen'){
+  $data = getview ("Anmeldungen");
+  $page = 'Anmeldungen';
+}
+elseif ($_GET['view']=='Interessenten'){
+  $data = getview ("Interessenten");
+  $page = 'Interessenten';
+}
+
+$view = $_GET['view'];
 getHeader("Kurs");
 getNavigation();
 ?>
@@ -36,7 +40,7 @@ getNavigation();
           <i class="fa fa-refresh"></i> Refresh
           </button>
 
-          <h1 class="page-header">Kurse <button type="button" class="btn btn-default add-row">
+          <h1 class="page-header"><?php echo $view; ?> <button type="button" class="btn btn-default add-row">
           <i class="fa fa-plus"></i></button></h1>
 
           <div class="table-responsive">
@@ -44,13 +48,13 @@ getNavigation();
               <thead>
                 <tr>
                   <?php
-                    if ($_GET['view']=='kurs'){
+                    if ($_GET['view']=='Kurs'){
                       echo '<th>ID</th>';
                       echo '<th>Bezeichnung</th>';
                       echo '<th>Sprache</th>';
                       echo '<th>Maxmimale Teilnehmer</th>';
                     }
-                    elseif ($_GET['view']=='anmeldungen'){
+                    elseif ($_GET['view']=='Anmeldungen'){
                       echo '<th>ID</th>';
                       echo '<th>Name</th>';
                       echo '<th>Vorname</th>';
@@ -63,7 +67,7 @@ getNavigation();
                       echo '<th>Gutscheincode</th>';
                       echo '<th>Anmeldedatum</th>';
                     }
-                    elseif ($_GET['view']=='interessenten'){
+                    elseif ($_GET['view']=='Interessenten'){
                       echo '<th>ID</th>';
                       echo '<th>Name</th>';
                       echo '<th>Vorname</th>';
