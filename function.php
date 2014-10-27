@@ -146,7 +146,6 @@ function getTable($view){
       $sql = $sql.$table["sqlend"];
     }
   }
-
   $result = mysqli_query($conn, $sql);
   if(! $result ){
     die('Could not get data: ' . mysql_error());

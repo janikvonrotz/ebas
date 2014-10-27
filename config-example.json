@@ -17,18 +17,18 @@
   			"name": "Bezeichnung DE",
   			"sqlname": "bezeichnung_de"
   		},
-  		{
-  			"name": "Bezeichnung FR",
-  			"sqlname": "bezeichnung_fr"
-  		},
-  		{
-  			"name": "Bezeichnung EN",
-  			"sqlname": "bezeichnung_en"
-  		},
-  		{
-  			"name": "Sortierung",
-  			"sqlname": "sortierung"
-  		},
+			{
+				"name": "Bezeichnung FR",
+				"sqlname": "bezeichnung_fr"
+			},
+			{
+				"name": "Bezeichnung EN",
+				"sqlname": "bezeichnung_en"
+			},
+			{
+				"name": "Bezeichnung IT",
+				"sqlname": "bezeichnung_it"
+			},
   		{
   			"name": "Sprache",
   			"sqlname": "sprache"
@@ -36,14 +36,6 @@
   		{
   			"name": "Max Teilnehmer",
   			"sqlname": "max_teilnehmer"
-  		},
-  		{
-  			"name": "Bezeichnung EN",
-  			"sqlname": "bezeichnung_en"
-  		},
-  		{
-  			"name": "Max Teilnehmer PF",
-  			"sqlname": "max_teilnehmer_PF"
   		}
 			],
 		"sqlend": " FROM tbl_kurse_2014_2"
@@ -60,7 +52,7 @@
   		},
   		{
   			"name": "Kurs",
-  			"sqlname": "kurs"
+  			"sqlname": "bezeichnung_de"
   		},
   		{
   			"name": "Gutschein",
@@ -92,14 +84,14 @@
   		},
   		{
   			"name": "Sprache",
-  			"sqlname": "sprache"
+  			"sqlname": "a.sprache"
   		},
   		{
   			"name": "Zeit",
   			"sqlname": "zeit"
   		}
 			],
-		"sqlend": " FROM tbl_anmeldungen_2014_2"
+		"sqlend": " FROM tbl_anmeldungen_2014_2 as a JOIN tbl_kurse_2014_2 as k ON a.kurs = k.kurs_id"
 		},
 
 	  {
