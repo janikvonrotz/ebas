@@ -128,21 +128,37 @@ function getTable($view){
 
   foreach ($tables as $table) {
 
+    // create sql query for selected table
     if($table["name"] == $view){
 
+      // sql query start
       $sql = $table["sqlstart"];
       $fields = $table["fields"];
 
+      // cycle through fields of the table
       foreach ($fields as $field){
 
-        $sql = $sql.$field["sqlname"]." AS '".$field["name"]."'";
+        // check if theres a special query name of the field
+        if(array_key_exists('sqlqueryname',$field)){
+          $sqlname=$field["sqlqueryname"];
+        }else{
+          $sqlname=$field["sqlname"];
+        }
 
+        // check if the field contains a dropdown, execute the statement and save the result for the datatable
+
+
+        // change the header of the field
+        $sql = $sql.$sqlname." AS '".$field["name"]."'";
+
+        // seperate the definitons with commas
         if($fields[count($fields) - 1]["name"] != $field["name"]){
 
           $sql = $sql.", ";
         }
       };
 
+      // finish the sql statement
       $sql = $sql.$table["sqlend"];
     }
   }
@@ -167,8 +183,12 @@ function getTable($view){
 
     $i3 = 0;
 
+    // get the mysql data foreach row and header
     foreach ($fields as $field){
       $fieldname = $field["sqlname"];
+
+      // if the field is part of the dropdown query output the content as <select><option>
+
       $data[$i][$i3] = utf8_encode($row[$field["name"]]);
 
       ++$i3;
