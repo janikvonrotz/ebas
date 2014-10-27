@@ -1,7 +1,6 @@
 <?php
 include 'function.php';
 $Config = getConfig();
-getNavigation();
 
 if (array_key_exists('view', $_GET)){
 
@@ -17,6 +16,7 @@ if (array_key_exists('view', $_GET)){
   }
 
   getHeader($view);
+  getNavigation();
 ?>
 
   <!-- ###content -->
