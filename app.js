@@ -29,9 +29,13 @@ LightTableSorter.init();
 var tempIdcounter = -1;
 $("button.add-row").click(function() {
   var cells = "";
+  // get dropdown code for this table
+
   $.each(header, function( index, value ) {
-    if(index!=0 && (header.length - 1) != index)
+    if(index!=0 && (header.length - 1) != index){
+      // check if dropdown code is available for field, if yes insert it as data
       cells += '<td class="'+value+'" contenteditable="true"></td>';
+    }
   });
   $('table').prepend('<tr data-id="'+tempIdcounter+'">'+
   '<td class="'+header[0]+'" contenteditable="false"></td>'+cells+
