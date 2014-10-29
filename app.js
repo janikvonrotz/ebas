@@ -64,7 +64,9 @@ $('#btnDelteYes').click(function () {
 // save row
 $("table").on('click', 'button.save-row', function() {
 
-  var id = $('#myModal').data('id');
+  var id = $(this).closest('tr').data('id');
+
+  // create json
   var json = {};
   $(this).closest('tr').each (function(){
     $.each(this.cells, function(i){
@@ -73,11 +75,22 @@ $("table").on('click', 'button.save-row', function() {
         }
     });
     json = JSON.stringify(json);
-    alert(json);
   });
   // run update if id is greater than 0
   if(id>0){
-    $.ajax({url:'change.php?action=delete&id='+id+'&table='+$('h1.page-header').text()});
+    $.ajax({
+      type: "POST",
+      url: "change.php?action=update&table="+$('h1.page-header').text(),
+      data: json,
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+      success: function(data){
+        alert(data);
+      },
+      failure: function(errMsg) {
+          alert(errMsg);
+      }
+    });
   }else{
     // code insert
   }
