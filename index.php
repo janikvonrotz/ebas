@@ -70,7 +70,7 @@ if (array_key_exists('view', $_GET)){
 
                   echo '<td>';
                   echo '<button type="button" class="btn btn-default btn-sm save-row"><i class="fa fa-save"></i></button> ';
-                  echo '<button type="button" class="btn btn-default btn-sm delete-row"><i class="fa fa-trash-o"></i></button>';
+                  echo '<button type="button" class="btn btn-danger btn-sm delete-row"><i class="fa fa-trash-o"></i></button>';
                   echo '</td>';
                   echo '</tr>';
                   $r++;
