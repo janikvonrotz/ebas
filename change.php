@@ -21,7 +21,7 @@ $conn = DBConnect();
 foreach ($Config["tables"] as $itable){
   if($itable["name"]== $table){
     $table = $itable["sqlname"];
-    $idname = $itable["fields"][0]["sqlname"]
+    $idname = $itable["fields"][0]["sqlname"];
     }
 }
 
