@@ -21,20 +21,24 @@ $conn = DBConnect();
 foreach ($Config["tables"] as $itable){
   if($itable["name"]== $table){
     $table = $itable["sqlname"];
-    $idname = $itable["fields"][0]["sqlname"];
     }
 }
 
 
 if($action == "delete"){
 
+  $idname = $itable["fields"][0]["sqlname"];
   // delete entry with $id and $table
   $sql ="DELETE FROM ".$table." WHERE ".$idname." = ".$id;
 
-  echo $sql;
-
   mysqli_query($conn, $sql);
   mysqli_close($conn);
+
+}elseif($action = "update"){
+
+}elseif($action = "insert"){
+
+
 }
 
 ?>

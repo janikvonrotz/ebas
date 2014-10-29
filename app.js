@@ -92,7 +92,19 @@ $("table").on('click', 'button.save-row', function() {
       }
     });
   }else{
-    // code insert
+    $.ajax({
+      type: "POST",
+      url: "change.php?action=insert&table="+$('h1.page-header').text(),
+      data: json,
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+      success: function(data){
+        alert(data);
+      },
+      failure: function(errMsg) {
+          alert(errMsg);
+      }
+    });
   }
   // if successfull update id on row
   if(true){
