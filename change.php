@@ -2,12 +2,17 @@
 include 'function.php';
 
 // contains id for delete and update methods
-$id = $_GET['id'];
+if (array_key_exists('id', $_GET)){
+  $id = $_GET['id'];
+}
 // either insert, delete or update
-$action = $_GET['action'];
+if (array_key_exists('action', $_GET)){
+  $action = $_GET['action'];
+}
 // contains table name
-$table = $_GET['table'];
-// contains insert or update data
+if (array_key_exists('table', $_GET)){
+  $table = $_GET['table'];
+}
 
 $Config = getConfig();
 $conn = DBConnect();

@@ -53,7 +53,6 @@
 			{
 				"name": "Kurs",
 				"sqlname": "kurs",
-				"sqlqueryname": "bezeichnung_de",
 				"dropdownsql": "SELECT kurs_id AS #, bezeichnung_de FROM tbl_kurse_2014_2"
 			},
 			{
@@ -86,15 +85,14 @@
 			},
 			{
 				"name": "Sprache",
-				"sqlname": "sprache",
-				"sqlqueryname": "a.sprache"
+				"sqlname": "sprache"
 			},
 			{
 				"name": "Zeit",
 				"sqlname": "zeit"
 			}
 			],
-		"sqlend": " FROM tbl_anmeldungen_2014_2 as a JOIN tbl_kurse_2014_2 as k ON a.kurs = k.kurs_id"
+		"sqlend": " FROM tbl_anmeldungen_2014_2"
 		},
 
 		{

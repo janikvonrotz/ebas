@@ -139,17 +139,17 @@ function getTable($view){
       foreach ($fields as $field){
 
         // check if theres a special query name of the field
-        if(array_key_exists('sqlqueryname',$field)){
-          $sqlname=$field["sqlqueryname"];
-        }else{
-          $sqlname=$field["sqlname"];
-        }
+        // if(array_key_exists('sqlqueryname',$field)){
+        //   $sqlname=$field["sqlqueryname"];
+        // }else{
+        //   $sqlname=$field["sqlname"];
+        // }
 
         // check if the field contains a dropdown, execute the statement and save the result for the datatable
 
 
         // change the header of the field
-        $sql = $sql.$sqlname." AS '".$field["name"]."'";
+        $sql = $sql.$field["sqlname"]." AS '".$field["name"]."'";
 
         // seperate the definitons with commas
         if($fields[count($fields) - 1]["name"] != $field["name"]){
