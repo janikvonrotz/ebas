@@ -17,22 +17,12 @@ if (array_key_exists('table', $_GET)){
 $Config = getConfig();
 $conn = DBConnect();
 
-
-// get sqlname of id
-if($table =="Kurse"){
-  $idname = "kurs_id";
-}
-elseif($table =="Anmeldungen"){
-  $idname = "anmeldung_id";
-}
-elseif($table == "Interessenten"){
-  $idname = "interessent_id";
-}
 // get sqlname of table
 foreach ($Config["tables"] as $itable){
   if($itable["name"]== $table){
     $table = $itable["sqlname"];
-  }
+    $idname = $itable["fields"][0]["sqlname"]
+    }
 }
 
 
@@ -41,10 +31,10 @@ if($action == "delete"){
   // delete entry with $id and $table
   $sql ="DELETE FROM ".$table." WHERE ".$idname." = ".$id;
 
-echo $sql;
+  echo $sql;
 
-mysqli_query($conn, $sql);
-mysqli_close($conn);
+  mysqli_query($conn, $sql);
+  mysqli_close($conn);
 }
 
 ?>

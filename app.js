@@ -52,8 +52,10 @@ $("table").on('click', 'button.delete-row', function(e){
   $('#myModal').data('id', id).modal('show');
 });
 $('#btnDelteYes').click(function () {
+
     var id = $('#myModal').data('id');
     $.ajax({url:'change.php?action=delete&id='+id+'&table='+$('h1.page-header').text()});
+
     $('[data-id=' + id + ']').remove();
     $('#myModal').modal('hide');
     var userList = new List('ebas', options);
@@ -61,7 +63,24 @@ $('#btnDelteYes').click(function () {
 
 // save row
 $("table").on('click', 'button.save-row', function() {
-  // php ajax here
+
+  var id = $('#myModal').data('id');
+  var json = {};
+  $(this).closest('tr').each (function(){
+    $.each(this.cells, function(i){
+        if(header[i]!="Edit"){
+          json[header[i]] = $(this).text();
+        }
+    });
+    json = JSON.stringify(json);
+    alert(json);
+  });
+  // run update if id is greater than 0
+  if(id>0){
+    $.ajax({url:'change.php?action=delete&id='+id+'&table='+$('h1.page-header').text()});
+  }else{
+    // code insert
+  }
   // if successfull update id on row
   if(true){
     $(this).closest('tr').attr('data-id',4);
