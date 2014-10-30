@@ -54,7 +54,11 @@ $("table").on('click', 'button.delete-row', function(e){
 $('#btnDelteYes').click(function () {
 
     var id = $('#myModal').data('id');
-    $.ajax({url:'change.php?action=delete&id='+id+'&table='+$('h1.page-header').text()});
+    $.ajax({
+      type: "POST",
+      url:'change.php',
+      data: {'action':'delete','id':id,'table':document.title}
+    });
 
     $('[data-id=' + id + ']').remove();
     $('#myModal').modal('hide');
@@ -65,7 +69,7 @@ $('#btnDelteYes').click(function () {
 $("table").on('click', 'button.save-row', function() {
 
   var id = $(this).closest('tr').data('id');
-
+  var method="insert";
   // create json
   var json = {};
   $(this).closest('tr').each (function(){
@@ -76,41 +80,28 @@ $("table").on('click', 'button.save-row', function() {
     });
     json = JSON.stringify(json);
   });
+
   // run update if id is greater than 0
-  if(id>0){
-    $.ajax({
-      type: "POST",
-      url: "change.php?action=update&table="+$('h1.page-header').text(),
-      data: json,
-      contentType: "application/json; charset=utf-8",
-      dataType: "json",
-      success: function(data){
-        alert(data);
-      },
-      failure: function(errMsg) {
-          alert(errMsg);
-      }
-    });
-  }else{
-    $.ajax({
-      type: "POST",
-      url: "change.php?action=insert&table="+$('h1.page-header').text(),
-      data: json,
-      contentType: "application/json; charset=utf-8",
-      dataType: "json",
-      success: function(data){
-        alert(data);
-      },
-      failure: function(errMsg) {
-          alert(errMsg);
-      }
-    });
-  }
+  if(id>0){method="update"}
+
+  $.ajax({
+    type: "POST",
+    url: "change.php",
+    data: {'action':method,'id':id,'table':document.title,'data':json},
+    success: function(data){
+      // alert("success");
+    },
+    failure: function(errMsg) {
+        // alert("fail");
+    }
+  });
   // if successfull update id on row
-  if(true){
+  if(id){
     $(this).closest('tr').attr('data-id',4);
     $(this).closest('tr').find('td:first').text(4);
   }
+
+  // reindex Listsearch
   var userList = new List('ebas', options);
 });
 
