@@ -96,7 +96,7 @@ $("table").on('click', 'button.save-row', function() {
     }
   });
   // if successfull update id on row
-  if(id){
+  if(id<0){
     $(this).closest('tr').attr('data-id',4);
     $(this).closest('tr').find('td:first').text(4);
   }
