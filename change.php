@@ -34,21 +34,28 @@ if($action == "delete"){
 
 }elseif($action == "update"){
 
+
   $Data = json_decode($_POST['data'],true);
-  $sql = "INSERT ";
+  $sql = 'UPDATE '.$table["sqlname"].' SET ';
+
 
   foreach($fields as $field){
 
-    $sql = $sql.$field["sqlname"]." = '".$Data[$field["name"]]."'";
+    if($fields[0]["name"] != $field["name"]){
+      $sql = $sql.$field["sqlname"]." = '".$Data[$field["name"]]."'";
 
-    if($fields[count($fields) - 1]["name"] != $field["name"]){
-      $sql = $sql.", ";
+      if($fields[count($fields) - 1]["name"] != $field["name"]){
+        $sql = $sql.", ";
+      }
     }
   };
 
-  $sql = $sql." WHERE";
+  $sql = $sql.' WHERE '. $fields[0]["sqlname"].'='.$Data["ID"];
 
-  echo $sql;
+
+  mysqli_query($conn, $sql);
+  mysqli_close($conn);
+
 
 }elseif($action == "insert"){
 
