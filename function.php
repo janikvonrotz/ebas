@@ -1,5 +1,15 @@
 <?php
 
+// every php is only accessable with a valid session
+function checkLogin(){
+  session_start();
+
+  if (!$_SESSION["valid_user"]){
+    // User not logged in, redirect to login page
+    Header("Location: login.php");
+  }
+}
+
 // returns array with json data
 function getConfig(){
 
@@ -76,11 +86,13 @@ $Config = getConfig(); ?>
 
         <?php
           foreach ($Config["tables"] as $table) {
-            echo '<li><a href="index.php?view=';
-            echo $table["name"];
-            echo '">';
-            echo $table["name"];
-            echo '</a></li>';
+            if(!array_key_exists('options', $table) || (strpos($table["options"],'hide') == true)){
+              echo '<li><a href="index.php?view=';
+              echo $table["name"];
+              echo '">';
+              echo $table["name"];
+              echo '</a></li>';
+            }
           };
         ?>
 
