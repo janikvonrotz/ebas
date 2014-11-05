@@ -54,12 +54,13 @@ $("table").on('click', 'button.delete-row', function(e){
 $('#btnDelteYes').click(function () {
 
     var id = $('#myModal').data('id');
-    $.ajax({
-      type: "POST",
-      url:'change.php',
-      data: {'action':'delete','id':id,'table':document.title}
-    });
-
+    if(id > 0){
+      $.ajax({
+        type: "POST",
+        url:'change.php',
+        data: {'action':'delete','id':id,'table':document.title}
+      });
+    }
     $('[data-id=' + id + ']').remove();
     $('#myModal').modal('hide');
     var userList = new List('ebas', options);
