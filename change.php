@@ -35,14 +35,16 @@ if($action == "delete"){
 }elseif($action == "update"){
 
 
-  $Data = json_decode($_POST['data'],true);
+  $Data = $_POST['data'];
+
+
   $sql = 'UPDATE '.$table["sqlname"].' SET ';
 
 
   foreach($fields as $field){
 
     if($fields[0]["name"] != $field["name"]){
-      $sql = $sql.$field["sqlname"]." = '".$Data[$field["name"]]."'";
+      $sql = $sql.$field["sqlname"]." = '".utf8_decode($Data[$field["name"]])."'";
 
       if($fields[count($fields) - 1]["name"] != $field["name"]){
         $sql = $sql.", ";
@@ -52,6 +54,7 @@ if($action == "delete"){
 
   $sql = $sql.' WHERE '. $fields[0]["sqlname"].'='.$Data["ID"];
 
+  echo $sql;
 
   mysqli_query($conn, $sql);
   mysqli_close($conn);

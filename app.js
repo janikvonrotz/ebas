@@ -78,7 +78,7 @@ $("table").on('click', 'button.save-row', function() {
           json[header[i]] = $(this).text();
         }
     });
-    json = JSON.stringify(json);
+    //json = JSON.stringify(json);
   });
 
   // run update if id is greater than 0
