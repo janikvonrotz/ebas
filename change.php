@@ -61,8 +61,37 @@ if($action == "delete"){
 
 
 }elseif($action == "insert"){
+  $Data = $_POST['data'];
 
+  $sql = 'INSERT INTO '.$table["sqlname"].'(';
 
+  foreach($fields as $field){
+    if($fields[0]["name"] != $field["name"]){
+      $sql = $sql.$field["sqlname"];
+      if($fields[count($fields) - 1]["name"] != $field["name"]){
+        $sql = $sql.", ";
+      }
+    }
+
+  }
+  $sql = $sql.") VALUES(";
+
+  foreach($fields as $field){
+    if($fields[0]["name"] != $field["name"]){
+      $sql = $sql."'".utf8_decode($Data[$field["name"]])."'";
+      if($fields[count($fields) - 1]["name"] != $field["name"]){
+        $sql = $sql.", ";
+      }
+    }
+
+  }
+
+  $sql = $sql.")";
+
+  echo $sql;
+  mysqli_query($conn, $sql);
+  $id = mysql_insert_id();
+  mysqli_close($conn);
 }
 
 ?>

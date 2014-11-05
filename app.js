@@ -98,8 +98,8 @@ $("table").on('click', 'button.save-row', function() {
   });
   // if successfull update id on row
   if(id<0){
-    $(this).closest('tr').attr('data-id',4);
-    $(this).closest('tr').find('td:first').text(4);
+    $(this).closest('tr').attr('data-id',' ');
+    $(this).closest('tr').find('td:first').text(' ');
   }
 
   // reindex Listsearch
