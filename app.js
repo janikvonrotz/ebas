@@ -90,18 +90,19 @@ $("table").on('click', 'button.save-row', function() {
     url: "change.php",
     data: {'action':method,'id':id,'table':document.title,'data':json},
     success: function(data){
-      // alert("success");
+      if(method=="insert"){
+        var newid = $.parseJSON(data).ID;
+      }
     },
     failure: function(errMsg) {
         // alert("fail");
     }
   });
   // if successfull update id on row
-  if(id<0){
-    $(this).closest('tr').attr('data-id',' ');
-    $(this).closest('tr').find('td:first').text(' ');
+  if(method=="insert"){
+    $(this).closest('tr').attr('data-id',newid);
+    $(this).closest('tr').find('td:first').text(newid);
   }
-
   // reindex Listsearch
   var userList = new List('ebas', options);
 });
