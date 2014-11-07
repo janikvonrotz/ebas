@@ -12,15 +12,19 @@
       "fields":[
       {
         "name": "Benutzer",
-        "sqlname": "user"
+        "sqlname": "user",
+        "options":"contenteditable"
       },
       {
         "name": "Passwort",
-        "sqlname": "password"
+        "sqlname": "password",
+        "options":"contenteditable",
+        "function": "SHA1(#VALUE#)"
       },
       {
         "name": "ist Admin",
-        "sqlname": "isAdmin"
+        "sqlname": "isAdmin",
+        "options":"contenteditable"
       }
       ],
       "sqlend": " FROM users"
@@ -36,27 +40,33 @@
       },
       {
         "name": "Bezeichnung DE",
-        "sqlname": "bezeichnung_de"
+        "sqlname": "bezeichnung_de",
+        "options":"contenteditable"
       },
       {
         "name": "Bezeichnung FR",
-        "sqlname": "bezeichnung_fr"
+        "sqlname": "bezeichnung_fr",
+        "options":"contenteditable"
       },
       {
         "name": "Bezeichnung EN",
-        "sqlname": "bezeichnung_en"
+        "sqlname": "bezeichnung_en",
+        "options":"contenteditable"
       },
       {
         "name": "Bezeichnung IT",
-        "sqlname": "bezeichnung_it"
+        "sqlname": "bezeichnung_it",
+        "options":"contenteditable"
       },
       {
         "name": "Sprache",
-        "sqlname": "sprache"
+        "sqlname": "sprache",
+        "options":"contenteditable"
       },
       {
         "name": "Max Teilnehmer",
-        "sqlname": "max_teilnehmer"
+        "sqlname": "max_teilnehmer",
+        "options":"contenteditable"
       }
       ],
     "sqlend": " FROM tbl_kurse_2014_2"
@@ -74,43 +84,54 @@
       {
         "name": "Kurs",
         "sqlname": "kurs",
-        "dropdownsql": "SELECT kurs_id AS #, bezeichnung_de FROM tbl_kurse_2014_2"
+        "dropdownsql": "SELECT kurs_id AS #, bezeichnung_de FROM tbl_kurse_2014_2",
+        "options":"contenteditable"
       },
       {
         "name": "Gutschein",
-        "sqlname": "gutschein"
+        "sqlname": "gutschein",
+        "options":"contenteditable"
       },
       {
         "name": "Name",
-        "sqlname": "name"
+        "sqlname": "name",
+        "options":"contenteditable"
       },
       {
         "name": "Vorname",
-        "sqlname": "Vorname"
+        "sqlname": "Vorname",
+        "options":"contenteditable"
       },
       {
         "name": "Adresse",
-        "sqlname": "adresse"
+        "sqlname": "adresse",
+        "options":"contenteditable"
       },
       {
         "name": "PLZ",
-        "sqlname": "plz"
+        "sqlname": "plz",
+        "options":"contenteditable"
       },
       {
         "name": "Ort",
-        "sqlname": "ort"
+        "sqlname": "ort",
+        "options":"contenteditable"
       },
       {
         "name": "E-Mail",
-        "sqlname": "email"
+        "sqlname": "email",
+        "options":"contenteditable"
       },
       {
         "name": "Sprache",
-        "sqlname": "sprache"
+        "sqlname": "sprache",
+        "options":"contenteditable"
       },
       {
         "name": "Zeit",
-        "sqlname": "zeit"
+        "sqlname": "zeit",
+        "options": "runfunctiononce",
+        "function": "CURRENT_TIMESTAMP()"
       }
       ],
     "sqlend": " FROM tbl_anmeldungen_2014_2"
@@ -127,35 +148,44 @@
       },
       {
         "name": "Name",
-        "sqlname": "name"
+        "sqlname": "name",
+        "options":"contenteditable"
       },
       {
         "name": "Vorname",
-        "sqlname": "Vorname"
+        "sqlname": "Vorname",
+        "options":"contenteditable"
       },
       {
         "name": "Adresse",
-        "sqlname": "adresse"
+        "sqlname": "adresse",
+        "options":"contenteditable"
       },
       {
         "name": "PLZ",
-        "sqlname": "plz"
+        "sqlname": "plz",
+        "options":"contenteditable"
       },
       {
         "name": "Ort",
-        "sqlname": "ort"
+        "sqlname": "ort",
+        "options":"contenteditable"
       },
       {
         "name": "E-Mail",
-        "sqlname": "email"
+        "sqlname": "email",
+        "options":"contenteditable"
       },
       {
         "name": "Sprache",
-        "sqlname": "sprache"
+        "sqlname": "sprache",
+        "options":"contenteditable"
       },
       {
         "name": "Zeit",
-        "sqlname": "zeit"
+        "sqlname": "zeit",
+        "options": "runfunctiononce",
+        "function": "CURRENT_TIMESTAMP()"
       }
       ],
     "sqlend": " FROM tbl_interessenten_2014_2"
