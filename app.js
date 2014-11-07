@@ -70,7 +70,6 @@ $('#btnDelteYes').click(function () {
 $("table").on('click', 'button.save-row', function() {
 
   var id = $(this).closest('tr').attr('data-id');
-  alert(id);
   var method="insert";
   var newid;
   // create json

@@ -84,14 +84,14 @@ if($action == "delete"){
     }
 
   }
-  $sql = $sql.");SELECT LAST_INSERT_ID() as new_id;";
+  $sql = $sql.")";
 
   // echo $sql;
   mysqli_query($conn, $sql);
   // $lastid = mysqli_fetch_array($result, MYSQL_ASSOC);
 
   // response with id
-  $response["ID"]=2344;
+  $response["ID"]=mysqli_insert_id($conn);
   // echo ();
   echo json_encode($response);
 
