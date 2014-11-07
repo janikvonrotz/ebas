@@ -40,7 +40,7 @@ $("button.add-row").click(function() {
   $('table').prepend('<tr data-id="'+tempIdcounter+'">'+
   '<td class="'+header[0]+'" contenteditable="false"></td>'+cells+
   '<td><button type="button" class="btn btn-default btn-sm save-row"><i class="fa fa-save"></i></button> '+
-  '<button type="button" class="btn btn-default btn-sm delete-row"><i class="fa fa-trash-o"></i></button>'+
+  '<button type="button" class="btn btn-danger btn-sm delete-row"><i class="fa fa-trash-o"></i></button>'+
   '</td></tr>');
   tempIdcounter -= 1;
 });
@@ -69,8 +69,10 @@ $('#btnDelteYes').click(function () {
 // save row
 $("table").on('click', 'button.save-row', function() {
 
-  var id = $(this).closest('tr').data('id');
+  var id = $(this).closest('tr').attr('data-id');
+  alert(id);
   var method="insert";
+  var newid;
   // create json
   var json = {};
   $(this).closest('tr').each (function(){
@@ -83,23 +85,22 @@ $("table").on('click', 'button.save-row', function() {
   });
 
   // run update if id is greater than 0
-  if(id>0){method="update"}
+  if(id>0){method="update";}
 
   $.ajax({
     type: "POST",
     url: "change.php",
+    async: false,
     data: {'action':method,'id':id,'table':document.title,'data':json},
-    success: function(data){
-      if(method=="insert"){
-        var newid = $.parseJSON(data).ID;
-      }
+    success: function(response){
+        newid=$.parseJSON(response).ID;
     },
-    failure: function(errMsg) {
+    failure: function(response) {
         // alert("fail");
     }
   });
-  // if successfull update id on row
-  if(method=="insert"){
+
+  if(method=='insert'){
     $(this).closest('tr').attr('data-id',newid);
     $(this).closest('tr').find('td:first').text(newid);
   }
