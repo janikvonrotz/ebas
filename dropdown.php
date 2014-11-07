@@ -1,6 +1,6 @@
 <?php
 include 'function.php';
-
+checkLogin();
 $id = $_GET['table'];
 
 $Config = getConfig();

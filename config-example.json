@@ -7,7 +7,7 @@
     {
       "name": "LoginTable",
       "sqlname": "users",
-      "sqlstart": "SELECT * ",
+      "sqlstart": "SELECT ",
       "options": "hide",
       "fields":[
       {
@@ -17,6 +17,10 @@
       {
         "name": "Passwort",
         "sqlname": "password"
+      },
+      {
+        "name": "ist Admin",
+        "sqlname": "isAdmin"
       }
       ],
       "sqlend": " FROM users"

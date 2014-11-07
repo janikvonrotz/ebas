@@ -1,6 +1,7 @@
 <?php
 include 'function.php';
 $Config = getConfig();
+checkLogin();
 
 if (array_key_exists('view', $_GET)){
 

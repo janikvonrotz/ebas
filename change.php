@@ -1,5 +1,6 @@
 <?php
 include 'function.php';
+checkLogin();
 
 // contains id for delete and update methods
 if(array_key_exists('id', $_POST)){
@@ -53,8 +54,6 @@ if($action == "delete"){
   };
 
   $sql = $sql.' WHERE '. $fields[0]["sqlname"].'='.$Data["ID"];
-
-  echo $sql;
 
   mysqli_query($conn, $sql);
   mysqli_close($conn);

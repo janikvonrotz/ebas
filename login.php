@@ -40,21 +40,23 @@ if (array_key_exists('mode', $_GET)){
 
 
     // compare username and password with DB table
-    $sql = $logintable["sqlstart"].$logintable["sqlend"]
+    $sql = $logintable["sqlstart"]."*".$logintable["sqlend"]
           ." WHERE `".$userfield["sqlname"]."`='".mysql_real_escape_string($_POST["email"])."'"
           ." AND `".$passwordfield["sqlname"]."`='".$_POST["password"]."'"
           ." LIMIT 1";
 
+    echo $sql;
+
     // Run query
     $result = mysqli_query($conn, $sql);
 
-    $row = mysql_fetch_object($result);
+    $row = mysqli_fetch_array($result, MYSQL_ASSOC);
 
     if($row){
 
-      $_SESSION["valid_id"] = $obj->id;
-      $_SESSION["valid_user"] = $_POST["email"];
-      $_SESSION["valid_time"] = time();
+      $_SESSION["user"] = $_POST["email"];
+      $_SESSION["isadmin"] = $row["isAdmin"];
+      $_SESSION["time"] = time();
 
       // Redirect to index page
       Header("Location: index.php");

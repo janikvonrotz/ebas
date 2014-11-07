@@ -4,7 +4,7 @@
 function checkLogin(){
   session_start();
 
-  if (!$_SESSION["valid_user"]){
+  if (!$_SESSION["user"]){
     // User not logged in, redirect to login page
     Header("Location: login.php");
   }
@@ -86,7 +86,12 @@ $Config = getConfig(); ?>
 
         <?php
           foreach ($Config["tables"] as $table) {
-            if(!array_key_exists('options', $table) || (strpos($table["options"],'hide') == true)){
+
+            if(array_key_exists('options', $table)){
+              $options=$table["options"];
+            }else{$options="";}
+
+            if(substr_count($options, 'hide') == 0){
               echo '<li><a href="index.php?view=';
               echo $table["name"];
               echo '">';

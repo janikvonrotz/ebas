@@ -1,5 +1,6 @@
 <?php
 include 'function.php';
+checkLogin();
 getHeader("ebas Hilfe");
 getNavigation();
 ?>
