@@ -41,8 +41,17 @@ if (array_key_exists('view', $_GET)){
                 <tr>
                   <?php
 
-                    foreach ($fields as $field) {
-                      echo '<th>'.$field["name"].'</th>';
+                    foreach ($fields as $field){
+                      if(array_key_exists('options', $field)){
+                        if(substr_count($field["options"], 'contenteditable')){
+                          $contenteditable="true";
+                        }else{
+                          $contenteditable="false";
+                        }
+                      }else{
+                        $contenteditable="false";
+                      }
+                      echo '<th iscontenteditable="'.$contenteditable.'">'.$field["name"].'</th>';
                     };
 
                   ?>
@@ -65,7 +74,24 @@ if (array_key_exists('view', $_GET)){
 
                   while ($c<$arr_wide){
                     // write content 1-n and class header 0-0
-                    echo '<td class="'.$data[0][$c].'" contenteditable="true">'.$data[($r+1)][$c].'</td>';
+
+                    // check wether field is editable or not
+                    foreach($fields as $field){
+                      if($field["name"]==$data[0][$c]){
+                        if(array_key_exists('options', $field)){
+                          if(substr_count($field["options"], 'contenteditable')){
+                            $contenteditable="true";
+                          }else{
+                            $contenteditable="false";
+                          }
+                        }else{
+                          $contenteditable="false";
+                        }
+                      }
+                    }
+
+                    // Write content
+                    echo '<td class="'.$data[0][$c].'" contenteditable="'.$contenteditable.'">'.$data[($r+1)][$c].'</td>';
                     $c++;
                   }
 

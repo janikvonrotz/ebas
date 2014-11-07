@@ -33,8 +33,9 @@ $("button.add-row").click(function() {
 
   $.each(header, function( index, value ) {
     if(index!=0 && (header.length - 1) != index){
+
       // check if dropdown code is available for field, if yes insert it as data
-      cells += '<td class="'+value+'" contenteditable="true"></td>';
+      cells += '<td class="'+value+'" contenteditable="'+$('table th:contains("'+value+'")').attr('iscontenteditable')+'"></td>';
     }
   });
   $('table').prepend('<tr data-id="'+tempIdcounter+'">'+
