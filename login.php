@@ -45,8 +45,6 @@ if (array_key_exists('mode', $_GET)){
           ." AND `".$passwordfield["sqlname"]."`='".$_POST["password"]."'"
           ." LIMIT 1";
 
-    echo $sql;
-
     // Run query
     $result = mysqli_query($conn, $sql);
 
