@@ -8,8 +8,12 @@
       "name": "LoginTable",
       "sqlname": "users",
       "sqlstart": "SELECT ",
-      "options": "hide",
+      "options": "adminonly",
       "fields":[
+      {
+        "name": "ID",
+        "sqlname": "user_id"
+      },
       {
         "name": "Benutzer",
         "sqlname": "user",
@@ -19,7 +23,7 @@
         "name": "Passwort",
         "sqlname": "password",
         "options":"contenteditable",
-        "function": "SHA1(#VALUE#)"
+        "function": "SHA1(%VALUE%)"
       },
       {
         "name": "ist Admin",
@@ -76,6 +80,7 @@
     "name": "Anmeldungen",
     "sqlname": "tbl_anmeldungen_2014_2",
     "sqlstart": "SELECT ",
+    "options": "hide",
     "fields":[
       {
         "name": "ID",

@@ -42,12 +42,11 @@ if (array_key_exists('mode', $_GET)){
     // compare username and password with DB table
     $sql = $logintable["sqlstart"]."*".$logintable["sqlend"]
           ." WHERE `".$userfield["sqlname"]."`='".mysql_real_escape_string($_POST["email"])."'"
-          ." AND `".$passwordfield["sqlname"]."`='".$_POST["password"]."'"
+          ." AND `".$passwordfield["sqlname"]."`='".sha1($_POST["password"])."'"
           ." LIMIT 1";
 
     // Run query
     $result = mysqli_query($conn, $sql);
-
     $row = mysqli_fetch_array($result, MYSQL_ASSOC);
 
     if($row){

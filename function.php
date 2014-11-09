@@ -89,14 +89,18 @@ $Config = getConfig(); ?>
 
             if(array_key_exists('options', $table)){
               $options=$table["options"];
-            }else{$options="";}
+            }else{
+              $options="";
+            }
 
-            if(substr_count($options, 'hide') == 0){
-              echo '<li><a href="index.php?view=';
-              echo $table["name"];
-              echo '">';
-              echo $table["name"];
-              echo '</a></li>';
+            if(!(substr_count($options, 'hide') > 0)){
+              if(!(substr_count($options, 'adminonly') > 0) || ($_SESSION["isadmin"]==1)){
+                echo '<li><a href="index.php?view=';
+                echo $table["name"];
+                echo '">';
+                echo $table["name"];
+                echo '</a></li>';
+              }
             }
           };
         ?>
@@ -115,8 +119,13 @@ $Config = getConfig(); ?>
         </div>
         </form>
       <li><a href="help.php">Help</a></li>
-      <li><a href="login.php?mode=logoff">Abmelden</a></li>
-      </ul>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Benutzer<span class="caret"></span></a>
+        <ul class="dropdown-menu" role="menu">
+          <li><a><?=$_SESSION["user"]?></a></li>
+          <li class="divider"></li>
+          <li><a href="login.php?mode=logoff">Abmelden</a></li>
+        </ul>
     </div>
     </div>
   </nav>
@@ -148,35 +157,32 @@ function getTable($view){
     // create sql query for selected table
     if($table["name"] == $view){
 
-      // sql query start
-      $sql = $table["sqlstart"];
-      $fields = $table["fields"];
+      if(array_key_exists('options', $table)){
+        $options=$table["options"];
+      }else{
+        $options="";
+      }
 
-      // cycle through fields of the table
-      foreach ($fields as $field){
+      if(!(substr_count($options, 'hide') > 0)){
+      if(!(substr_count($options, 'adminonly') > 0) || ($_SESSION["isadmin"]==1)){
 
-        // check if theres a special query name of the field
-        // if(array_key_exists('sqlqueryname',$field)){
-        //   $sqlname=$field["sqlqueryname"];
-        // }else{
-        //   $sqlname=$field["sqlname"];
-        // }
+        // sql query start
+        $sql = $table["sqlstart"];
+        $fields = $table["fields"];
+        // cycle through fields of the table
+        foreach ($fields as $field){
+          // check if the field contains a dropdown, execute the statement and save the result for the datatable
 
-        // check if the field contains a dropdown, execute the statement and save the result for the datatable
-
-
-        // change the header of the field
-        $sql = $sql.$field["sqlname"]." AS '".$field["name"]."'";
-
-        // seperate the definitons with commas
-        if($fields[count($fields) - 1]["name"] != $field["name"]){
-
-          $sql = $sql.", ";
-        }
-      };
-
-      // finish the sql statement
-      $sql = $sql.$table["sqlend"];
+          // change the header of the field
+          $sql = $sql.$field["sqlname"]." AS '".$field["name"]."'";
+          // seperate the definitons with commas
+          if($fields[count($fields) - 1]["name"] != $field["name"]){
+            $sql = $sql.", ";
+          }
+        };
+        // finish the sql statement
+        $sql = $sql.$table["sqlend"];
+      }}
     }
   }
   $result = mysqli_query($conn, $sql);

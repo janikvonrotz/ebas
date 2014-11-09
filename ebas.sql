@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 07. Nov 2014 um 10:15
+-- Erstellungszeit: 09. Nov 2014 um 21:04
 -- Server Version: 5.6.20
 -- PHP-Version: 5.5.15
 
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `tbl_interessenten_2014_2` (
   `kursort` varchar(150) NOT NULL,
   `sprache` char(2) NOT NULL,
   `zeit` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=53 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=55 ;
 
 --
 -- Daten für Tabelle `tbl_interessenten_2014_2`
@@ -81,7 +81,8 @@ INSERT INTO `tbl_interessenten_2014_2` (`interessent_id`, `name`, `vorname`, `ad
 (49, 'Kossmann', 'Marcel', 'Batweg 6', '3399', 'Gum', 'tosh@tosh.xh', 'Dubai', 'Ar', '2014-10-23 19:40:35'),
 (50, 'Port', 'elio', 'Schneiderweg', '5511', 'Stabilo', 'smi@smi.ch', 'Montreal', 'Fr', '2014-10-23 19:41:50'),
 (51, 'Ludwig', 'Ludin', 'Ludgasse 4', '8899', 'Expo', 'sali@sali.de', 'Vancouver', 'Ch', '2014-10-23 19:42:54'),
-(52, 'Pearson', 'Herold', 'Lüztweg', '0022', 'Info', 'lutz@lutz.com', 'NewYork', 'Ru', '2014-10-23 19:44:03');
+(52, 'Pearson', 'Herold', 'Lüztweg', '0022', 'Info', 'lutz@lutz.com', 'NewYork', 'Ru', '2014-10-23 19:44:03'),
+(53, 'test', 'test', 'test', '', '', '', '', '', '2014-11-09 19:49:57');
 
 -- --------------------------------------------------------
 
@@ -131,18 +132,19 @@ INSERT INTO `tbl_kurse_2014_2` (`kurs_id`, `bezeichnung_de`, `bezeichnung_fr`, `
 --
 
 CREATE TABLE IF NOT EXISTS `users` (
+`user_id` int(11) NOT NULL,
   `user` varchar(20) NOT NULL,
-  `password` varchar(20) NOT NULL,
+  `password` varchar(50) NOT NULL,
   `isAdmin` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Daten für Tabelle `users`
 --
 
-INSERT INTO `users` (`user`, `password`, `isAdmin`) VALUES
-('login@ebas.ch', 'ebas', 0),
-('admin@ebas.ch', 'ebas', 1);
+INSERT INTO `users` (`user_id`, `user`, `password`, `isAdmin`) VALUES
+(1, 'login@ebas.ch', 'cbb3abb148828b2cc6e4d22ac00ca10894962992', 0),
+(2, 'admin@ebas.ch', 'cbb3abb148828b2cc6e4d22ac00ca10894962992', 1);
 
 --
 -- Indexes for dumped tables
@@ -167,6 +169,12 @@ ALTER TABLE `tbl_kurse_2014_2`
  ADD PRIMARY KEY (`kurs_id`);
 
 --
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+ ADD PRIMARY KEY (`user_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -179,12 +187,17 @@ MODIFY `anmeldung_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=254;
 -- AUTO_INCREMENT for table `tbl_interessenten_2014_2`
 --
 ALTER TABLE `tbl_interessenten_2014_2`
-MODIFY `interessent_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=53;
+MODIFY `interessent_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=55;
 --
 -- AUTO_INCREMENT for table `tbl_kurse_2014_2`
 --
 ALTER TABLE `tbl_kurse_2014_2`
 MODIFY `kurs_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=124;
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- Constraints der exportierten Tabellen
 --

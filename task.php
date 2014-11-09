@@ -22,6 +22,8 @@ getNavigation();
         echo $Config["tables"][0]["name"];
         echo $Config["tables"][0]["fields"][0]["sqlname"];
 
+        echo sha1("ebas");
+
         foreach ($Config["tables"] as $table) {
           echo $table["name"];
           if($table["name"] == "Kurse"){
