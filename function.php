@@ -118,7 +118,7 @@ $Config = getConfig(); ?>
           <input type="text" class="search form-control" placeholder="Search">
         </div>
         </form>
-      <li><a href="help.php">Help</a></li>
+      <li><a href="help.php">Hilfe</a></li>
       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Benutzer<span class="caret"></span></a>
         <ul class="dropdown-menu" role="menu">

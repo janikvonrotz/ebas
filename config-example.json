@@ -22,7 +22,7 @@
       {
         "name": "Passwort",
         "sqlname": "password",
-        "options":"contenteditable",
+        "options":"contenteditable, onlyupdateifnew",
         "function": "SHA1(%VALUE%)"
       },
       {

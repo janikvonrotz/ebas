@@ -26,7 +26,7 @@ foreach ($Config["tables"] as $itable){
     }
 }
 
-// delte item
+// delete item
 if($action == "delete"){
 
   $sql ="DELETE FROM ".$table["sqlname"]." WHERE ".$fields[0]["sqlname"]." = ".$id;
@@ -43,24 +43,38 @@ if($action == "delete"){
   foreach($fields as $field){
     if($fields[0]["name"] != $field["name"]){
 
-      // function getConfigProcessedValue($Data,$field,$table){}
-
       // get the submitted value
       $Value = utf8_decode($Data[$field["name"]]);
+
       // get options of this field
       if(array_key_exists('options', $field)){
         $options = $field["options"];
       }else{
         $options = "";
       }
-      // check if function exists for this field
+
+      // check if function exists for this field, if yes add the function
       if(array_key_exists('function', $field)){
-        // check wether to run the function once or always
-        if((substr_count($options, 'runfunctiononce') > 0) && ($Value == null)){
-          $Value = str_replace("%VALUE%", $Value, $field['function']);
-        }elseif(substr_count($options, 'runfunctiononce') == 0){
-          $Value = str_replace("%VALUE%", $Value, $field['function']);
+
+
+        // get existing value for this field from DB
+        $sqlfieldvalue = "SELECT ".$field["sqlname"]." FROM ".$table["sqlname"]." WHERE ".$fields[0]["sqlname"]."=".$Data["ID"];
+        $result = mysqli_query($conn, $sqlfieldvalue);
+        $row = mysqli_fetch_array($result, MYSQL_ASSOC);
+        $dbvalue = $row[$field["sqlname"]];
+
+        // only runfunction if value is not equal value in DB
+        if($dbvalue!=$Value){
+
+          // check wether to run the function once or always
+          if((substr_count($options, 'runfunctiononce') > 0) && ($Value == null)){
+            $Value = str_replace("%VALUE%", "'".$Value."'", $field['function']);
+          }elseif(substr_count($options, 'runfunctiononce') == 0){
+            $Value = str_replace("%VALUE%", "'".$Value."'", $field['function']);
+          }
         }
+
+      // otherwhise simply insert the given value
       }else{
         $Value = "'".$Value."'";
       }
@@ -72,7 +86,7 @@ if($action == "delete"){
       }
     }
   }
-  $sql = $sql.' WHERE '. $fields[0]["sqlname"].'='.$Data["ID"];
+  $sql = $sql.' WHERE '.$fields[0]["sqlname"].'='.$Data["ID"];
 
   mysqli_query($conn, $sql);
   mysqli_close($conn);
@@ -103,13 +117,15 @@ if($action == "delete"){
       }else{
         $options = "";
       }
+
       // check if function exists for this field
       if(array_key_exists('function', $field)){
+
         // check wether to run the function once or always
         if((substr_count($options, 'runfunctiononce') > 0) && ($Value == null)){
-          $Value = str_replace("%VALUE%", $Value, $field['function']);
+          $Value = str_replace("%VALUE%", "'".$Value."'", $field['function']);
         }elseif(substr_count($options, 'runfunctiononce') == 0){
-          $Value = str_replace("%VALUE%", $Value, $field['function']);
+          $Value = str_replace("%VALUE%", "'".$Value."'", $field['function']);
         }
       }else{
         $Value = "'".$Value."'";
@@ -127,7 +143,6 @@ if($action == "delete"){
   mysqli_query($conn, $sql);
   // response with id
   $response["ID"]=mysqli_insert_id($conn);
-  // echo ();
   echo json_encode($response);
   mysqli_close($conn);
 }
