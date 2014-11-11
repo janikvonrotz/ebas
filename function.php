@@ -222,5 +222,5 @@ function getTable($view){
   return $data;
   mysqli_close($conn);
 }
-
+// go Janik
 ?>
