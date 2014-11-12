@@ -183,7 +183,7 @@ if (array_key_exists('view', $_GET)){
 <?php
 $z = 0;
 while($z<sizeof($Data)){
-  $sql = 'SELECT anmeldung_id, name, vorname, email
+  $sql = 'SELECT anmeldung_id, name, vorname, email, adresse, plz, ort
           FROM tbl_anmeldungen_2014_2 as a
           JOIN tbl_kurse_2014_2 as k on k.kurs_id = a.kurs
           WHERE k.bezeichnung_de = "'.$Data[$z].'"';
@@ -208,12 +208,12 @@ while($z<sizeof($Data)){
 <div class="panel panel-default">
   <div class="panel-heading">
     <h4 class="panel-title">
-      <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+      <a data-toggle="collapse" data-parent="#accordion" href="<?php echo '#collapse'.$z ?>" aria-expanded="false">
        <?php echo $Data[$z]; ?> <span class="badge pull-right"> <?php echo $row2["COUNT(*)"]; ?></span>
       </a>
     </h4>
   </div>
-  <div id="collapseOne" class="panel-collapse collapse in">
+  <div id="<?php echo 'collapse'.$z ?>" class="panel-collapse collapse">
     <div class="panel-body">
 
 <div class="table-responsive">
@@ -234,15 +234,18 @@ while($z<sizeof($Data)){
       $Data2[1] = $row["name"];
       $Data2[2] = $row["vorname"];
       $Data2[3] = $row["email"];
+      $Data2[4] = $row["adresse"];
+      $Data2[5] = $row["plz"];
+      $Data2[6] = $row["ort"];
 
   ?>
   <tbody class="list">
     <tr data-id="1">
       <td class="ID" contenteditable="false"><?php echo $Data2[0]; ?></td>
-      <td class="Name" contenteditable="true"><?php echo $Data2[1]; ?></td>
-      <td class="Nachname" contenteditable="true"><?php echo $Data2[2]; ?></td>
-      <td class="E-Mail" contenteditable="true"><?php echo $Data2[3]; ?></td>
-      <td class="Adresse" contenteditable="true">sit</td>
+      <td class="Name" contenteditable="false"><?php echo $Data2[1]; ?></td>
+      <td class="Nachname" contenteditable="false"><?php echo $Data2[2]; ?></td>
+      <td class="E-Mail" contenteditable="false"><?php echo $Data2[3]; ?></td>
+      <td class="Adresse" contenteditable="false"><?php echo $Data2[4].', '.$Data2[5].' '.$Data2[6]; ?></td>
     </tr>
   </tbody>
   <?php
