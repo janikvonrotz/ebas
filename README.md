@@ -62,8 +62,8 @@ Update `config.json` based on your database fields and functions.
 
 * `trigger` Name of the event, used to trigger on specific locations in the code
 * `condition` Contains conditions that have be true in order to run the event task
-  * `isable` Condition where table name must be the value
-* `task` Definition of event task
+  * `itsable` Condition where table name must be the value
+* `task` Definition of the event task
 
 ## Task
 
