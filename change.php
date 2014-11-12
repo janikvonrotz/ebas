@@ -58,13 +58,22 @@ if($action == "delete"){
 
 
         // get existing value for this field from DB
-        $sqlfieldvalue = "SELECT ".$field["sqlname"]." FROM ".$table["sqlname"]." WHERE ".$fields[0]["sqlname"]."=".$Data["ID"];
-        $result = mysqli_query($conn, $sqlfieldvalue);
+        $sqldbvalue = "SELECT ".$field["sqlname"]." FROM ".$table["sqlname"]." WHERE ".$fields[0]["sqlname"]."=".$Data["ID"];
+        $result = mysqli_query($conn, $sqldbvalue);
         $row = mysqli_fetch_array($result, MYSQL_ASSOC);
         $dbvalue = $row[$field["sqlname"]];
+        //
+        // // get the function value processed by MySQL
+        // $sqlfunctionvalue = "SELECT ".str_replace("%VALUE%", "'".$Value."'", $field['function'])." AS value";
+        // $result = mysqli_query($conn, $sqlfunctionvalue);
+        // $row = mysqli_fetch_array($result, MYSQL_ASSOC);
+        // $functionvalue = $row["value"];
+        //
+        // echo "Value:".$Value. " DBValue:".$dbvalue." FunctionValue:".$functionvalue;
+
 
         // only runfunction if value is not equal value in DB
-        if($dbvalue!=$Value){
+        if($Value != $dbvalue){
 
           // check wether to run the function once or always
           if((substr_count($options, 'runfunctiononce') > 0) && ($Value == null)){
