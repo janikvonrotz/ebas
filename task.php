@@ -4,6 +4,15 @@ checkLogin();
 getHeader("ebas Aufgaben");
 getNavigation();
 
+if(array_key_exists('task', $_POST)){
+  $taskname = $_POST['task'];
+
+  if($taskname=='Bereinigungslauf'){
+
+    
+  }
+
+}else{
 ?>
 
 <div class="container-fluid">
@@ -13,31 +22,16 @@ getNavigation();
 
         <h1 class="page-header">Aufgaben</h1>
 
-        <?php
-
-        $Config = getConfig();
-        echo $Config["user"];
-        echo $Config["password"];
-
-        echo $Config["tables"][0]["name"];
-        echo $Config["tables"][0]["fields"][0]["sqlname"];
-
-        echo sha1("ebas");
-
-        foreach ($Config["tables"] as $table) {
-          echo $table["name"];
-          if($table["name"] == "Kurse"){
-            $CurrentTable = $table;
-          }
-
-        }
-        echo $CurrentTable["sqlname"];
-
-        ?>
-
+        <h2>Bereinigungslauf</h2>
+        <p>Interessenten die sich angemeldet haben in der Datenbank löschen.</p>
+        <button type="button" class="btn btn-default run-Bereinigungslauf">Ausführen</button>
+        <p>
+        <div class="alert alert-success Bereinigungslauf hide" role="alert"></div>
+        <div class="alert alert-alert-warning Bereinigungslauf hide" role="alert"></div>
+        </p>
       </div>
       <div class="col-md-2"></div>
   </div>
 </div>
 
-<?php getFooter(); ?>
+<?php getFooter();} ?>

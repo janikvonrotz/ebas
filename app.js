@@ -112,3 +112,34 @@ $("table").on('click', 'button.save-row', function() {
 $('button.refresh-page').click(function() {
     location.reload();
 });
+
+//tasks
+//run-Bereinigungslauf
+$('button.run-').click(function() {
+
+  var count=0;
+
+  // run task
+  $.ajax({
+    type: "POST",
+    url:'task.php',
+    async: false,
+    data: {'task':'Bereinigungslauf'},
+    success: function(response){
+        count=$.parseJSON(response).count;
+    },
+    failure: function(response) {
+        // alert("fail");
+    }
+  });
+
+  var alert="warning"
+  if($count < 0){
+    alert="success";
+  }
+
+  // show message
+  $('div.alert-'+alert+'.Bereinigungslauf').removeclass("hide");
+  $('div.alert-'+alert+'.Bereinigungslauf').text("Es wurden "+count+" Datensätzegelöscht."")
+
+});

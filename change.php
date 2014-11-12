@@ -45,58 +45,16 @@ if($action == "delete"){
 
       // get the submitted value
       $Value = utf8_decode($Data[$field["name"]]);
-
-      // get options of this field
-      if(array_key_exists('options', $field)){
-        $options = $field["options"];
-      }else{
-        $options = "";
-      }
-
-      // check if function exists for this field, if yes add the function
-      if(array_key_exists('function', $field)){
-
-
-        // get existing value for this field from DB
-        $sqldbvalue = "SELECT ".$field["sqlname"]." FROM ".$table["sqlname"]." WHERE ".$fields[0]["sqlname"]."=".$Data["ID"];
-        $result = mysqli_query($conn, $sqldbvalue);
-        $row = mysqli_fetch_array($result, MYSQL_ASSOC);
-        $dbvalue = $row[$field["sqlname"]];
-        //
-        // // get the function value processed by MySQL
-        // $sqlfunctionvalue = "SELECT ".str_replace("%VALUE%", "'".$Value."'", $field['function'])." AS value";
-        // $result = mysqli_query($conn, $sqlfunctionvalue);
-        // $row = mysqli_fetch_array($result, MYSQL_ASSOC);
-        // $functionvalue = $row["value"];
-        //
-        // echo "Value:".$Value. " DBValue:".$dbvalue." FunctionValue:".$functionvalue;
-
-
-        // only runfunction if value is not equal value in DB
-        if($Value != $dbvalue){
-
-          // check wether to run the function once or always
-          if((substr_count($options, 'runfunctiononce') > 0) && ($Value == null)){
-            $Value = str_replace("%VALUE%", "'".$Value."'", $field['function']);
-          }elseif(substr_count($options, 'runfunctiononce') == 0){
-            $Value = str_replace("%VALUE%", "'".$Value."'", $field['function']);
-          }
-        }
-
-      // otherwhise simply insert the given value
-      }else{
-        $Value = "'".$Value."'";
-      }
+      $Value = getConfigProcessedValue($conn,$Data,$table,$fields,$field,$Value);
 
       $sql = $sql.$field["sqlname"]." = ".$Value;
-
       if($fields[count($fields) - 1]["name"] != $field["name"]){
         $sql = $sql.", ";
       }
     }
   }
   $sql = $sql.' WHERE '.$fields[0]["sqlname"].'='.$Data["ID"];
-
+  
   mysqli_query($conn, $sql);
   mysqli_close($conn);
 
@@ -120,25 +78,7 @@ if($action == "delete"){
 
       // get the submitted value
       $Value = utf8_decode($Data[$field["name"]]);
-      // get options of this field
-      if(array_key_exists('options', $field)){
-        $options = $field["options"];
-      }else{
-        $options = "";
-      }
-
-      // check if function exists for this field
-      if(array_key_exists('function', $field)){
-
-        // check wether to run the function once or always
-        if((substr_count($options, 'runfunctiononce') > 0) && ($Value == null)){
-          $Value = str_replace("%VALUE%", "'".$Value."'", $field['function']);
-        }elseif(substr_count($options, 'runfunctiononce') == 0){
-          $Value = str_replace("%VALUE%", "'".$Value."'", $field['function']);
-        }
-      }else{
-        $Value = "'".$Value."'";
-      }
+      $Value = getConfigProcessedValue($conn,$Data,$table,$fields,$field,$Value);
 
       $sql = $sql.$Value;
       if($fields[count($fields) - 1]["name"] != $field["name"]){
