@@ -57,3 +57,23 @@ Update `config.json` based on your database fields and functions.
   * `contenteditable` Allow edit on this field  
   * `runfunctiononce` Run the process function only once  
 * `function` MySQL function to run when value is added to the databse, use `%VALUE%` as placeholder  
+
+## Events
+
+* `trigger` Name of the event, used to trigger on specific locations in the code
+* `condition` Contains conditions that have be true in order to run the event task
+  * `isable` Condition where table name must be the value
+* `task` Definition of event task
+
+## Task
+
+* `name` Name of the task to run
+
+### copyfields
+
+This task copies the values of the current table to another table.
+
+* `totable` Name of the destination table
+* `fieldmap` Tell which field should be copied to a field in the destination
+  * `source` Fieldname from the current table
+  * `destination` Fieldname from the destination table
