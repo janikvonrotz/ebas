@@ -1,18 +1,23 @@
 <?php
 include 'function.php';
 checkLogin();
-getHeader("ebas Aufgaben");
-getNavigation();
 
 if(array_key_exists('task', $_POST)){
   $taskname = $_POST['task'];
 
   if($taskname=='Bereinigungslauf'){
 
-    
+      // ADD CODE
+
+      // return amount of delete rows
+      $response["count"]=5;
+      echo json_encode($response);
   }
 
 }else{
+
+  getHeader("ebas Aufgaben");
+  getNavigation();
 ?>
 
 <div class="container-fluid">
@@ -24,10 +29,10 @@ if(array_key_exists('task', $_POST)){
 
         <h2>Bereinigungslauf</h2>
         <p>Interessenten die sich angemeldet haben in der Datenbank löschen.</p>
-        <button type="button" class="btn btn-default run-Bereinigungslauf">Ausführen</button>
+        <button type="button" class="btn btn-default run-task" task="Bereinigungslauf">Ausführen</button>
         <p>
-        <div class="alert alert-success Bereinigungslauf hide" role="alert"></div>
-        <div class="alert alert-alert-warning Bereinigungslauf hide" role="alert"></div>
+        <div class="alert alert-success Bereinigungslauf hide" role="alert">test</div>
+        <div class="alert alert-warning Bereinigungslauf hide" role="alert">test</div>
         </p>
       </div>
       <div class="col-md-2"></div>

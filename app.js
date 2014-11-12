@@ -17,10 +17,12 @@ var header = Array();
 $("table tr th").each(function(i, v){
         header[i] = $(this).text();
 });
-var options = {
-  valueNames: header
-};
-var userList = new List('ebas', options);
+if(header!=""){
+  var options = {
+    valueNames: header
+  };
+  var userList = new List('ebas', options);
+}
 
 // table sorter
 LightTableSorter.init();
@@ -52,6 +54,7 @@ $("table").on('click', 'button.delete-row', function(e){
   var id = $(this).closest('tr').data('id');
   $('#myModal').data('id', id).modal('show');
 });
+
 $('#btnDelteYes').click(function () {
 
     var id = $('#myModal').data('id');
@@ -108,38 +111,36 @@ $("table").on('click', 'button.save-row', function() {
   var userList = new List('ebas', options);
 });
 
-// refresh
-$('button.refresh-page').click(function() {
-    location.reload();
-});
-
 //tasks
 //run-Bereinigungslauf
-$('button.run-').click(function() {
+$('button.run-task').click(function(){
 
-  var count=0;
+  var counter = 0;
+  var alerttype = "warning";
 
   // run task
   $.ajax({
     type: "POST",
     url:'task.php',
     async: false,
-    data: {'task':'Bereinigungslauf'},
+    data: {'task':"Bereinigungslauf"},
     success: function(response){
-        count=$.parseJSON(response).count;
+        counter = $.parseJSON(response).count;
     },
     failure: function(response) {
-        // alert("fail");
     }
   });
 
-  var alert="warning"
-  if($count < 0){
-    alert="success";
-  }
+  if(counter > 0){
+    alerttype="success";
+  };
 
-  // show message
-  $('div.alert-'+alert+'.Bereinigungslauf').removeclass("hide");
-  $('div.alert-'+alert+'.Bereinigungslauf').text("Es wurden "+count+" Datensätzegelöscht."")
+  $('div.alert-'+alerttype+'.Bereinigungslauf').removeClass("hide");
+  $('div.alert-'+alerttype+'.Bereinigungslauf').text("Es wurden "+counter+" Datensätze gelöscht.");
 
+});
+
+// refresh
+$('button.refresh-page').click(function() {
+    location.reload();
 });
