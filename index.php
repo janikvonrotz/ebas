@@ -143,6 +143,24 @@ if (array_key_exists('view', $_GET)){
   $view = "Übersicht";
   getHeader($view);
   getNavigation();
+  $conn = DBconnect();
+  $Config = getConfig();
+
+  $sql = "SELECT bezeichnung_de
+          FROM tbl_kurse_2014_2";
+
+  $result = mysqli_query($conn, $sql);
+
+  if(! $result ){
+    die('Could not get data: ' . mysql_error());
+  }
+
+  $c = 0;
+    while($row = mysqli_fetch_assoc($result)){
+        $Data[$c] = utf8_encode($row['bezeichnung_de']);
+        $c++;
+    }
+
 
  ?>
 
@@ -161,11 +179,37 @@ if (array_key_exists('view', $_GET)){
         <h1 class="page-header">Übersicht</h1>
 
 <div class="panel-group" id="accordion">
+
+<?php
+$z = 0;
+while($z<sizeof($Data)){
+  $sql = 'SELECT anmeldung_id, name, vorname, email
+          FROM tbl_anmeldungen_2014_2 as a
+          JOIN tbl_kurse_2014_2 as k on k.kurs_id = a.kurs
+          WHERE k.bezeichnung_de = "'.$Data[$z].'"';
+
+  $result = mysqli_query($conn, $sql);
+
+
+  if(! $result ){
+    die('Could not get data: ' . mysql_error());
+  }
+
+        $sql = 'SELECT COUNT(*)
+                FROM tbl_anmeldungen_2014_2 as a
+                JOIN tbl_kurse_2014_2 as k on k.kurs_id = a.kurs
+                WHERE k.bezeichnung_de ="'.$Data[$z].'"';
+
+        $result2 = mysqli_query($conn, $sql);
+        $row2 = mysqli_fetch_assoc($result2);
+
+
+?>
 <div class="panel panel-default">
   <div class="panel-heading">
     <h4 class="panel-title">
       <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-        01.01.2014 - Kurs Zürich <span class="badge pull-right">16</span>
+       <?php echo $Data[$z]; ?> <span class="badge pull-right"> <?php echo $row2["COUNT(*)"]; ?></span>
       </a>
     </h4>
   </div>
@@ -183,116 +227,39 @@ if (array_key_exists('view', $_GET)){
       <th>Adresse</th>
     </tr>
   </thead>
+  <?php
+    $k = 0;
+    while($row = mysqli_fetch_assoc($result)){
+      $Data2[0] = $row["anmeldung_id"];
+      $Data2[1] = $row["name"];
+      $Data2[2] = $row["vorname"];
+      $Data2[3] = $row["email"];
+
+  ?>
   <tbody class="list">
     <tr data-id="1">
-      <td class="ID" contenteditable="false">1</td>
-      <td class="Name" contenteditable="true">Lorem</td>
-      <td class="Nachname" contenteditable="true">ipsum</td>
-      <td class="E-Mail" contenteditable="true">dolor</td>
+      <td class="ID" contenteditable="false"><?php echo $Data2[0]; ?></td>
+      <td class="Name" contenteditable="true"><?php echo $Data2[1]; ?></td>
+      <td class="Nachname" contenteditable="true"><?php echo $Data2[2]; ?></td>
+      <td class="E-Mail" contenteditable="true"><?php echo $Data2[3]; ?></td>
       <td class="Adresse" contenteditable="true">sit</td>
     </tr>
-    <tr data-id="2">
-      <td class="ID" contenteditable="false">2</td>
-      <td class="Name" contenteditable="true">amet</td>
-      <td class="Nachname" contenteditable="true">consectetur</td>
-      <td class="E-Mail" contenteditable="true">adipiscing</td>
-      <td class="Adresse" contenteditable="true">elit</td>
-    </tr>
   </tbody>
+  <?php
+    $k++;
+  }
+  ?>
 </table>
 </div>
 
     </div>
   </div>
 </div>
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h4 class="panel-title">
-      <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-        09.01.2014 - Kurs Luzern <span class="badge pull-right">10</span>
-      </a>
-    </h4>
-  </div>
-  <div id="collapseTwo" class="panel-collapse collapse">
-    <div class="panel-body">
+<?php
+  $z++;
+}
+?>
 
-<div class="table-responsive">
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Nachname</th>
-      <th>E-Mail</th>
-      <th>Adresse</th>
-    </tr>
-  </thead>
-  <tbody class="list">
-    <tr data-id="1">
-      <td class="ID" contenteditable="false">1</td>
-      <td class="Name" contenteditable="true">Lorem</td>
-      <td class="Nachname" contenteditable="true">ipsum</td>
-      <td class="E-Mail" contenteditable="true">dolor</td>
-      <td class="Adresse" contenteditable="true">sit</td>
-    </tr>
-    <tr data-id="2">
-      <td class="ID" contenteditable="false">2</td>
-      <td class="Name" contenteditable="true">amet</td>
-      <td class="Nachname" contenteditable="true">consectetur</td>
-      <td class="E-Mail" contenteditable="true">adipiscing</td>
-      <td class="Adresse" contenteditable="true">elit</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-    </div>
-  </div>
-</div>
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h4 class="panel-title">
-      <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-        20.02.2014 - Kurs Bern <span class="badge pull-right">20</span>
-      </a>
-    </h4>
-  </div>
-  <div id="collapseThree" class="panel-collapse collapse">
-    <div class="panel-body">
-
-<div class="table-responsive">
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Nachname</th>
-      <th>E-Mail</th>
-      <th>Adresse</th>
-    </tr>
-  </thead>
-  <tbody class="list">
-    <tr data-id="1">
-      <td class="ID" contenteditable="false">1</td>
-      <td class="Name" contenteditable="true">Lorem</td>
-      <td class="Nachname" contenteditable="true">ipsum</td>
-      <td class="E-Mail" contenteditable="true">dolor</td>
-      <td class="Adresse" contenteditable="true">sit</td>
-    </tr>
-    <tr data-id="2">
-      <td class="ID" contenteditable="false">2</td>
-      <td class="Name" contenteditable="true">amet</td>
-      <td class="Nachname" contenteditable="true">consectetur</td>
-      <td class="E-Mail" contenteditable="true">adipiscing</td>
-      <td class="Adresse" contenteditable="true">elit</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-    </div>
-  </div>
-</div>
 </div>
 
       </div>
