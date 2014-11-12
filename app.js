@@ -76,6 +76,12 @@ $("table").on('click', 'button.save-row', function() {
   var id = $(this).closest('tr').attr('data-id');
   var method="insert";
   var newid;
+
+  // change color on save
+  $(this).closest('tr td').each(function(){
+    $(this).addClass('alert-success');
+  });
+
   // create json
   var json = {};
   $(this).closest('tr').each (function(){

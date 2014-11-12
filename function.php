@@ -1,7 +1,53 @@
 <?php
 
-//
-function getConfigProcessedValue($conn, $Data, $table, $fields, $field, $Value){
+// helpers
+function getTableByName($tables,$name){
+  foreach($tables as $table){
+    if($table["name"]==$name){
+      return $table;
+    }
+  }
+}
+function getFieldByName($fields,$name){
+  foreach($fields as $field){
+    if($field["name"]==$name){
+      return $field;
+    }
+  }
+}
+
+// create the dropdown html data for a field
+function getDropdown($field){
+  if(array_key_exists('options', $field)){
+    $options = $field["options"];
+  }else{
+    $options = "";
+  }
+
+  if(array_key_exists('dropdownsql', $field)){
+    $DB = DBConnect();
+
+    $result = mysqli_query($DB, $field["dropdownsql"]);
+    $row = mysqli_fetch_array($result, MYSQL_ASSOC);
+    $dbvalue = $row[$field["sqlname"]];
+
+    DBClose();
+
+    return $selecthtml;
+  }
+
+  return null;
+}
+
+// checks function for this field in the config and prcesses it
+/*
+  $conn: current databse connection
+  $Data:  Data containing all row values
+  $table: Config definiton of the current table
+  $fields: Config field definitions of the current table
+  $Value: Current field value to process
+*/
+function getConfigProcessedValue($Data, $table, $fields, $field, $Value){
 
   // get options of this field
   if(array_key_exists('options', $field)){
@@ -16,10 +62,15 @@ function getConfigProcessedValue($conn, $Data, $table, $fields, $field, $Value){
     // get existing value for this field from DB
     $dbvalue = "";
     if($Data["ID"]){
+
+      $conn = DBConnect();
+
       $sqldbvalue = "SELECT ".$field["sqlname"]." FROM ".$table["sqlname"]." WHERE ".$fields[0]["sqlname"]."=".$Data["ID"];
       $result = mysqli_query($conn, $sqldbvalue);
       $row = mysqli_fetch_array($result, MYSQL_ASSOC);
       $dbvalue = $row[$field["sqlname"]];
+
+      DBClose($conn);
     }
 
     // // get the function value processed by MySQL
@@ -86,6 +137,12 @@ function DBConnect(){
 
   return $conn;
 }
+
+// Close connection
+function DBClose($conn){
+  mysqli_close($conn);
+}
+
 ?>
 
 <?php function getHeader($title){ ?>

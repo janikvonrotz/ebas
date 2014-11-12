@@ -22,7 +22,7 @@
       {
         "name": "Passwort",
         "sqlname": "password",
-        "options":"contenteditable, onlyupdateifnew",
+        "options":"contenteditable",
         "function": "SHA1(%VALUE%)"
       },
       {
@@ -63,6 +63,11 @@
         "options":"contenteditable"
       },
       {
+        "name": "Datum",
+        "sqlname": "kurs_datum",
+        "options":"contenteditable"
+      },
+      {
         "name": "Sprache",
         "sqlname": "sprache",
         "options":"contenteditable"
@@ -80,7 +85,7 @@
     "name": "Anmeldungen",
     "sqlname": "tbl_anmeldungen_2014_2",
     "sqlstart": "SELECT ",
-    "options": "hide",
+    "options": "",
     "fields":[
       {
         "name": "ID",
@@ -104,7 +109,7 @@
       },
       {
         "name": "Vorname",
-        "sqlname": "Vorname",
+        "sqlname": "vorname",
         "options":"contenteditable"
       },
       {
@@ -158,7 +163,7 @@
       },
       {
         "name": "Vorname",
-        "sqlname": "Vorname",
+        "sqlname": "vorname",
         "options":"contenteditable"
       },
       {
@@ -195,5 +200,51 @@
       ],
     "sqlend": " FROM tbl_interessenten_2014_2"
     }
-]
+  ],
+  "events":[
+    {
+      "trigger":"RowDelete",
+      "condition":{
+        "tableis": "Anmeldungen"
+      },
+      "task":{
+        "name":"copyfields",
+        "totable":"Interessenten",
+        "fieldmap":[
+          {
+            "source":"Name",
+            "destination":"Name"
+          },
+          {
+            "source":"Vorname",
+            "destination":"Vorname"
+          },
+          {
+            "source":"Adresse",
+            "destination":"Adresse"
+          },
+          {
+            "source":"PLZ",
+            "destination":"PLZ"
+          },
+          {
+            "source":"Ort",
+            "destination":"Ort"
+          },
+          {
+            "source":"E-Mail",
+            "destination":"E-Mail"
+          },
+          {
+            "source":"Sprache",
+            "destination":"Sprache"
+          },
+          {
+            "source":"Zeit",
+            "destination":"Zeit"
+          }
+        ]
+      }
+    }
+  ]
 }
