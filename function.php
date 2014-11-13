@@ -17,22 +17,26 @@ function getFieldByName($fields,$name){
 }
 
 // create the dropdown html data for a field
-function getDropdown($field){
-  if(array_key_exists('options', $field)){
-    $options = $field["options"];
-  }else{
-    $options = "";
-  }
+function getDropdownHtmlByField($field){
 
   if(array_key_exists('dropdownsql', $field)){
     $DB = DBConnect();
+    if ($result = mysqli_query($DB, $field["dropdownsql"])){
+      $fieldcount = mysqli_field_count($DB);
+      // create select html
+      $selecthtml = '<select class="'.$field["name"].'">';
+      while($row = mysqli_fetch_array($result, MYSQLI_NUM)) {
 
-    $result = mysqli_query($DB, $field["dropdownsql"]);
-    $row = mysqli_fetch_array($result, MYSQL_ASSOC);
-    $dbvalue = $row[$field["sqlname"]];
+        $selecthtml = $selecthtml.'<option value='.$row[0]."'";
+        // for($i=1; $i<$fieldcount; $i++){
+        //   $selecthtml = $selecthtml.$row[$i];
+        // }
+      }
+    }
+    $selecthtml = $selecthtml."</select>";
 
-    DBClose();
-
+    // close db and return html
+    DBClose($DB);
     return $selecthtml;
   }
 
@@ -41,7 +45,6 @@ function getDropdown($field){
 
 // checks function for this field in the config and prcesses it
 /*
-  $conn: current databse connection
   $Data:  Data containing all row values
   $table: Config definiton of the current table
   $fields: Config field definitions of the current table

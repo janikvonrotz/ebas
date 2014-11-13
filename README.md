@@ -1,6 +1,8 @@
 ebas
 ====
 
+ebas is a lightweight user friendly mysql content manager.
+
 # Requirements
 
 To make this application work with your database it has to meet the follwing requirements:
@@ -48,6 +50,7 @@ Update `config.json` based on your database fields and functions.
   * `hide` Hide the table  
   * `adminonly` Only give access to admin users  
 * `fields[]` Contains definitons for each field to display  
+* `events[]` Tasks to trigger on specific events
 
 ## Fields
 
@@ -62,8 +65,8 @@ Update `config.json` based on your database fields and functions.
 
 * `trigger` Name of the event, used to trigger on specific locations in the code
 * `condition` Contains conditions that have be true in order to run the event task
-  * `itsable` Condition where table name must be the value
-* `task` Definition of the event task
+  * `istable` Condition where table name must be the value
+* `task` Definition of event task
 
 ## Task
 
@@ -74,6 +77,6 @@ Update `config.json` based on your database fields and functions.
 This task copies the values of the current table to another table.
 
 * `totable` Name of the destination table
-* `fieldmap` Tell which field should be copied to a field in the destination
+* `fieldmap[]` Tell which field should be copied to a field in the destination
   * `source` Fieldname from the current table
   * `destination` Fieldname from the destination table

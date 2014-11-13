@@ -12,6 +12,15 @@ getNavigation();
 
         <h1 class="page-header">Hilfe</h1>
 
+        <div class="tableselects">
+          <?php
+          foreach ($fields as $field){
+            $drop = getDropdownHtmlByField($field);
+            if($drop){echo $drop;}
+          }
+          ?>
+        </div>
+
       </div>
       <div class="col-md-2"></div>
   </div>

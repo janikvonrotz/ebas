@@ -34,7 +34,6 @@ if (array_key_exists('view', $_GET)){
 
           <h1 class="page-header"><?php echo $view; ?> <button type="button" class="btn btn-default add-row">
           <i class="fa fa-plus"></i></button></h1>
-
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
@@ -42,6 +41,8 @@ if (array_key_exists('view', $_GET)){
                   <?php
 
                     foreach ($fields as $field){
+
+                      // check if column is editable and store the information
                       if(array_key_exists('options', $field)){
                         if(substr_count($field["options"], 'contenteditable')){
                           $contenteditable="true";
@@ -51,6 +52,7 @@ if (array_key_exists('view', $_GET)){
                       }else{
                         $contenteditable="false";
                       }
+
                       echo '<th iscontenteditable="'.$contenteditable.'">'.$field["name"].'</th>';
                     };
 
