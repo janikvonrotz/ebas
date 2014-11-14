@@ -79,15 +79,26 @@ function runEvents($tablename,$trigger,$id){
 
           $sourcetable = getTableByName($Event["task"]["sourcetable"]);
           $deleteontable = getTableByName($Event["task"]["deleteontable"]);
-          // create conditions for where statement
+
+          // Template: DELETE FROM tbl_interessenten_2014_2 WHERE email IN (SELECT email FROM tbl_anmeldungen_2014_2)
+
+          // create select statement
+          $sqldelete = "DELETE FROM ".$deleteontable["sqlname"]." WHERE ";
           foreach($Event["task"]["fieldmap"] as $fmap){
             // getsqlname for source field
             $sourcefield = getFieldByName($sourcetable["fields"],$fmap["source"]);
             // getsqlname for delete field
             $deletefield = getFieldByName($deleteontable["fields"],$fmap["destination"]);
-          }
 
-          return 5;
+            $sqldelete = $sqldelete."(".$deletefield["sqlname"]." IN (SELECT ".$sourcefield["sqlname"]." FROM ".$sourcetable["sqlname"]."))";
+
+            $Lastitem = $Event["task"]["fieldmap"][count($Event["task"]["fieldmap"])-1];
+            if($fmap != $Lastitem){
+              $sqldelete = $sqldelete." && ";
+            }
+          }
+          mysqli_query($conn, $sqldelete);
+          return mysqli_affected_rows($conn);
         }
       }
     }

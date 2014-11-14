@@ -77,11 +77,6 @@ $("table").on('click', 'button.save-row', function() {
   var method="insert";
   var newid;
 
-  // change color on save
-  $(this).closest('tr td').each(function(){
-    $(this).addClass('alert-success');
-  });
-
   // create json
   var json = {};
   $(this).closest('tr').each (function(){
