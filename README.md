@@ -64,11 +64,11 @@ Update `config.json` based on your database fields and functions.
 ## Events
 
 Events are tasks with different conditions that can be triggered on specific actions.  
-In your PHP code you can add an Trigger witch the following snippet:  
+In your PHP code you can add an Trigger with the following snippet:  
 
 ```$result = runEvents("tablename","task-Bereinigunglauf",elementid);```
 
-Then in the config file you have to associate the tigger with conditions and a task.  
+Then in the config file you have to associate the trigger with optional conditions and a task.  
 
 * `trigger` Name of the event, used to trigger on specific locations in the code
 * `condition` Contains conditions that have be true in order to run the event task
