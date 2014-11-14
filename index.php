@@ -193,7 +193,6 @@ while($z<sizeof($Data)){
 
   $result = mysqli_query($conn, $sql);
 
-
   if(! $result ){
     die('Could not get data: ' . mysql_error());
   }

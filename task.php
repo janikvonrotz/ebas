@@ -7,10 +7,10 @@ if(array_key_exists('task', $_POST)){
 
   if($taskname=='Bereinigungslauf'){
 
-      // ADD CODE
+      $result = runEvents("","deletesameitems",0);
 
       // return amount of delete rows
-      $response["count"]=5;
+      $response["count"]=$result;
       echo json_encode($response);
   }
 

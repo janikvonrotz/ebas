@@ -1,8 +1,10 @@
 <?php
+include 'events.php';
 
 // helpers
-function getTableByName($tables,$name){
-  foreach($tables as $table){
+function getTableByName($name){
+  $Config = getConfig();
+  foreach($Config["tables"] as $table){
     if($table["name"]==$name){
       return $table;
     }
@@ -19,13 +21,15 @@ function getFieldByName($fields,$name){
 // create the dropdown html data for a field
 function getDropdownHtmlByField($field){
 
+  // <select><option value="kurs_id">bezeichnung_de</option><option...</option></select>
+
   if(array_key_exists('dropdownsql', $field)){
     $DB = DBConnect();
     if ($result = mysqli_query($DB, $field["dropdownsql"])){
       $fieldcount = mysqli_field_count($DB);
       // create select html
       $selecthtml = '<select class="'.$field["name"].'">';
-      while($row = mysqli_fetch_array($result, MYSQLI_NUM)) {
+      while($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
 
         $selecthtml = $selecthtml.'<option value='.$row[0]."'";
         // for($i=1; $i<$fieldcount; $i++){
@@ -298,7 +302,7 @@ function getTable($view){
     }
   }
   $result = mysqli_query($conn, $sql);
-  if(! $result ){
+  if(! $result ){;
     die('Could not get data: ' . mysql_error());
   }
 

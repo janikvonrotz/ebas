@@ -94,7 +94,7 @@
       {
         "name": "Kurs",
         "sqlname": "kurs",
-        "dropdownsql": "SELECT kurs_id AS #, bezeichnung_de FROM tbl_kurse_2014_2",
+        "dropdownsql": "SELECT kurs_id, bezeichnung_de FROM tbl_kurse_2014_2",
         "options":"contenteditable"
       },
       {
@@ -242,6 +242,21 @@
           {
             "source":"Zeit",
             "destination":"Zeit"
+          }
+        ]
+      }
+    },
+    {
+      "trigger":"deletesameitems",
+      "condition":{},
+      "task":{
+        "name":"deletesameitems",
+        "sourcetable": "Anmeldungen",
+        "deleteontable":"Interessenten",
+        "fieldmap":[
+          {
+            "source":"E-Mail",
+            "destination":"E-Mail"
           }
         ]
       }

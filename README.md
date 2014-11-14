@@ -80,3 +80,10 @@ This task copies the values of the current table to another table.
 * `fieldmap[]` Tell which field should be copied to a field in the destination
   * `source` Fieldname from the current table
   * `destination` Fieldname from the destination table
+
+### deletesameitems
+
+This task deletes items based on the rule where specific fields in a table hold the same value as the items to delete.
+
+* `sourcetable` Holds items where same field value should be deleted in a specific table
+* `deleteontable` Holds the items which should be deleted
