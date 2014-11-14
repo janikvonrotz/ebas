@@ -148,8 +148,8 @@ if (array_key_exists('view', $_GET)){
   $conn = DBconnect();
   $Config = getConfig();
 
-  $sql = "SELECT bezeichnung_de
-          FROM tbl_kurse_2014_2";
+  $sql = "SELECT bezeichnung_de, max_teilnehmer
+          FROM tbl_kurse_2014_2 WHERE kurs_datum >= DATE(NOW())";
 
   $result = mysqli_query($conn, $sql);
 
@@ -159,7 +159,8 @@ if (array_key_exists('view', $_GET)){
 
   $c = 0;
     while($row = mysqli_fetch_assoc($result)){
-        $Data[$c] = utf8_encode($row['bezeichnung_de']);
+        $Data[$c][0] = utf8_encode($row['bezeichnung_de']);
+        $Data[$c][1] = utf8_encode($row['max_teilnehmer']);
         $c++;
     }
 
@@ -185,10 +186,10 @@ if (array_key_exists('view', $_GET)){
 <?php
 $z = 0;
 while($z<sizeof($Data)){
-  $sql = 'SELECT anmeldung_id, name, vorname, email, adresse, plz, ort
+  $sql = 'SELECT anmeldung_id, name, vorname, email, adresse, plz, ort, k.max_teilnehmer
           FROM tbl_anmeldungen_2014_2 as a
           JOIN tbl_kurse_2014_2 as k on k.kurs_id = a.kurs
-          WHERE k.bezeichnung_de = "'.$Data[$z].'"';
+          WHERE k.bezeichnung_de = "'.$Data[$z][0].'"';
 
   $result = mysqli_query($conn, $sql);
 
@@ -200,7 +201,7 @@ while($z<sizeof($Data)){
         $sql = 'SELECT COUNT(*)
                 FROM tbl_anmeldungen_2014_2 as a
                 JOIN tbl_kurse_2014_2 as k on k.kurs_id = a.kurs
-                WHERE k.bezeichnung_de ="'.$Data[$z].'"';
+                WHERE k.bezeichnung_de ="'.$Data[$z][0].'"';
 
         $result2 = mysqli_query($conn, $sql);
         $row2 = mysqli_fetch_assoc($result2);
@@ -211,7 +212,7 @@ while($z<sizeof($Data)){
   <div class="panel-heading">
     <h4 class="panel-title">
       <a data-toggle="collapse" data-parent="#accordion" href="<?php echo '#collapse'.$z ?>" aria-expanded="false">
-       <?php echo $Data[$z]; ?> <span class="badge pull-right"> <?php echo $row2["COUNT(*)"]; ?></span>
+       <?php echo $Data[$z][0]; ?> <span class="badge pull-right"> <?php echo $row2["COUNT(*)"]."/".$Data[$z][1]; ?></span>
       </a>
     </h4>
   </div>
