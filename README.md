@@ -63,10 +63,25 @@ Update `config.json` based on your database fields and functions.
 
 ## Events
 
+Events are tasks with different conditions that can be triggered on specific actions.  
+In your PHP code you can add an Trigger witch the following snippet:  
+
+```$result = runEvents("tablename","task-Bereinigunglauf",elementid);```
+
+Then in the config file you have to associate the tigger with conditions and a task.  
+
 * `trigger` Name of the event, used to trigger on specific locations in the code
 * `condition` Contains conditions that have be true in order to run the event task
   * `istable` Condition where table name must be the value
-* `task` Definition of event task
+* `task` Definition of the event task
+
+### RowDelete
+
+Whenever a data row is deleted this trigger is called.
+
+### task-Bereinigunglauf
+
+This trigger is associated with the example task on the task page.
 
 ## Task
 
@@ -85,5 +100,8 @@ This task copies the values of the current table to another table.
 
 This task deletes items based on the rule where specific fields in a table hold the same value as the items to delete.
 
-* `sourcetable` Holds items where same field value should be deleted in a specific table
-* `deleteontable` Holds the items which should be deleted
+* `sourcetable` Table containing the reference data sets
+* `deleteontable` Table containing the data sets to delete referenced by the source table
+* `fieldmap[]` Define match rules for the delete reference
+  * `source` Field holds the values to identify the elements to delete in the delete table
+  * `destination ` Field holds the value which are identified by the source field

@@ -247,7 +247,7 @@
       }
     },
     {
-      "trigger":"deletesameitems",
+      "trigger":"task-Bereinigunglauf",
       "condition":{},
       "task":{
         "name":"deletesameitems",
