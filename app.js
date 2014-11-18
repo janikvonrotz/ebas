@@ -27,24 +27,51 @@ if(header!=""){
 // table sorter
 LightTableSorter.init();
 
+// setup hidden dropdowns
+var classname="";
+var id=0;
+$('div.dropdowns select').each(function(){
+  // foreach cell where a selection with name equal class name exist
+  // replace content with
+  classname = $(this).attr('name');
+  // remove header from searchindex
+  options['valueNames'] = $.grep(options['valueNames'], function(value) {
+    return value != classname;
+  });
+  $('table td.'+classname).each(function(){
+    id = $(this).text();
+    $(this).text('');
+    $('div.dropdowns select[name='+classname+']').clone().appendTo($(this));
+    $(this).find('select option[value='+id+']').attr('selected','selected');
+  });
+});
+
 // insert row to table
 var tempIdcounter = -1;
 $("button.add-row").click(function() {
   var cells = "";
+  var celltext = "";
   // get dropdown code for this table
 
   $.each(header, function( index, value ) {
     if(index!=0 && (header.length - 1) != index){
 
       // check if dropdown code is available for field, if yes insert it as data
-      cells += '<td class="'+value+'" contenteditable="'+$('table th:contains("'+value+'")').attr('iscontenteditable')+'"></td>';
+      // $('div.dropdowns select[name='+value+']').val(0);
+      celltext = $('div.dropdowns select[name='+value+']').parent().clone().html();
+      if(!celltext){celltext = ""}
+      cells += '<td class="'+value+'" contenteditable="'+$('table th:contains("'+value+'")').attr('iscontenteditable')+'">'+celltext+'</td>';
     }
   });
+
+  // append generated html code
   $('table').prepend('<tr data-id="'+tempIdcounter+'">'+
   '<td class="'+header[0]+'" contenteditable="false"></td>'+cells+
   '<td><button type="button" class="btn btn-default btn-sm save-row"><i class="fa fa-save"></i></button> '+
   '<button type="button" class="btn btn-danger btn-sm delete-row"><i class="fa fa-trash-o"></i></button>'+
   '</td></tr>');
+
+  // id only once
   tempIdcounter -= 1;
 });
 
@@ -62,6 +89,7 @@ $('#btnDelteYes').click(function () {
       $.ajax({
         type: "POST",
         url:'change.php',
+        async: false,
         data: {'action':'delete','id':id,'table':document.title}
       });
     }
@@ -74,18 +102,23 @@ $('#btnDelteYes').click(function () {
 $("table").on('click', 'button.save-row', function() {
 
   var id = $(this).closest('tr').attr('data-id');
-  var method="insert";
-  var newid;
+  var method = "insert";
+  var newid = 0;
 
   // create json
   var json = {};
+  var selectid = 0;
   $(this).closest('tr').each (function(){
     $.each(this.cells, function(i){
         if(header[i]!="Edit"){
-          json[header[i]] = $(this).text();
+          if($(this).find('select').length){
+            selectid = $(this).find('select').val();
+          }else{
+            selectid = $(this).text();
+          }
+          json[header[i]] = selectid;
         }
     });
-    //json = JSON.stringify(json);
   });
 
   // run update if id is greater than 0
@@ -99,8 +132,7 @@ $("table").on('click', 'button.save-row', function() {
     success: function(response){
         newid=$.parseJSON(response).ID;
     },
-    failure: function(response) {
-        // alert("fail");
+    failure: function(response){
     }
   });
 

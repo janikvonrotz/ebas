@@ -34,6 +34,16 @@ if (array_key_exists('view', $_GET)){
 
           <h1 class="page-header"><?php echo $view; ?> <button type="button" class="btn btn-default add-row">
           <i class="fa fa-plus"></i></button></h1>
+
+          <div class="dropdowns hide">
+            <select name="Kurs">
+              <option value="19">Lausanne</option>
+              <option value="18">Sion</option>
+              <option value="4">Aarau</option>
+              <option value="6">Chur</option>
+            </select>
+          </div>
+
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
