@@ -3,6 +3,7 @@ include 'function.php';
 checkLogin();
 getHeader("ebas Hilfe");
 getNavigation();
+
 ?>
 
 <div class="container-fluid">
@@ -14,7 +15,8 @@ getNavigation();
 
         <div class="tableselects">
           <?php
-          foreach ($fields as $field){
+          $Config = getConfig();
+          foreach ($Config["tables"][2]["fields"] as $field){
             $drop = getDropdownHtmlByField($field);
             if($drop){echo $drop;}
           }

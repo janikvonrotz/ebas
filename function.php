@@ -44,7 +44,7 @@ function getDropdownHtmlByField($field){
     return $selecthtml;
   }
 
-  return null;
+  return 1;
 }
 
 // checks function for this field in the config and prcesses it
