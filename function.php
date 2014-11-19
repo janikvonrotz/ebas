@@ -28,23 +28,29 @@ function getDropdownHtmlByField($field){
     if ($result = mysqli_query($DB, $field["dropdownsql"])){
       $fieldcount = mysqli_field_count($DB);
       // create select html
-      $selecthtml = '<select class="'.$field["name"].'">';
-      while($row = @mysqli_fetch_array($result, MYSQLI_NUM)) {
+      $selecthtml = '<select name="'.$field["name"].'">';
+    $c = 0;
+      while($row = mysqli_fetch_array($result, MYSQLI_NUM)) {
+          $k = 0;
 
-        $selecthtml = $selecthtml.'<option value='.$row[0]."'";
-        // for($i=1; $i<$fieldcount; $i++){
-        //   $selecthtml = $selecthtml.$row[$i];
-        // }
+          while($k<sizeof($row)){
+            $Options[$c][$k] = utf8_encode($row[$k]);
+            $k++;
+        }
+        $selecthtml = $selecthtml.'<option value="'.$Options[$c][0].'">';
+        for($i=1; $i<$fieldcount; $i++){
+          $selecthtml = $selecthtml.$Options[$c][$i];
+
+        }
+        $c++;
       }
     }
     $selecthtml = $selecthtml."</select>";
-
     // close db and return html
     DBClose($DB);
     return $selecthtml;
   }
 
-  return 1;
 }
 
 // checks function for this field in the config and prcesses it

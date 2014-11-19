@@ -36,12 +36,12 @@ if (array_key_exists('view', $_GET)){
           <i class="fa fa-plus"></i></button></h1>
 
           <div class="dropdowns hide">
-            <select name="Kurs">
-              <option value="19">Lausanne</option>
-              <option value="18">Sion</option>
-              <option value="4">Aarau</option>
-              <option value="6">Chur</option>
-            </select>
+
+            <?php
+            foreach ($fields as $field){
+              echo getDropdownHtmlByField($field);
+            }
+            ?>
           </div>
 
           <div class="table-responsive">
@@ -158,7 +158,7 @@ if (array_key_exists('view', $_GET)){
   $conn = DBconnect();
   $Config = getConfig();
 
-  $sql = "SELECT bezeichnung_de, max_teilnehmer
+  $sql = "SELECT bezeichnung_de, max_teilnehmer, kurs_id
           FROM tbl_kurse_2014_2 WHERE kurs_datum >= DATE(NOW())";
 
   $result = mysqli_query($conn, $sql);
@@ -171,10 +171,9 @@ if (array_key_exists('view', $_GET)){
     while($row = mysqli_fetch_assoc($result)){
         $Data[$c][0] = utf8_encode($row['bezeichnung_de']);
         $Data[$c][1] = utf8_encode($row['max_teilnehmer']);
+        $Data[$c][2] = $row['kurs_id'];
         $c++;
     }
-
-
  ?>
 
 <div class="container-fluid">
@@ -196,25 +195,22 @@ if (array_key_exists('view', $_GET)){
 <?php
 $z = 0;
 while($z<sizeof($Data)){
-  $sql = 'SELECT anmeldung_id, name, vorname, email, adresse, plz, ort, k.max_teilnehmer
-          FROM tbl_anmeldungen_2014_2 as a
-          JOIN tbl_kurse_2014_2 as k on k.kurs_id = a.kurs
-          WHERE k.bezeichnung_de = "'.$Data[$z][0].'"';
+  $sql1 = "SELECT anmeldung_id, name, vorname, email, adresse, plz, ort, k.max_teilnehmer
+            FROM tbl_anmeldungen_2014_2 as a
+            JOIN tbl_kurse_2014_2 as k on k.kurs_id = a.kurs
+            WHERE k.kurs_id = ".$Data[$z][2] ;
 
-  $result = mysqli_query($conn, $sql);
-
-  if(! $result ){
+  $result1 = mysqli_query($conn, $sql1);
+  if(! $result1 ){
     die('Could not get data: ' . mysql_error());
   }
 
-        $sql = 'SELECT COUNT(*)
+        $sql2 = "SELECT COUNT(*)
                 FROM tbl_anmeldungen_2014_2 as a
                 JOIN tbl_kurse_2014_2 as k on k.kurs_id = a.kurs
-                WHERE k.bezeichnung_de ="'.$Data[$z][0].'"';
-
-        $result2 = mysqli_query($conn, $sql);
+                WHERE k.kurs_id =".$Data[$z][2];
+        $result2 = mysqli_query($conn, $sql2);
         $row2 = mysqli_fetch_assoc($result2);
-
 
 ?>
 <div class="panel panel-default">
@@ -241,15 +237,14 @@ while($z<sizeof($Data)){
   </thead>
   <?php
     $k = 0;
-    while($row = mysqli_fetch_assoc($result)){
-      $Data2[0] = $row["anmeldung_id"];
-      $Data2[1] = $row["name"];
-      $Data2[2] = $row["vorname"];
-      $Data2[3] = $row["email"];
-      $Data2[4] = $row["adresse"];
-      $Data2[5] = $row["plz"];
-      $Data2[6] = $row["ort"];
-
+    while($row1 = mysqli_fetch_array($result1, MYSQL_ASSOC)){
+      $Data2[0] = $row1["anmeldung_id"];
+      $Data2[1] = $row1["name"];
+      $Data2[2] = $row1["vorname"];
+      $Data2[3] = $row1["email"];
+      $Data2[4] = $row1["adresse"];
+      $Data2[5] = $row1["plz"];
+      $Data2[6] = $row1["ort"];
   ?>
   <tbody class="list">
     <tr data-id="1">
