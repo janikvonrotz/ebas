@@ -3,6 +3,16 @@ ebas
 
 ebas is a lightweight user friendly mysql content manager.
 
+# Live Demo
+
+Url: https://janikvonrotz.ch/ebas
+Login with  
+User `admin@ebas.ch`  
+Password `ebas`  
+Or  
+User `login@ebas.ch`  
+Password `ebas`  
+
 # Requirements
 
 To make this application work with your existing database, it has to meet the follwing requirements:
