@@ -13,6 +13,8 @@ getNavigation();
 
         <h1 class="page-header">Hilfe</h1>
 
+        <p>Hilfetext hier</p>
+
       </div>
       <div class="col-md-2"></div>
   </div>

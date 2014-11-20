@@ -5,11 +5,10 @@ ebas is a lightweight user friendly mysql content manager.
 
 # Requirements
 
-To make this application work with your database it has to meet the follwing requirements:
+To make this application work with your existing database, it has to meet the follwing requirements:
 
 * ID must be the first field on every table
 * ID must be an Auto Increment
-* No foreign keys (working on it)
 
 # Install
 
@@ -25,9 +24,9 @@ If you have installed all these tools, start to set up the project from your com
 `grunt`
 
 The application is now ready to run.
-As you should have seen this guide doesn't cover any webserver nor mysql installations. You have to do that on your own.  
-Now it's time to configure the configuration file so the application works with your database.  
-Create a copy of the config file and update it (see Config chapter).  
+As you should have seen this guide doesn't cover any webserver nor mysql installations. You have to do that on your own. Checkout the guide from [Janik von Rotz](https://janikvonrotz.ch/your-own-virtual-private-server-hosting-solution/).  
+Now it's time to edit the configuration file so the application works with your database.  
+Create a copy of the config file and update it (see next chapter).  
 
 `config-example.json > config.json`
 
@@ -38,12 +37,12 @@ Update `config.json` based on your database fields and functions.
 * `user` MySQL database user  
 * `password` MySQL database user password  
 * `server` MySQL database servername  
-* `database` MySQL database containing the data to display  
-* `table[]` Contain configuration foreach table to display  
+* `database` MySQL database containing the tables to display  
+* `table[]` Contains a configuration part for each table to display  
 
 ## Table
 
-* `name` Displayname of your choice for the table  
+* `name` Displayname for the table of your choice  
 * `sqlname` SQL table name  
 * `sqlstart` Start of SELECT query for this table  
 * `options` Display options for this table  
@@ -54,8 +53,9 @@ Update `config.json` based on your database fields and functions.
 
 ## Fields
 
-* `name` Displayname of your choice for the field  
+* `name` Displayname for the field of your choice  
 * `sqlname` SQL field name  
+* `sqldropdown` Contains a SELECT statement, which acts as a foreign key display in the end. The first field has to be the ID of the foreign table, the foreign key in this field then will be replaced by a dropdown list containing the other fields of this statement.
 * `options` Display and process options for this field  
   * `contenteditable` Allow edit on this field  
   * `runfunctiononce` Run the process function only once  
@@ -64,13 +64,13 @@ Update `config.json` based on your database fields and functions.
 ## Events
 
 Events are tasks with different conditions that can be triggered on specific actions.  
-In your PHP code you can add an Trigger with the following snippet:  
+In the PHP code you can add a trigger with the following snippet:  
 
 ```$result = runEvents("tablename","task-Bereinigunglauf",elementid);```
 
 Then in the config file you have to associate the trigger with optional conditions and a task.  
 
-* `trigger` Name of the event, used to trigger on specific locations in the code
+* `trigger` Name of the event, which is being triggered on specific locations in the code
 * `condition` Contains conditions that have be true in order to run the event task
   * `istable` Condition where table name must be the value
 * `task` Definition of the event task
@@ -101,7 +101,7 @@ This task copies the values of the current table to another table.
 This task deletes items based on the rule where specific fields in a table hold the same value as the items to delete.
 
 * `sourcetable` Table containing the reference data sets
-* `deleteontable` Table containing the data sets to delete referenced by the source table
+* `deleteontable` Table containing the data sets to delete, referenced by the source table
 * `fieldmap[]` Define match rules for the delete reference
-  * `source` Field holds the values to identify the elements to delete in the delete table
+  * `source` Field holds the values to identify the elements for Deletion in the delete table
   * `destination ` Field holds the value which are identified by the source field

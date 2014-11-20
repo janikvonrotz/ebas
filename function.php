@@ -1,7 +1,7 @@
 <?php
 include 'events.php';
 
-// helpers
+// helper functions
 function getTableByName($name){
   $Config = getConfig();
   foreach($Config["tables"] as $table){
@@ -21,36 +21,36 @@ function getFieldByName($fields,$name){
 // create the dropdown html data for a field
 function getDropdownHtmlByField($field){
 
-  // <select><option value="kurs_id">bezeichnung_de</option><option...</option></select>
-
+  // Template: <select name="Kurs"><option value="kurs_id">bezeichnung_de</option><option...</option></select>
   if(array_key_exists('dropdownsql', $field)){
     $DB = DBConnect();
     if ($result = mysqli_query($DB, $field["dropdownsql"])){
       $fieldcount = mysqli_field_count($DB);
+
       // create select html
       $selecthtml = '<select name="'.$field["name"].'">';
-    $c = 0;
-      while($row = mysqli_fetch_array($result, MYSQLI_NUM)) {
-          $k = 0;
 
-          while($k<sizeof($row)){
-            $Options[$c][$k] = utf8_encode($row[$k]);
-            $k++;
+      // create options
+      $c = 0;
+      while($row = mysqli_fetch_array($result, MYSQLI_NUM)) {
+        $k = 0;
+        while($k<sizeof($row)){
+          $Options[$c][$k] = utf8_encode($row[$k]);
+          $k++;
         }
         $selecthtml = $selecthtml.'<option value="'.$Options[$c][0].'">';
         for($i=1; $i<$fieldcount; $i++){
           $selecthtml = $selecthtml.$Options[$c][$i];
-
         }
         $c++;
       }
     }
     $selecthtml = $selecthtml."</select>";
+
     // close db and return html
     DBClose($DB);
     return $selecthtml;
   }
-
 }
 
 // checks function for this field in the config and prcesses it
@@ -77,7 +77,6 @@ function getConfigProcessedValue($Data, $table, $fields, $field, $Value){
     if($Data["ID"]){
 
       $conn = DBConnect();
-
       $sqldbvalue = "SELECT ".$field["sqlname"]." FROM ".$table["sqlname"]." WHERE ".$fields[0]["sqlname"]."=".$Data["ID"];
       $result = mysqli_query($conn, $sqldbvalue);
       $row = mysqli_fetch_array($result, MYSQL_ASSOC);
@@ -86,17 +85,9 @@ function getConfigProcessedValue($Data, $table, $fields, $field, $Value){
       DBClose($conn);
     }
 
-    // // get the function value processed by MySQL
-    // $sqlfunctionvalue = "SELECT ".str_replace("%VALUE%", "'".$Value."'", $field['function'])." AS value";
-    // $result = mysqli_query($conn, $sqlfunctionvalue);
-    // $row = mysqli_fetch_array($result, MYSQL_ASSOC);
-    // $functionvalue = $row["value"];
-    //
-    // echo "Value:".$Value. " DBValue:".$dbvalue." FunctionValue:".$functionvalue;
-
-
     // only runfunction if value is not equal value in DB
     if($Value != $dbvalue || $Value==null){
+
       // check wether to run the function once or always
       if((substr_count($options, 'runfunctiononce') > 0) && ($Value == null)){
         $Value = str_replace("%VALUE%", "'".$Value."'", $field['function']);
@@ -108,6 +99,7 @@ function getConfigProcessedValue($Data, $table, $fields, $field, $Value){
     }else{
       $Value = "'".$Value."'";
     }
+
   // otherwhise simply insert the given value
   }else{
     $Value = "'".$Value."'";
@@ -119,8 +111,8 @@ function getConfigProcessedValue($Data, $table, $fields, $field, $Value){
 // every php is only accessable with a valid session
 function checkLogin(){
   session_start();
-
   if (!$_SESSION["user"]){
+
     // User not logged in, redirect to login page
     Header("Location: login.php");
   }
@@ -128,12 +120,9 @@ function checkLogin(){
 
 // returns array with json data
 function getConfig(){
-
   $JsonData = file_get_contents("config.json");
   $Config = json_decode($JsonData,true);
-
   return $Config;
-
 }
 
 // returns db connect object
@@ -143,11 +132,9 @@ function DBConnect(){
 
   // Create connection
   $conn = mysqli_connect($Config["server"], $Config["user"], $Config["password"], $Config["database"]);
-
   if (mysqli_connect_errno()) {
     echo "Failed to connect to Server: " . mysqli_connect_error();
   }
-
   return $conn;
 }
 
@@ -291,33 +278,35 @@ function getTable($view){
         // sql query start
         $sql = $table["sqlstart"];
         $fields = $table["fields"];
+
         // cycle through fields of the table
         foreach ($fields as $field){
-          // check if the field contains a dropdown, execute the statement and save the result for the datatable
 
           // change the header of the field
           $sql = $sql.$field["sqlname"]." AS '".$field["name"]."'";
+
           // seperate the definitons with commas
           if($fields[count($fields) - 1]["name"] != $field["name"]){
             $sql = $sql.", ";
           }
         };
+
         // finish the sql statement
         $sql = $sql.$table["sqlend"];
       }}
     }
   }
   $result = mysqli_query($conn, $sql);
-  if(! $result ){;
+  if(!$result ){;
     die('Could not get data: ' . mysql_error());
   }
 
+  // counters for two-dimensional data array
   $i = 0;
   $i2 = 0;
 
   // set headers for datatable
   foreach ($fields as $field){
-
     $data[$i][$i2] = utf8_encode($field["name"]);
     ++$i2;
   }
@@ -325,7 +314,6 @@ function getTable($view){
 
   // set content for datatable
   while($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
-
     $i3 = 0;
 
     // get the mysql data foreach row and header
@@ -333,9 +321,7 @@ function getTable($view){
       $fieldname = $field["sqlname"];
 
       // if the field is part of the dropdown query output the content as <select><option>
-
       $data[$i][$i3] = utf8_encode($row[$field["name"]]);
-
       ++$i3;
     }
     ++$i;
@@ -344,5 +330,4 @@ function getTable($view){
   return $data;
   mysqli_close($conn);
 }
-// go Janik
 ?>

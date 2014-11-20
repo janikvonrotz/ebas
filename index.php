@@ -5,11 +5,11 @@ checkLogin();
 
 if (array_key_exists('view', $_GET)){
 
+  // get name of table to show
   $view = $_GET['view'];
 
   foreach ($Config["tables"] as $table){
     if($table["name"] == $view){
-
       $data = getTable($table["name"]);
       $fields = $table["fields"];
       $page = $table["name"];
@@ -20,14 +20,10 @@ if (array_key_exists('view', $_GET)){
   getNavigation();
 ?>
 
-  <!-- ###content -->
-
   <div class="container-fluid">
       <div class="row">
         <div class="col-md-12">
-    <!-- <button type="button" class="btn btn-default export-csv">
-      <span class="glyphicon glyphicon-floppy-save"></span> CSV
-    </button> -->
+
           <button type="button" class="btn btn-default refresh-page pull-right">
           <i class="fa fa-refresh"></i> Refresh
           </button>
@@ -81,12 +77,13 @@ if (array_key_exists('view', $_GET)){
                   $c = 1;
                   // write id [1][0]
                   echo '<tr data-id="'.$data[($r+1)][0].'">';
+
                   // write header in classname 0-0 and id 1-0
                   echo '<td class="'.$data[0][0].'" contenteditable="false">'.$data[($r+1)][0].'</td>';
 
                   while ($c<$arr_wide){
-                    // write content 1-n and class header 0-0
 
+                    // write content 1-n and class header 0-0
                     // check wether field is editable or not
                     foreach($fields as $field){
                       if($field["name"]==$data[0][$c]){
@@ -131,24 +128,18 @@ if (array_key_exists('view', $_GET)){
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                  <h3 class="modal-title" id="myModalLabel">Bitte bestätigen</h3>
-
             </div>
             <div class="modal-body">
                  <h4>Sind Sie sicher, dass sie diesen Datensatz löschen wollen?</h4>
-
             </div>
-            <!--/modal-body-collapse -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" id="btnDelteYes" href="#">Ja</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Nein</button>
             </div>
-            <!--/modal-footer-collapse -->
         </div>
-        <!-- /.modal-content -->
     </div>
-    <!-- /.modal-dialog -->
 </div>
-<!-- /.modal -->
+
 
 <?php }else{
 
@@ -181,9 +172,6 @@ if (array_key_exists('view', $_GET)){
       <div class="col-md-2"></div>
       <div class="col-md-8">
 
-  <!-- <button type="button" class="btn btn-default export-csv">
-    <span class="glyphicon glyphicon-floppy-save"></span> CSV
-  </button> -->
         <button type="button" class="btn btn-default refresh-page pull-right">
         <i class="fa fa-refresh"></i> Refresh
         </button>
@@ -193,6 +181,7 @@ if (array_key_exists('view', $_GET)){
 <div class="panel-group" id="accordion">
 
 <?php
+
 $z = 0;
 while($z<sizeof($Data)){
   $sql1 = "SELECT anmeldung_id, name, vorname, email, adresse, plz, ort, k.max_teilnehmer
@@ -205,14 +194,15 @@ while($z<sizeof($Data)){
     die('Could not get data: ' . mysql_error());
   }
 
-        $sql2 = "SELECT COUNT(*)
-                FROM tbl_anmeldungen_2014_2 as a
-                JOIN tbl_kurse_2014_2 as k on k.kurs_id = a.kurs
-                WHERE k.kurs_id =".$Data[$z][2];
-        $result2 = mysqli_query($conn, $sql2);
-        $row2 = mysqli_fetch_assoc($result2);
+$sql2 = "SELECT COUNT(*)
+        FROM tbl_anmeldungen_2014_2 as a
+        JOIN tbl_kurse_2014_2 as k on k.kurs_id = a.kurs
+        WHERE k.kurs_id =".$Data[$z][2];
+$result2 = mysqli_query($conn, $sql2);
+$row2 = mysqli_fetch_assoc($result2);
 
 ?>
+
 <div class="panel panel-default">
   <div class="panel-heading">
     <h4 class="panel-title">
@@ -235,6 +225,7 @@ while($z<sizeof($Data)){
       <th>Adresse</th>
     </tr>
   </thead>
+
   <?php
     $k = 0;
     while($row1 = mysqli_fetch_array($result1, MYSQL_ASSOC)){
@@ -246,6 +237,7 @@ while($z<sizeof($Data)){
       $Data2[5] = $row1["plz"];
       $Data2[6] = $row1["ort"];
   ?>
+  
   <tbody class="list">
     <tr data-id="1">
       <td class="ID" contenteditable="false"><?php echo $Data2[0]; ?></td>

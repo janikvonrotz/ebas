@@ -6,16 +6,13 @@ if(array_key_exists('task', $_POST)){
   $taskname = $_POST['task'];
 
   if($taskname=='Bereinigungslauf'){
-
       $result = runEvents("","task-Bereinigunglauf",0);
 
       // return amount of delete rows
       $response["count"]=$result;
       echo json_encode($response);
   }
-
 }else{
-
   getHeader("ebas Aufgaben");
   getNavigation();
 ?>

@@ -7,10 +7,12 @@ header('Content-type: application/json');
 if(array_key_exists('id', $_POST)){
   $id = $_POST['id'];
 }
+
 // either insert, delete or update
 if(array_key_exists('action', $_POST)){
   $action = $_POST['action'];
 }
+
 // contains table name
 if(array_key_exists('table', $_POST)){
   $table = $_POST['table'];
@@ -32,8 +34,10 @@ if($action == "delete"){
 
   $sql ="DELETE FROM ".$table["sqlname"]." WHERE ".$fields[0]["sqlname"]." = ".$id;
 
+  // run RowDelete even
   $null = runEvents($table["name"],"RowDelete",$id);
 
+  // run query with response
   if($result = mysqli_query($conn, $sql)){
     $response['status'] = 'success';
   }else {
@@ -46,8 +50,10 @@ if($action == "delete"){
 // Update item
 }elseif($action == "update"){
 
+  // get row data
   $Data = $_POST['data'];
 
+  // create update query
   $sql = 'UPDATE '.$table["sqlname"].' SET ';
   foreach($fields as $field){
     if($fields[0]["name"] != $field["name"]){
@@ -64,6 +70,7 @@ if($action == "delete"){
   }
   $sql = $sql.' WHERE '.$fields[0]["sqlname"].'='.$Data["ID"];
 
+  // run query with response
   if($result = mysqli_query($conn, $sql)){
     $response['status'] = 'success';
   }else{
@@ -76,6 +83,7 @@ if($action == "delete"){
 // insert new item
 }elseif($action == "insert"){
 
+  // get row data
   $Data = $_POST['data'];
 
   $sql = 'INSERT INTO '.$table["sqlname"].'(';
@@ -87,6 +95,7 @@ if($action == "delete"){
       }
     }
   }
+
   $sql = $sql.") VALUES(";
   foreach($fields as $field){
     if($fields[0]["name"] != $field["name"]){
@@ -104,13 +113,14 @@ if($action == "delete"){
   }
   $sql = $sql.")";
 
+  // run query with response
   if($result = mysqli_query($conn, $sql)){
     $response['status'] = 'success';
   }else {
     $response['status'] = 'error';
     $response['errormessage'] = mysqli_error($conn);
   }
-  // response with id
+  // add new id to response
   $response["ID"]=mysqli_insert_id($conn);
   echo json_encode($response);
   mysqli_close($conn);
