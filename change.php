@@ -1,6 +1,7 @@
 <?php
 include 'function.php';
 checkLogin();
+header('Content-type: application/json');
 
 // contains id for delete and update methods
 if(array_key_exists('id', $_POST)){
@@ -31,9 +32,15 @@ if($action == "delete"){
 
   $sql ="DELETE FROM ".$table["sqlname"]." WHERE ".$fields[0]["sqlname"]." = ".$id;
 
-  $response = runEvents($table["name"],"RowDelete",$id);
+  $null = runEvents($table["name"],"RowDelete",$id);
 
-  mysqli_query($conn, $sql);
+  if($result = mysqli_query($conn, $sql)){
+    $response['status'] = 'success';
+  }else {
+    $response['status'] = 'error';
+    $response['errormessage'] = mysqli_error($conn);
+  }
+  echo json_encode($response);
   mysqli_close($conn);
 
 // Update item
@@ -57,7 +64,13 @@ if($action == "delete"){
   }
   $sql = $sql.' WHERE '.$fields[0]["sqlname"].'='.$Data["ID"];
 
-  mysqli_query($conn, $sql);
+  if($result = mysqli_query($conn, $sql)){
+    $response['status'] = 'success';
+  }else{
+    $response['status'] = 'error';
+    $response['errormessage'] = mysqli_error($conn);
+  }
+  echo json_encode($response);
   mysqli_close($conn);
 
 // insert new item
@@ -91,7 +104,12 @@ if($action == "delete"){
   }
   $sql = $sql.")";
 
-  mysqli_query($conn, $sql);
+  if($result = mysqli_query($conn, $sql)){
+    $response['status'] = 'success';
+  }else {
+    $response['status'] = 'error';
+    $response['errormessage'] = mysqli_error($conn);
+  }
   // response with id
   $response["ID"]=mysqli_insert_id($conn);
   echo json_encode($response);

@@ -42,7 +42,7 @@ $('div.dropdowns select').each(function(){
     id = $(this).text();
     $(this).text('');
     $('div.dropdowns select[name='+classname+']').clone().appendTo($(this));
-    $(this).find('select option[value='+id+']').attr('selected','selected');
+    $(this).find('select option[value="'+id+'"]').attr('selected','selected');
   });
 });
 
@@ -58,7 +58,7 @@ $("button.add-row").click(function() {
 
       // check if dropdown code is available for field, if yes insert it as data
       // $('div.dropdowns select[name='+value+']').val(0);
-      celltext = $('div.dropdowns select[name='+value+']').parent().clone().html();
+      celltext = $('div.dropdowns select[name="'+value+'"]').parent().clone().html();
       if(!celltext){celltext = ""}
       cells += '<td class="'+value+'" contenteditable="'+$('table th:contains("'+value+'")').attr('iscontenteditable')+'">'+celltext+'</td>';
     }
@@ -90,7 +90,13 @@ $('#btnDelteYes').click(function () {
         type: "POST",
         url:'change.php',
         async: false,
-        data: {'action':'delete','id':id,'table':document.title}
+        data: {'action':'delete','id':id,'table':document.title},
+        success: function(response){
+          if(response.status == 'success'){
+          }else if(response.status == 'error'){
+            alert("Error occured!: "+response.errormessage +"\nPlease refresh the page.");
+          }
+        }
       });
     }
     $('[data-id=' + id + ']').remove();
@@ -130,9 +136,11 @@ $("table").on('click', 'button.save-row', function() {
     async: false,
     data: {'action':method,'id':id,'table':document.title,'data':json},
     success: function(response){
-        newid=$.parseJSON(response).ID;
-    },
-    failure: function(response){
+      if(response.status == 'success'){
+        newid=response.ID;
+      }else if(response.status == 'error'){
+        alert("Error occured!: "+response.errormessage +"\nPlease refresh the page.");
+      }
     }
   });
 
@@ -158,9 +166,11 @@ $('button.run-task').click(function(){
     async: false,
     data: {'task':"Bereinigungslauf"},
     success: function(response){
-        counter = $.parseJSON(response).count;
-    },
-    failure: function(response) {
+      if(response.status == 'success'){
+        counter = response.count;
+      }else if(response.status == 'error'){
+        alert("Error occured!: "+response.errormessage +"\nPlease refresh the page.");
+      }
     }
   });
 
