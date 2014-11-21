@@ -230,14 +230,14 @@ $row2 = mysqli_fetch_assoc($result2);
     $k = 0;
     while($row1 = mysqli_fetch_array($result1, MYSQL_ASSOC)){
       $Data2[0] = $row1["anmeldung_id"];
-      $Data2[1] = $row1["name"];
-      $Data2[2] = $row1["vorname"];
-      $Data2[3] = $row1["email"];
-      $Data2[4] = $row1["adresse"];
+      $Data2[1] = utf8_encode($row1["name"]);
+      $Data2[2] = utf8_encode($row1["vorname"]);
+      $Data2[3] = utf8_encode($row1["email"]);
+      $Data2[4] = utf8_encode($row1["adresse"]);
       $Data2[5] = $row1["plz"];
-      $Data2[6] = $row1["ort"];
+      $Data2[6] = utf8_encode($row1["ort"]);
   ?>
-  
+
   <tbody class="list">
     <tr data-id="1">
       <td class="ID" contenteditable="false"><?php echo $Data2[0]; ?></td>
