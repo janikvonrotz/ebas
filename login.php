@@ -39,7 +39,7 @@ if (array_key_exists('mode', $_GET)){
 
     // compare username and password with DB table
     $sql = $logintable["sqlstart"]."*".$logintable["sqlend"]
-          ." WHERE `".$userfield["sqlname"]."`='".mysqli_real_escape_string($_POST["email"])."'"
+          ." WHERE `".$userfield["sqlname"]."`='".mysqli_real_escape_string($conn, $_POST["email"])."'"
           ." AND `".$passwordfield["sqlname"]."`='".sha1($_POST["password"])."'"
           ." LIMIT 1";
 
