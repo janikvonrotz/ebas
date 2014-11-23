@@ -167,7 +167,7 @@ $('button.run-task').click(function(){
     data: {'task':"Bereinigungslauf"},
     success: function(response){
       if(response.status == 'success'){
-        counter = response.count;
+        counter = response.counter;
       }else if(response.status == 'error'){
         alert("Error occured!: "+response.errormessage +"\nPlease refresh the page.");
       }

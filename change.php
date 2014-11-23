@@ -116,12 +116,12 @@ if($action == "delete"){
   // run query with response
   if($result = mysqli_query($conn, $sql)){
     $response['status'] = 'success';
+    // add new id to response
+    $response['ID'] = mysqli_insert_id($conn);
   }else {
     $response['status'] = 'error';
     $response['errormessage'] = mysqli_error($conn);
   }
-  // add new id to response
-  $response["ID"]=mysqli_insert_id($conn);
   echo json_encode($response);
   mysqli_close($conn);
 }

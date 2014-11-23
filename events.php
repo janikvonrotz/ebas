@@ -104,10 +104,16 @@ function runEvents($tablename,$trigger,$id){
               $sqldelete = $sqldelete." && ";
             }
           }
-
+          
           // run the statement
-          mysqli_query($conn, $sqldelete);
-          return mysqli_affected_rows($conn);
+          if($result = mysqli_query($conn, $sqldelete)){
+            $response['status'] = 'success';
+            $response['counter'] = mysqli_affected_rows($conn);
+          }else {
+            $response['status'] = 'error';
+            $response['errormessage'] = mysqli_error($conn);
+          }
+          return $response;
         }
       }
     }
