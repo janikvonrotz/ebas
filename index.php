@@ -24,9 +24,14 @@ if (array_key_exists('view', $_GET)){
       <div class="row">
         <div class="col-md-12">
 
-          <button type="button" class="btn btn-default refresh-page pull-right">
-          <i class="fa fa-refresh"></i> Refresh
-          </button>
+          <div class="btn-group pull-right " role="group" aria-label="...">
+            <button type="button" class="btn btn-default refresh-page">
+            <i class="fa fa-refresh"></i> Refresh
+            </button>
+            <button type="button" class="btn btn-default export-csv">
+            <i class="fa fa-download"></i> Export
+            </button>
+          </div>
 
           <h1 class="page-header"><?php echo $view; ?> <button type="button" class="btn btn-default add-row">
           <i class="fa fa-plus"></i></button></h1>
