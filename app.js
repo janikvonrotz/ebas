@@ -263,11 +263,22 @@ $.fn.table2CSV = function(options){
   // add link to csv file
   function showCSV(data) {
     // add link to csv file to page
-    var encodedUri = encodeURI(data);
-    var link = document.createElement("a");
-    link.setAttribute("href", "data:text/csv;charset=utf-8,"+encodedUri);
-    link.setAttribute("download", document.title+".csv");
-    link.click();
+    var blob = new Blob([data], { type: 'text/csv;charset=utf-8;' });
+    if (navigator.msSaveBlob) { // IE 10+
+      navigator.msSaveBlob(blob, document.title+".csv");
+    }else{
+      var link = document.createElement("a");
+      if (link.download !== undefined) { // feature detection
+        // Browsers that support HTML5 download attribute
+        var url = URL.createObjectURL(blob);
+        link.setAttribute("href", url);
+        link.setAttribute("download", document.title+".csv");
+        link.style = "visibility:hidden";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+    }
   }
 }
 
