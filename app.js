@@ -230,6 +230,8 @@ function exportTableToCSV($table, filename){
 }
 
 jQuery.fn.table2CSV = function(options) {
+
+  // get function options
   var options = jQuery.extend({
     separator: ',',
     header: [],
@@ -243,44 +245,57 @@ jQuery.fn.table2CSV = function(options) {
 
   //header
   var numCols = options.header.length;
-  var tmpRow = []; // construct header avalible array
+  var tmpRow = [];
 
+  // construct header avalible array
   if (numCols > 0) {
     for (var i = 0; i < numCols; i++) {
       tmpRow[tmpRow.length] = formatData(options.header[i]);
     }
-  } else {
+  }else{
     $(el).filter(':visible').find('th').each(function() {
       if ($(this).css('display') != 'none') tmpRow[tmpRow.length] = formatData($(this).html());
     });
   }
 
+  // add to row to csv
   row2CSV(tmpRow);
 
   // actual data
   $(el).find('tr').each(function() {
     var tmpRow = [];
-    $(this).filter(':visible').find('td').each(function() {
-      if ($(this).css('display') != 'none') tmpRow[tmpRow.length] = formatData($(this).html());
+    $(this).filter(':visible').find('td').each(function(){
+      // get select id
+      if($(this).find('select').length){
+        content = $(this).find('select').val();
+      }else{
+        content = $(this).html();
+      }
+      if($(this).css('display') != 'none'){
+        tmpRow[tmpRow.length] = formatData(content);
+      }
     });
     row2CSV(tmpRow);
   });
   if (options.delivery == 'popup') {
     var mydata = csvData.join('\n');
     return popup(mydata);
-  } else {
+  }else{
     var mydata = csvData.join('\n');
     return mydata;
   }
 
+  // function to generate csv from different rows
   function row2CSV(tmpRow) {
-    var tmp = tmpRow.join('') // to remove any blank rows
-    // alert(tmp);
+    var tmp = tmpRow.join('');
+    // to remove any blank rows
     if (tmpRow.length > 0 && tmp != '') {
       var mystr = tmpRow.join(options.separator);
       csvData[csvData.length] = mystr;
     }
   }
+
+  // remove invalid characters
   function formatData(input) {
     // replace " with â€œ
     var regexp = new RegExp(/["]/g);
@@ -291,8 +306,10 @@ jQuery.fn.table2CSV = function(options) {
     if (output == "") return '';
     return '"' + output + '"';
   }
+
+  // create a popup with the csv data
   function popup(data) {
-    var generator = window.open('', 'csv', 'height=400,width=600');
+    var generator = window.open('', 'csv', 'height=270,width=540');
     generator.document.write('<html><head><title>CSV</title>');
     generator.document.write('</head><body >');
     generator.document.write('<textArea cols=70 rows=15 wrap="off" >');
