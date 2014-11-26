@@ -105,7 +105,7 @@ if (array_key_exists('view', $_GET)){
                     }
 
                     // Write content
-                    echo '<td class="'.$data[0][$c].'" contenteditable="'.$contenteditable.'">'.$data[($r+1)][$c].'</td>';
+                    echo '<td class="'.$data[0][$c].'"><div style="height: "100%"; width: "100%";" contenteditable="'.$contenteditable.'">'.$data[($r+1)][$c].'</div></td>';
                     $c++;
                   }
 
