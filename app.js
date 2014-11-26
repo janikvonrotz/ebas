@@ -60,7 +60,7 @@ $("button.add-row").click(function(){
       // $('div.dropdowns select[name='+value+']').val(0);
       celltext = $('div.dropdowns select[name="'+value+'"]').parent().clone().html();
       if(!celltext){celltext = ""}
-      cells += '<td class="'+value+'" contenteditable="'+$('table th:contains("'+value+'")').attr('iscontenteditable')+'">'+celltext+'</td>';
+      cells += '<td class="'+value+'"><div style="height: "100%"; width: "100%";" contenteditable="'+$('table th:contains("'+value+'")').attr('iscontenteditable')+'">'+celltext+'</div></td>';
     }
   });
 
