@@ -230,6 +230,7 @@ $row2 = mysqli_fetch_assoc($result2);
       <th>Adresse</th>
     </tr>
   </thead>
+  <tbody class="list">
 
   <?php
     $k = 0;
@@ -243,7 +244,6 @@ $row2 = mysqli_fetch_assoc($result2);
       $Data2[6] = utf8_encode($row1["ort"]);
   ?>
 
-  <tbody class="list">
     <tr data-id="1">
       <td class="ID" contenteditable="false"><?php echo $Data2[0]; ?></td>
       <td class="Name" contenteditable="false"><?php echo $Data2[1]; ?></td>
@@ -251,11 +251,11 @@ $row2 = mysqli_fetch_assoc($result2);
       <td class="E-Mail" contenteditable="false"><?php echo $Data2[3]; ?></td>
       <td class="Adresse" contenteditable="false"><?php echo $Data2[4].', '.$Data2[5].' '.$Data2[6]; ?></td>
     </tr>
-  </tbody>
   <?php
     $k++;
   }
   ?>
+</tbody>
 </table>
 </div>
 
