@@ -155,7 +155,7 @@ if (array_key_exists('view', $_GET)){
   $Config = getConfig();
 
   $sql = "SELECT bezeichnung_de, max_teilnehmer, kurs_id
-          FROM tbl_kurse_2014_2 WHERE kurs_datum >= DATE(NOW())";
+          FROM tbl_kurse_2014_2 WHERE kurs_datum >= DATE(NOW()) ORDER BY kurs_datum";
 
   $result = mysqli_query($conn, $sql);
 
