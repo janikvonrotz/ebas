@@ -3,6 +3,8 @@ ebas
 
 ebas is a lightweight user friendly mysql content manager.
 
+![](https://janikvonrotz.ch/wp-content/uploads/2014/12/ebas-table-edit-view.png)
+
 # Live Demo
 
 Url: https://janikvonrotz.ch/ebas  
