@@ -15,6 +15,17 @@ Or
 User `login@ebas.ch`  
 Password `ebas`  
 
+# Features
+
+* Ecxcel like table edit 
+* Authentication for editor and admin users
+* Export data to CSV
+* Simple sort and search functionality
+* Add custom events for your workflow
+* Customizable dropdown for foreign key resolution
+* Everything is customizable (see config chapter)
+* Responsive and touch friendly
+
 # Requirements
 
 To make this application work with your existing database, it has to meet the follwing requirements:
