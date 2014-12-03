@@ -17,7 +17,7 @@ Password `ebas`
 
 # Features
 
-* Ecxcel like table edit 
+* Excel like table edit 
 * Authentication for editor and admin users
 * Export data to CSV
 * Simple sort and search functionality
