@@ -49,9 +49,23 @@ If you have installed all these tools, start to set up the project from your com
 The application is now ready to run.
 As you should have seen this guide doesn't cover any webserver nor mysql installations. You have to do that on your own. Checkout the guide from [Janik von Rotz](https://janikvonrotz.ch/your-own-virtual-private-server-hosting-solution/).  
 Now it's time to edit the configuration file so the application works with your database.  
-Create a copy of the config file and update it (see next chapter).  
+Create a copy of the config file and update it (see the Config chapter).  
 
 `config-example.json > config.json`
+
+# Security
+
+At this point you have to consider security restrictions. It's very important that you prevent the configuration files from being access.
+We recommand you to use at least the following Nginx access rules:
+```
+location ~* \.(json)$ {
+    deny all;
+}
+location ~* /(node_modules|bower_components)/ {
+    deny all;
+}
+```
+This configuration will restrict access to any .json configuration files of this project and also denys access the development folders, which might contain code you are not aware of.
 
 # Config
 
