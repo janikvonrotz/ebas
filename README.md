@@ -5,15 +5,15 @@ ebas is a lightweight user friendly mysql content manager.
 
 ![](https://janikvonrotz.ch/wp-content/uploads/2014/12/ebas-table-edit-view.png)
 
-# Live Demo
+# ~~Live Demo~~
 
-Url: https://janikvonrotz.ch/ebas  
+Url: ~~https://janikvonrotz.ch/ebas~~
 Login with  
 User `admin@ebas.ch`  
 Password `ebas`  
 Or  
 User `login@ebas.ch`  
-Password `ebas`  
+Password `ebas`
 
 # Features
 
